@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 05-Nov-2022 às 19:09
+-- Tempo de geração: 05-Nov-2022 às 20:01
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 8.0.13
 
@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS `migration` (
 --
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
-('m000000_000000_base', 1667674653),
-('m130524_201442_init', 1667674657),
-('m190124_110200_add_verification_token_column_to_user_table', 1667674657);
+('m000000_000000_base', 1667677647),
+('m130524_201442_init', 1667677653),
+('m190124_110200_add_verification_token_column_to_user_table', 1667677653);
 
 -- --------------------------------------------------------
 
