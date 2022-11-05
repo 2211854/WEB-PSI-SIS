@@ -1,0 +1,131 @@
+2022-11-05 18:57:09 [-][-][-][error][yii\db\Exception] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php:722
+Stack trace:
+#0 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php(722): PDO->__construct('mysql:host=loca...', 'root', '', NULL)
+#1 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php(637): yii\db\Connection->createPdoInstance()
+#2 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php(1067): yii\db\Connection->open()
+#3 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php(1054): yii\db\Connection->getMasterPdo()
+#4 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo()
+#5 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Command.php(1163): yii\db\Command->prepare(true)
+#6 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#7 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\mysql\Schema.php(320): yii\db\Command->queryAll()
+#8 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\mysql\Schema.php(125): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#9 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Schema.php(756): yii\db\mysql\Schema->loadTableSchema('migration')
+#10 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Schema.php(192): yii\db\Schema->getTableMetadata('{{%migration}}', 'schema', true)
+#11 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\controllers\MigrateController.php(211): yii\db\Schema->getTableSchema('{{%migration}}', true)
+#12 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(908): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#13 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(183): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#14 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#15 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#16 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#17 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\Controller.php(180): yii\base\Controller->runAction('', Array)
+#18 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\Module.php(552): yii\console\Controller->runAction('', Array)
+#19 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\Application.php(180): yii\base\Module->runAction('migrate', Array)
+#20 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\Application.php(147): yii\console\Application->runAction('migrate', Array)
+#21 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\Application.php(384): yii\console\Application->handleRequest(Object(yii\console\Request))
+#22 C:\wamp64\www\github\WEB-PSI-SIS\mjram\yii(23): yii\base\Application->run()
+#23 {main}
+
+Next yii\db\Exception: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php:648
+Stack trace:
+#0 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php(1067): yii\db\Connection->open()
+#1 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Connection.php(1054): yii\db\Connection->getMasterPdo()
+#2 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo()
+#3 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Command.php(1163): yii\db\Command->prepare(true)
+#4 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Command.php(410): yii\db\Command->queryInternal('fetchAll', NULL)
+#5 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\mysql\Schema.php(320): yii\db\Command->queryAll()
+#6 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\mysql\Schema.php(125): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#7 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Schema.php(756): yii\db\mysql\Schema->loadTableSchema('migration')
+#8 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\db\Schema.php(192): yii\db\Schema->getTableMetadata('{{%migration}}', 'schema', true)
+#9 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\controllers\MigrateController.php(211): yii\db\Schema->getTableSchema('{{%migration}}', true)
+#10 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(908): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#11 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(183): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#12 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#13 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#14 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\Controller.php(178): yii\base\InlineAction->runWithParams(Array)
+#15 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\Controller.php(180): yii\base\Controller->runAction('', Array)
+#16 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\Module.php(552): yii\console\Controller->runAction('', Array)
+#17 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\Application.php(180): yii\base\Module->runAction('migrate', Array)
+#18 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\console\Application.php(147): yii\console\Application->runAction('migrate', Array)
+#19 C:\wamp64\www\github\WEB-PSI-SIS\mjram\vendor\yiisoft\yii2\base\Application.php(384): yii\console\Application->handleRequest(Object(yii\console\Request))
+#20 C:\wamp64\www\github\WEB-PSI-SIS\mjram\yii(23): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+    [0] => HY000
+    [1] => 1045
+    [2] => Access denied for user 'root'@'localhost' (using password: NO)
+)
+
+2022-11-05 18:57:09 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL'
+    'PHP_COMMAND' => 'php.exe'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Users\\marci\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'TERM_SESSION_ID' => '71b12de0-cc9d-4079-b664-2633ad63eccb'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'ProgramW6432' => 'C:\\Program Files'
+    'USERNAME' => 'mmv'
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'USERPROFILE' => 'C:\\Users\\marci'
+    'OS' => 'Windows_NT'
+    'PROCESSOR_REVISION' => '2100'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'IDEA_INITIAL_DIRECTORY' => 'C:\\Program Files\\JetBrains\\PhpStorm 2022.1.2\\bin'
+    'NUMBER_OF_PROCESSORS' => '32'
+    'ComSpec' => 'C:\\Windows\\system32\\cmd.exe'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'PROCESSOR_LEVEL' => '25'
+    'ACSvcPort' => '17532'
+    'Path' => 'C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\Microsoft SQL Server\\150\\Tools\\Binn\\;C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\;C:\\Program Files\\dotnet\\;C:\\wamp64\\bin\\php\\php8.1.0;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NvDLISR;C:\\Users\\marci\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\marci\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\marci\\AppData\\Local\\GitHubDesktop\\bin;C:\\Users\\marci\\.dotnet\\tools;C:\\Users\\marci\\AppData\\Roaming\\Composer\\vendor\\bin'
+    'USERDOMAIN_ROAMINGPROFILE' => 'DESKTOP-4NIUUT2'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'HOMEDRIVE' => 'C:'
+    'ProgramFiles' => 'C:\\Program Files'
+    'SESSIONNAME' => 'Console'
+    'LOGONSERVER' => '\\\\DESKTOP-4NIUUT2'
+    'windir' => 'C:\\Windows'
+    'TERMINAL_EMULATOR' => 'JetBrains-JediTerm'
+    'TEMP' => 'C:\\Users\\marci\\AppData\\Local\\Temp'
+    'HOMEPATH' => '\\Users\\marci'
+    'SystemRoot' => 'C:\\Windows'
+    'TMP' => 'C:\\Users\\marci\\AppData\\Local\\Temp'
+    'OneDrive' => 'C:\\Users\\marci\\OneDrive - IPLeiria'
+    'OneDriveConsumer' => 'C:\\Users\\marci\\OneDrive'
+    'USERDOMAIN' => 'DESKTOP-4NIUUT2'
+    'OneDriveCommercial' => 'C:\\Users\\marci\\OneDrive - IPLeiria'
+    'SystemDrive' => 'C:'
+    'COMPUTERNAME' => 'DESKTOP-4NIUUT2'
+    'ProgramData' => 'C:\\ProgramData'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'LOCALAPPDATA' => 'C:\\Users\\marci\\AppData\\Local'
+    'RlsSvcPort' => '22112'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'APPDATA' => 'C:\\Users\\marci\\AppData\\Roaming'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'PROCESSOR_IDENTIFIER' => 'AMD64 Family 25 Model 33 Stepping 0, AuthenticAMD'
+    'YII_PATH' => 'C:\\wamp64\\www\\github\\WEB-PSI-SIS\\mjram\\'
+    '__INTELLIJ_COMMAND_HISTFILE__' => 'C:\\Users\\marci\\AppData\\Local\\JetBrains\\PhpStorm2022.1\\terminal\\history\\www-history1'
+    'PHP_SELF' => 'C:\\wamp64\\www\\github\\WEB-PSI-SIS\\mjram\\yii'
+    'SCRIPT_NAME' => 'C:\\wamp64\\www\\github\\WEB-PSI-SIS\\mjram\\yii'
+    'SCRIPT_FILENAME' => 'C:\\wamp64\\www\\github\\WEB-PSI-SIS\\mjram\\yii'
+    'PATH_TRANSLATED' => 'C:\\wamp64\\www\\github\\WEB-PSI-SIS\\mjram\\yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1667674629.4957
+    'REQUEST_TIME' => 1667674629
+    'argv' => [
+        0 => 'C:\\wamp64\\www\\github\\WEB-PSI-SIS\\mjram\\yii'
+        1 => 'migrate'
+    ]
+    'argc' => 2
+]
