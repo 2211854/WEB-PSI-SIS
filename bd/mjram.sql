@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 06-Nov-2022 às 21:13
+-- Tempo de geração: 13-Nov-2022 às 02:49
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 8.0.13
 
@@ -36,6 +36,13 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
   KEY `idx-auth_assignment-user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 
+--
+-- Extraindo dados da tabela `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('admin', '1', 1667833664);
+
 -- --------------------------------------------------------
 
 --
@@ -56,6 +63,20 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
   KEY `idx-auth_item-type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 
+--
+-- Extraindo dados da tabela `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('admin', 1, NULL, NULL, NULL, 1667833663, 1667833663),
+('cliente', 1, NULL, NULL, NULL, 1667833663, 1667833663),
+('createPost', 2, 'Create a post', NULL, NULL, 1667833663, 1667833663),
+('funcionarioManutencao', 1, NULL, NULL, NULL, 1667833663, 1667833663),
+('gestorFinaceiro', 1, NULL, NULL, NULL, 1667833663, 1667833663),
+('gestorLogistica', 1, NULL, NULL, NULL, 1667833663, 1667833663),
+('gestorPistas', 1, NULL, NULL, NULL, 1667833663, 1667833663),
+('updatePost', 2, 'Update post', NULL, NULL, 1667833663, 1667833663);
+
 -- --------------------------------------------------------
 
 --
@@ -69,6 +90,16 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
   PRIMARY KEY (`parent`,`child`),
   KEY `child` (`child`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('admin', 'funcionarioManutencao'),
+('admin', 'gestorFinaceiro'),
+('admin', 'gestorLogistica'),
+('admin', 'gestorPistas');
 
 -- --------------------------------------------------------
 
@@ -133,7 +164,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
+(1, 'administrador', 'aVUK9dPTMvpy8uLhw4i0tnSH9woOej1d', '$2y$13$bbRRb/VVliZUBbs4EmXmPO1.YK9fM2CneYKdy02eAyppvyrC0ipKS', NULL, 'admin@admin.pt', 10, 1667834207, 1667834207, 'dumx5N1FRwmTbeINxA4TtxAvsh-lxnWH_1667834207');
 
 --
 -- Restrições para despejos de tabelas
