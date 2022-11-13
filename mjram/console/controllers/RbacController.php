@@ -1,41 +1,21 @@
 <?php
+namespace console\controllers;
 
-use yii\db\Migration;
+use Yii;
+use yii\console\Controller;
 
-/**
- * Class m221106_183659_init_rbac
- */
-class m221106_183659_init_rbac extends Migration
+class RbacController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function safeUp()
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function safeDown()
-    {
-        echo "m221106_183659_init_rbac cannot be reverted.\n";
-
-        return false;
-    }
-
-
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
+    public function actionInit()
     {
         $auth = Yii::$app->authManager;
+        $auth->removeAll();
+
         //permissions
         // add "createPost" permission
         $createPost = $auth->createPermission('createPost');
         $createPost->description = 'Create a post';
         $auth->add($createPost);
-
         // add "updatePost" permission
         $updatePost = $auth->createPermission('updatePost');
         $updatePost->description = 'Update post';
@@ -86,18 +66,6 @@ class m221106_183659_init_rbac extends Migration
         //Assingn roles
         // Assign roles to users. 1 and 2 are IDs returned by IdentityInterface::getId()
         // usually implemented in your User model.
-        //$auth->assign($author, 2);
-        //$auth->assign($admin, 1);
+        $auth->assign($admin, 1);
     }
-
-    public function down()
-    {
-        /*echo "m221106_183659_init_rbac cannot be reverted.\n";
-
-        return false;*/
-        $auth = Yii::$app->authManager;
-
-        $auth->removeAll();
-    }
-
 }
