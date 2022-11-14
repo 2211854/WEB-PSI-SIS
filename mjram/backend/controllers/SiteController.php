@@ -115,11 +115,11 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
             $isLoggedIn = $model->login('back');
-            if($isLoggedIn != 'tofront'){
-                return $this->goBack();
+            if($isLoggedIn === 'tofront'){
+                return $this->redirect(Yii::$app->urlManager->getBaseUrl() . "/../../frontend/web/site/login");
             }
             else{
-                return $this->redirect(Yii::$app->urlManager->getBaseUrl() . "/../../frontend/web/site/login");
+                return $this->goBack();
             }
 
         }
