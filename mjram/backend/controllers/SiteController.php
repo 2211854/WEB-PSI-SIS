@@ -3,9 +3,11 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use backend\models\SignupForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\BaseUrl;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -31,6 +33,11 @@ class SiteController extends Controller
                         'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -63,6 +70,33 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+
+    /**
+     * Displays Signup
+     * @return string
+     */
+    public function actionSignup()
+    {
+
+        $auth = Yii::$app->authManager;
+        $roles = [];
+        foreach ($auth->getroles() as $role){
+            if($role->name != 'cliente' && $role->name != 'admin')
+                array_push($roles, [$role->name => $role->name] );
+        }
+
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+            'roles' => $roles,
+        ]);
     }
 
     /**

@@ -72,6 +72,12 @@
                     ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
                     ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
                     ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
+                    ['label' => 'UTILIZADORES', 'header' => true],
+                    ['label' => 'Adicionar', 'url' => ['site/signup'], 'icon' => 'sign-in-alt'],
+
+
+
+
                 ],
             ]);
             ?>

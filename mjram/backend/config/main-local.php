@@ -18,7 +18,7 @@ if (!YII_ENV_TEST) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => \yii\gii\Module::class,
+        'class' => 'yii\gii\Module',
         'generators' => [ // here
             'crud' => [ // generator name
                 'class' => 'yii\gii\generators\crud\Generator', // generator class
