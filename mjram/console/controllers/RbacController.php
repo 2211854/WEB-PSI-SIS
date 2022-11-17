@@ -12,14 +12,87 @@ class RbacController extends Controller
         $auth->removeAll();
 
         //permissions
-        // add "createPost" permission
-        $createPost = $auth->createPermission('createPost');
-        $createPost->description = 'Create a post';
-        $auth->add($createPost);
-        // add "updatePost" permission
-        $updatePost = $auth->createPermission('updatePost');
-        $updatePost->description = 'Update post';
-        $auth->add($updatePost);
+        // add "createOpearacao" permission
+        $createOpearacao = $auth->createPermission('createOpearacao');
+        $createOpearacao->description = 'Cria uma operação';
+        $auth->add($createOpearacao);
+        // add "updateOperacao" permission
+        $updateOperacao = $auth->createPermission('updateOperacao');
+        $updateOperacao->description = 'Atualiza uma operação';
+        $auth->add($updateOperacao);
+
+
+        // add "createRecurso" permission
+        $createRecurso = $auth->createPermission('createRecurso');
+        $createRecurso->description = 'Cria um recurso';
+        $auth->add($createRecurso);
+        // add "updateRecurso" permission
+        $updateRecurso = $auth->createPermission('updateRecurso');
+        $updateRecurso->description = 'Atualiza um recurso';
+        $auth->add($updateRecurso);
+
+        // add "createCategoriaProduto" permission
+        $createCategoriaProduto = $auth->createPermission('createCategoriaProduto');
+        $createCategoriaProduto->description = 'Cria uma categoria de produtos';
+        $auth->add($createCategoriaProduto);
+        // add "updateCategoriaProduto" permission
+        $updateCategoriaProduto = $auth->createPermission('updateCategoriaProduto');
+        $updateCategoriaProduto->description = 'Atualiza uma categoria de produtos';
+        $auth->add($updateCategoriaProduto);
+        // add "deleteCategoriaProduto" permission
+        $deleteCategoriaProduto = $auth->createPermission('deleteCategoriaProduto');
+        $deleteCategoriaProduto->description = 'Elimina uma categoria de produtos';
+        $auth->add($deleteCategoriaProduto);
+
+        // add "createUnidadesMedida" permission
+        $createUnidadesMedida = $auth->createPermission('createUnidadesMedida');
+        $createUnidadesMedida->description = 'Cria uma unidade de medida';
+        $auth->add($createUnidadesMedida);
+        // add "updateUnidadesMedida" permission
+        $updateUnidadesMedida = $auth->createPermission('updateUnidadesMedida');
+        $updateUnidadesMedida->description = 'Atualiza uma unidade de medida';
+        $auth->add($updateUnidadesMedida);
+        // add "deleteUnidadesMedida" permission
+        $deleteUnidadesMedida = $auth->createPermission('deleteUnidadesMedida');
+        $deleteUnidadesMedida->description = 'Elimina uma unidade de medida';
+        $auth->add($deleteUnidadesMedida);
+
+        // add "createPedidoRecurso" permission
+        $createPedidoRecurso = $auth->createPermission('createPedidoRecurso');
+        $createPedidoRecurso->description = 'Cria um pedido de recurso';
+        $auth->add($createPedidoRecurso);
+
+        // add "createHangares" permission
+        $createHangares = $auth->createPermission('createHangares');
+        $createHangares->description = 'Cria um hangar';
+        $auth->add($createHangares);
+        // add "updateHangares" permission
+        $updateHangares = $auth->createPermission('updateHangares');
+        $updateHangares->description = 'Atualiza um hangar';
+        $auth->add($updateHangares);
+        // add "deleteHangares" permission
+        $deleteHangares = $auth->createPermission('deleteHangares');
+        $deleteHangares->description = 'Elimina um hangar';
+        $auth->add($deleteHangares);
+
+        // add "updatePedidoRecurso" permission
+        $updatePedidoRecurso = $auth->createPermission('updatePedidoRecurso');
+        $updatePedidoRecurso->description = 'Atualiza um pedido de recurso';
+        $auth->add($updatePedidoRecurso);
+
+        // add "updateDetalhesVoo" permission
+        $updateDetalhesVoo = $auth->createPermission('updateDetalhesVoo');
+        $updateDetalhesVoo->description = 'Cria detalhes de voo';
+        $auth->add($updateDetalhesVoo);
+
+        // add "createPrecos" permission
+        $createPrecos = $auth->createPermission('createPrecos');
+        $createPrecos->description = 'Cria um preco para um determinado voo';
+        $auth->add($createHangares);
+        // add "updatePrecos" permission
+        $updatePrecos = $auth->createPermission('updatePrecos');
+        $updatePrecos ->description = 'Atualiza um preco para um determinado voo';
+        $auth->add($updatePrecos);
 
         //roles
         // add "gestorPistas" role and give this role the "createPost" permission
