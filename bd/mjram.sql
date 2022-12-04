@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 17-Nov-2022 às 10:14
+-- Tempo de geração: 04-Dez-2022 às 19:45
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 8.0.13
 
@@ -142,11 +142,11 @@ CREATE TABLE IF NOT EXISTS `aviao` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categoria_recursos`
+-- Estrutura da tabela `categoria_recurso`
 --
 
-DROP TABLE IF EXISTS `categoria_recursos`;
-CREATE TABLE IF NOT EXISTS `categoria_recursos` (
+DROP TABLE IF EXISTS `categoria_recurso`;
+CREATE TABLE IF NOT EXISTS `categoria_recurso` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -155,11 +155,11 @@ CREATE TABLE IF NOT EXISTS `categoria_recursos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `classes`
+-- Estrutura da tabela `classe`
 --
 
-DROP TABLE IF EXISTS `classes`;
-CREATE TABLE IF NOT EXISTS `classes` (
+DROP TABLE IF EXISTS `classe`;
+CREATE TABLE IF NOT EXISTS `classe` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -168,11 +168,11 @@ CREATE TABLE IF NOT EXISTS `classes` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `clientes`
+-- Estrutura da tabela `cliente`
 --
 
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE IF NOT EXISTS `cliente` (
   `id` bigint UNSIGNED NOT NULL,
   `passaporte` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -194,28 +194,28 @@ CREATE TABLE IF NOT EXISTS `companhia` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `detalhes_voo`
+-- Estrutura da tabela `detalhe_voo`
 --
 
-DROP TABLE IF EXISTS `detalhes_voo`;
-CREATE TABLE IF NOT EXISTS `detalhes_voo` (
+DROP TABLE IF EXISTS `detalhe_voo`;
+CREATE TABLE IF NOT EXISTS `detalhe_voo` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `preço` int NOT NULL,
   `id_voo` bigint UNSIGNED NOT NULL,
   `id_classe` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id_classe`,`id_voo`),
   KEY `id` (`id`),
-  KEY `fk_detalhes_voos` (`id_voo`)
+  KEY `fk_detalhe_voo` (`id_voo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `escalas_voo`
+-- Estrutura da tabela `escala_voo`
 --
 
-DROP TABLE IF EXISTS `escalas_voo`;
-CREATE TABLE IF NOT EXISTS `escalas_voo` (
+DROP TABLE IF EXISTS `escala_voo`;
+CREATE TABLE IF NOT EXISTS `escala_voo` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `partida` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `destino` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -223,17 +223,17 @@ CREATE TABLE IF NOT EXISTS `escalas_voo` (
   `horario_chegada` datetime NOT NULL,
   `id_voo` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_escalas_voo` (`id_voo`)
+  KEY `fk_escala_voo` (`id_voo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionarios`
+-- Estrutura da tabela `funcionario`
 --
 
-DROP TABLE IF EXISTS `funcionarios`;
-CREATE TABLE IF NOT EXISTS `funcionarios` (
+DROP TABLE IF EXISTS `funcionario`;
+CREATE TABLE IF NOT EXISTS `funcionario` (
   `id` bigint UNSIGNED NOT NULL,
   `nib` varchar(21) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -242,11 +242,11 @@ CREATE TABLE IF NOT EXISTS `funcionarios` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `hangares`
+-- Estrutura da tabela `hangar`
 --
 
-DROP TABLE IF EXISTS `hangares`;
-CREATE TABLE IF NOT EXISTS `hangares` (
+DROP TABLE IF EXISTS `hangar`;
+CREATE TABLE IF NOT EXISTS `hangar` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -267,25 +267,8 @@ CREATE TABLE IF NOT EXISTS `item_venda` (
   `id_voo` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id_voo`,`passaporte`),
   KEY `id` (`id`),
-  KEY `fk_item_vendas` (`id_venda`),
+  KEY `fk_item_venda` (`id_venda`),
   KEY `fk_item_classe` (`id_classe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `lugares`
---
-
-DROP TABLE IF EXISTS `lugares`;
-CREATE TABLE IF NOT EXISTS `lugares` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ocupacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_aviao` bigint UNSIGNED NOT NULL,
-  `id_classe` bigint UNSIGNED NOT NULL,
-  PRIMARY KEY (`id_aviao`,`id_classe`),
-  KEY `id` (`id`),
-  KEY `fk_lugares_classe` (`id_classe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -317,49 +300,28 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `operacao_voo`
+-- Estrutura da tabela `ocupacao`
 --
 
-DROP TABLE IF EXISTS `operacao_voo`;
-CREATE TABLE IF NOT EXISTS `operacao_voo` (
+DROP TABLE IF EXISTS `ocupacao`;
+CREATE TABLE IF NOT EXISTS `ocupacao` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_voo` bigint UNSIGNED NOT NULL,
-  `id_operacao` bigint UNSIGNED NOT NULL,
-  PRIMARY KEY (`id_operacao`,`id_voo`),
+  `ocupacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_aviao` bigint UNSIGNED NOT NULL,
+  `id_classe` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`id_aviao`,`id_classe`),
   KEY `id` (`id`),
-  KEY `fk_operacao_voo_1` (`id_voo`)
+  KEY `fk_ocupacao_classe` (`id_classe`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `operacoes`
+-- Estrutura da tabela `pedido_recurso`
 --
 
-DROP TABLE IF EXISTS `operacoes`;
-CREATE TABLE IF NOT EXISTS `operacoes` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `estado` enum('cancelado','concluido','planeada') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'planeada',
-  `id_hangares` bigint UNSIGNED NOT NULL,
-  `id_recurso` bigint UNSIGNED NOT NULL,
-  `id_funcionario` bigint UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_operacoes_hangares` (`id_hangares`),
-  KEY `fk_operacoes_recurso` (`id_recurso`),
-  KEY `fk_operacoes_funcionario` (`id_funcionario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `pedido_recursos`
---
-
-DROP TABLE IF EXISTS `pedido_recursos`;
-CREATE TABLE IF NOT EXISTS `pedido_recursos` (
+DROP TABLE IF EXISTS `pedido_recurso`;
+CREATE TABLE IF NOT EXISTS `pedido_recurso` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `quantidade` bigint NOT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -368,18 +330,18 @@ CREATE TABLE IF NOT EXISTS `pedido_recursos` (
   `id_funcionario` bigint UNSIGNED NOT NULL,
   `estado` enum('aprovado','pago','reprovado','devolvido','entregue','por aprovar') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'por aprovar',
   PRIMARY KEY (`id`),
-  KEY `fk_pedido_recursos` (`id_recurso`),
+  KEY `fk_pedido_recurso` (`id_recurso`),
   KEY `fk_pedido_funcionario` (`id_funcionario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pistas`
+-- Estrutura da tabela `pista`
 --
 
-DROP TABLE IF EXISTS `pistas`;
-CREATE TABLE IF NOT EXISTS `pistas` (
+DROP TABLE IF EXISTS `pista`;
+CREATE TABLE IF NOT EXISTS `pista` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `comprimento` bigint NOT NULL,
@@ -391,29 +353,56 @@ CREATE TABLE IF NOT EXISTS `pistas` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `recursos`
+-- Estrutura da tabela `recurso`
 --
 
-DROP TABLE IF EXISTS `recursos`;
-CREATE TABLE IF NOT EXISTS `recursos` (
+DROP TABLE IF EXISTS `recurso`;
+CREATE TABLE IF NOT EXISTS `recurso` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stockatual` bigint NOT NULL,
   `id_categoria` bigint UNSIGNED NOT NULL,
   `id_unidade` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_recursos_unidade` (`id_unidade`),
-  KEY `fk_recursos_categoria` (`id_categoria`)
+  KEY `fk_recurso_unidade` (`id_unidade`),
+  KEY `fk_recurso_categoria` (`id_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `unidades_medida`
+-- Estrutura da tabela `tarefa`
 --
 
-DROP TABLE IF EXISTS `unidades_medida`;
-CREATE TABLE IF NOT EXISTS `unidades_medida` (
+DROP TABLE IF EXISTS `tarefa`;
+CREATE TABLE IF NOT EXISTS `tarefa` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `designacao` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `data_inicio` datetime DEFAULT NULL,
+  `data_conclusao` datetime DEFAULT NULL,
+  `estado` enum('cancelado','concluido','planeada') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'planeada',
+  `id_voo` bigint UNSIGNED NOT NULL,
+  `id_hangar` bigint UNSIGNED DEFAULT NULL,
+  `id_recurso` bigint UNSIGNED DEFAULT NULL,
+  `id_funcionario_registo` bigint UNSIGNED NOT NULL,
+  `id_funcionario_responsavel` bigint UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_tarefa_voo` (`id_voo`),
+  KEY `fk_tarefa_hangar` (`id_hangar`),
+  KEY `fk_tarefa_recurso` (`id_recurso`),
+  KEY `fk_tarefa_funcionario_registo` (`id_funcionario_registo`),
+  KEY `fk_tarefa_funcionario_responsavel` (`id_funcionario_responsavel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `unidade_medida`
+--
+
+DROP TABLE IF EXISTS `unidade_medida`;
+CREATE TABLE IF NOT EXISTS `unidade_medida` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
@@ -456,11 +445,11 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `utilizadores`
+-- Estrutura da tabela `utilizador`
 --
 
-DROP TABLE IF EXISTS `utilizadores`;
-CREATE TABLE IF NOT EXISTS `utilizadores` (
+DROP TABLE IF EXISTS `utilizador`;
+CREATE TABLE IF NOT EXISTS `utilizador` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `telemovel` int NOT NULL,
   `palavrapasse` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -472,44 +461,44 @@ CREATE TABLE IF NOT EXISTS `utilizadores` (
   `id_user` int NOT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `fk_utilizadores_user` (`id_user`)
+  KEY `fk_utilizador_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `vendas`
+-- Estrutura da tabela `venda`
 --
 
-DROP TABLE IF EXISTS `vendas`;
-CREATE TABLE IF NOT EXISTS `vendas` (
+DROP TABLE IF EXISTS `venda`;
+CREATE TABLE IF NOT EXISTS `venda` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `estado` enum('cancelado','pago','carrinho') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'carrinho',
   `data_compra` datetime DEFAULT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_cliente` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_vendas_cliente` (`id_cliente`)
+  KEY `fk_venda_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `voos`
+-- Estrutura da tabela `voo`
 --
 
-DROP TABLE IF EXISTS `voos`;
-CREATE TABLE IF NOT EXISTS `voos` (
+DROP TABLE IF EXISTS `voo`;
+CREATE TABLE IF NOT EXISTS `voo` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `estado` enum('atrasado','cancelado','concluido','planeado','circulacao') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'planeado',
   `id_aviao` bigint UNSIGNED NOT NULL,
-  `id_pistas` bigint UNSIGNED NOT NULL,
+  `id_pista` bigint UNSIGNED NOT NULL,
   `id_funcionario` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_voos_aviao` (`id_aviao`),
-  KEY `fk_voos_funcionario` (`id_funcionario`),
-  KEY `fk_voos_pistas` (`id_pistas`)
+  KEY `fk_voo_aviao` (`id_aviao`),
+  KEY `fk_voo_funcionario` (`id_funcionario`),
+  KEY `fk_voo_pista` (`id_pista`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -542,93 +531,88 @@ ALTER TABLE `aviao`
   ADD CONSTRAINT `fk_aviao_companhia` FOREIGN KEY (`id_companhia`) REFERENCES `companhia` (`id`);
 
 --
--- Limitadores para a tabela `clientes`
+-- Limitadores para a tabela `cliente`
 --
-ALTER TABLE `clientes`
-  ADD CONSTRAINT `fk_clientes_utilizadores` FOREIGN KEY (`id`) REFERENCES `utilizadores` (`id`);
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `fk_cliente_utilizador` FOREIGN KEY (`id`) REFERENCES `utilizador` (`id`);
 
 --
--- Limitadores para a tabela `detalhes_voo`
+-- Limitadores para a tabela `detalhe_voo`
 --
-ALTER TABLE `detalhes_voo`
-  ADD CONSTRAINT `fk_detalhes_classe` FOREIGN KEY (`id_classe`) REFERENCES `classes` (`id`),
-  ADD CONSTRAINT `fk_detalhes_voos` FOREIGN KEY (`id_voo`) REFERENCES `voos` (`id`);
+ALTER TABLE `detalhe_voo`
+  ADD CONSTRAINT `fk_detalhe_classe` FOREIGN KEY (`id_classe`) REFERENCES `classe` (`id`),
+  ADD CONSTRAINT `fk_detalhe_voo` FOREIGN KEY (`id_voo`) REFERENCES `voo` (`id`);
 
 --
--- Limitadores para a tabela `escalas_voo`
+-- Limitadores para a tabela `escala_voo`
 --
-ALTER TABLE `escalas_voo`
-  ADD CONSTRAINT `fk_escalas_voo` FOREIGN KEY (`id_voo`) REFERENCES `voos` (`id`);
+ALTER TABLE `escala_voo`
+  ADD CONSTRAINT `fk_escala_voo` FOREIGN KEY (`id_voo`) REFERENCES `voo` (`id`);
 
 --
--- Limitadores para a tabela `funcionarios`
+-- Limitadores para a tabela `funcionario`
 --
-ALTER TABLE `funcionarios`
-  ADD CONSTRAINT `fk_funcionarios_utilizadores` FOREIGN KEY (`id`) REFERENCES `utilizadores` (`id`);
+ALTER TABLE `funcionario`
+  ADD CONSTRAINT `fk_funcionario_utilizador` FOREIGN KEY (`id`) REFERENCES `utilizador` (`id`);
 
 --
 -- Limitadores para a tabela `item_venda`
 --
 ALTER TABLE `item_venda`
-  ADD CONSTRAINT `fk_item_classe` FOREIGN KEY (`id_classe`) REFERENCES `classes` (`id`),
-  ADD CONSTRAINT `fk_item_vendas` FOREIGN KEY (`id_venda`) REFERENCES `vendas` (`id`),
-  ADD CONSTRAINT `fk_item_voo` FOREIGN KEY (`id_voo`) REFERENCES `voos` (`id`);
+  ADD CONSTRAINT `fk_item_classe` FOREIGN KEY (`id_classe`) REFERENCES `classe` (`id`),
+  ADD CONSTRAINT `fk_item_venda` FOREIGN KEY (`id_venda`) REFERENCES `venda` (`id`),
+  ADD CONSTRAINT `fk_item_voo` FOREIGN KEY (`id_voo`) REFERENCES `voo` (`id`);
 
 --
--- Limitadores para a tabela `lugares`
+-- Limitadores para a tabela `ocupacao`
 --
-ALTER TABLE `lugares`
-  ADD CONSTRAINT `fk_lugares_aviao` FOREIGN KEY (`id_aviao`) REFERENCES `aviao` (`id`),
-  ADD CONSTRAINT `fk_lugares_classe` FOREIGN KEY (`id_classe`) REFERENCES `classes` (`id`);
+ALTER TABLE `ocupacao`
+  ADD CONSTRAINT `fk_ocupacao_aviao` FOREIGN KEY (`id_aviao`) REFERENCES `aviao` (`id`),
+  ADD CONSTRAINT `fk_ocupacao_classe` FOREIGN KEY (`id_classe`) REFERENCES `classe` (`id`);
 
 --
--- Limitadores para a tabela `operacao_voo`
+-- Limitadores para a tabela `pedido_recurso`
 --
-ALTER TABLE `operacao_voo`
-  ADD CONSTRAINT `fk_operacao_voo_1` FOREIGN KEY (`id_voo`) REFERENCES `voos` (`id`),
-  ADD CONSTRAINT `fk_operacao_voo_2` FOREIGN KEY (`id_operacao`) REFERENCES `operacoes` (`id`);
+ALTER TABLE `pedido_recurso`
+  ADD CONSTRAINT `fk_pedido_funcionario` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id`),
+  ADD CONSTRAINT `fk_pedido_recurso` FOREIGN KEY (`id_recurso`) REFERENCES `recurso` (`id`);
 
 --
--- Limitadores para a tabela `operacoes`
+-- Limitadores para a tabela `recurso`
 --
-ALTER TABLE `operacoes`
-  ADD CONSTRAINT `fk_operacoes_funcionario` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id`),
-  ADD CONSTRAINT `fk_operacoes_hangares` FOREIGN KEY (`id_hangares`) REFERENCES `hangares` (`id`),
-  ADD CONSTRAINT `fk_operacoes_recurso` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id`);
+ALTER TABLE `recurso`
+  ADD CONSTRAINT `fk_recurso_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_recurso` (`id`),
+  ADD CONSTRAINT `fk_recurso_unidade` FOREIGN KEY (`id_unidade`) REFERENCES `unidade_medida` (`id`);
 
 --
--- Limitadores para a tabela `pedido_recursos`
+-- Limitadores para a tabela `tarefa`
 --
-ALTER TABLE `pedido_recursos`
-  ADD CONSTRAINT `fk_pedido_funcionario` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id`),
-  ADD CONSTRAINT `fk_pedido_recursos` FOREIGN KEY (`id_recurso`) REFERENCES `recursos` (`id`);
+ALTER TABLE `tarefa`
+  ADD CONSTRAINT `fk_tarefa_funcionario_registo` FOREIGN KEY (`id_funcionario_registo`) REFERENCES `funcionario` (`id`),
+  ADD CONSTRAINT `fk_tarefa_funcionario_responsavel` FOREIGN KEY (`id_funcionario_responsavel`) REFERENCES `funcionario` (`id`),
+  ADD CONSTRAINT `fk_tarefa_hangar` FOREIGN KEY (`id_hangar`) REFERENCES `hangar` (`id`),
+  ADD CONSTRAINT `fk_tarefa_recurso` FOREIGN KEY (`id_recurso`) REFERENCES `recurso` (`id`),
+  ADD CONSTRAINT `fk_tarefa_voo` FOREIGN KEY (`id_voo`) REFERENCES `voo` (`id`);
 
 --
--- Limitadores para a tabela `recursos`
+-- Limitadores para a tabela `utilizador`
 --
-ALTER TABLE `recursos`
-  ADD CONSTRAINT `fk_recursos_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_recursos` (`id`),
-  ADD CONSTRAINT `fk_recursos_unidade` FOREIGN KEY (`id_unidade`) REFERENCES `unidades_medida` (`id`);
+ALTER TABLE `utilizador`
+  ADD CONSTRAINT `fk_utilizador_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
 
 --
--- Limitadores para a tabela `utilizadores`
+-- Limitadores para a tabela `venda`
 --
-ALTER TABLE `utilizadores`
-  ADD CONSTRAINT `fk_utilizadores_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+ALTER TABLE `venda`
+  ADD CONSTRAINT `fk_venda_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id`);
 
 --
--- Limitadores para a tabela `vendas`
+-- Limitadores para a tabela `voo`
 --
-ALTER TABLE `vendas`
-  ADD CONSTRAINT `fk_vendas_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`);
-
---
--- Limitadores para a tabela `voos`
---
-ALTER TABLE `voos`
-  ADD CONSTRAINT `fk_voos_aviao` FOREIGN KEY (`id_aviao`) REFERENCES `aviao` (`id`),
-  ADD CONSTRAINT `fk_voos_funcionario` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id`),
-  ADD CONSTRAINT `fk_voos_pistas` FOREIGN KEY (`id_pistas`) REFERENCES `pistas` (`id`);
+ALTER TABLE `voo`
+  ADD CONSTRAINT `fk_voo_aviao` FOREIGN KEY (`id_aviao`) REFERENCES `aviao` (`id`),
+  ADD CONSTRAINT `fk_voo_funcionario` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id`),
+  ADD CONSTRAINT `fk_voo_pista` FOREIGN KEY (`id_pista`) REFERENCES `pista` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
