@@ -7,10 +7,6 @@ $this->title = 'Index';
 <section class="banner-area">
     <div class="container">
         <div class="row fullscreen align-items-center justify-content-start">
-            <div class="col-lg-12">
-                <div class="active-banner-slider owl-carousel">
-                    <!-- single-slide -->
-                    <div class="row single-slide align-items-center d-flex">
                         <div class="col-lg-5 col-md-6">
                             <div class="banner-content">
                                 <h1>Procura. Reserva. Viaja.</h1>
@@ -22,9 +18,6 @@ $this->title = 'Index';
                                 <?= Html::img('@web/img/banner/banner-img.png', ['class' => 'img-fluid']);?>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
