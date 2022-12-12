@@ -19,6 +19,9 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -57,6 +60,17 @@ return [
                         'GET {id}/morada' => 'morada', // 'morada' é 'actionMorada'
                         'GET set/{limite}' => 'set',   // 'set' é 'actionSet‘*/
 
+                    ] ,
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/utilizador',
+                    'pluralize' => false,
+                    'tokens' => [
+
+                    ],
+                    'extraPatterns' => [
+                        'GET list' => 'list',   // actionList
                     ] ,
                 ],
             ],
