@@ -11,8 +11,7 @@ class UtilizadorController extends ActiveController
     public function actionList()
     {
         $utilizadorModel = new $this->modelClass;
-        var_dump($utilizadorModel::find()->all());
-            die;
+        return [$utilizadorModel::find()->all()];
     }
 
 

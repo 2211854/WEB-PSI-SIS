@@ -72,6 +72,21 @@ return [
                     'extraPatterns' => [
                         'GET list' => 'list',   // actionList
                     ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/cliente',
+                    'pluralize' => false,
+                    'tokens' => [
+                        '{limite}'=>'<limite:\\w+>',
+                    ],
+                    'extraPatterns' => [
+                        'GET total' => 'total',   // 'total' é 'actionTotal'
+                        'GET {id}/morada' => 'morada', // 'morada' é 'actionMorada'
+                        'GET set/{limite}' => 'set',   // 'set' é 'actionSet‘
+
+                    ],
                 ],
             ],
         ],
