@@ -18,7 +18,7 @@ class CompanhiaSearch extends Companhia
     {
         return [
             [['id'], 'integer'],
-            [['nome'], 'safe'],
+            [['nome', 'sigla'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class CompanhiaSearch extends Companhia
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome]);
+        $query->andFilterWhere(['like', 'nome', $this->nome])
+            ->andFilterWhere(['like', 'sigla', $this->sigla]);
 
         return $dataProvider;
     }

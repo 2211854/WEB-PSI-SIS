@@ -9,8 +9,6 @@ use Yii;
  *
  * @property int $id
  * @property int $telemovel
- * @property string $palavrapasse
- * @property string $email
  * @property string $nif
  * @property string $nome
  * @property string $apelidos
@@ -24,6 +22,10 @@ use Yii;
  */
 class Utilizador extends \yii\db\ActiveRecord
 {
+    public $username;
+    public $email;
+    public $password;
+    public $role;
     /**
      * {@inheritdoc}
      */
@@ -38,14 +40,28 @@ class Utilizador extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['telemovel', 'palavrapasse', 'email', 'nif', 'nome', 'apelidos', 'cartaocidadao', 'id_user'], 'required'],
+            [['telemovel', 'nif', 'nome', 'apelidos', 'cartaocidadao', 'id_user'], 'required'],
             [['telemovel', 'cartaocidadao', 'id_user'], 'integer'],
             [['data_registo'], 'safe'],
-            [['palavrapasse'], 'string', 'max' => 256],
-            [['email'], 'string', 'max' => 200],
             [['nif'], 'string', 'max' => 9],
             [['nome', 'apelidos'], 'string', 'max' => 50],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
+            ['username', 'trim'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+
+            ['email', 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'string', 'max' => 255],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+
+            ['password', 'required'],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+            ['role', 'required'],
+
         ];
     }
 
@@ -57,8 +73,6 @@ class Utilizador extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'telemovel' => 'Telemovel',
-            'palavrapasse' => 'Palavrapasse',
-            'email' => 'Email',
             'nif' => 'Nif',
             'nome' => 'Nome',
             'apelidos' => 'Apelidos',

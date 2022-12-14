@@ -186,6 +186,11 @@ use yii\helpers\Html;
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link"  data-slide="true" href="#" role="button" id="myBtn">
+                <i class="fas fa-adjust"></i>
+            </a>
+        </li>
     </ul>
 </nav>
 <!-- /.navbar -->

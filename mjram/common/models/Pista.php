@@ -35,6 +35,7 @@ class Pista extends \yii\db\ActiveRecord
             [['comprimento', 'largura'], 'integer'],
             [['estado'], 'string'],
             [['designacao'], 'string', 'max' => 50],
+            [['designacao'], 'unique'],
         ];
     }
 
@@ -46,8 +47,8 @@ class Pista extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'designacao' => 'Designacao',
-            'comprimento' => 'Comprimento',
-            'largura' => 'Largura',
+            'comprimento' => 'Comprimento (metros)',
+            'largura' => 'Largura (metros)',
             'estado' => 'Estado',
         ];
     }

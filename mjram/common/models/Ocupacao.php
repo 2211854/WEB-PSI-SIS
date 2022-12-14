@@ -49,7 +49,7 @@ class Ocupacao extends \yii\db\ActiveRecord
             'id' => 'ID',
             'ocupacao' => 'Ocupacao',
             'id_aviao' => 'Id Aviao',
-            'id_classe' => 'Id Classe',
+            'id_classe' => 'Id classe',
         ];
     }
 
@@ -64,7 +64,7 @@ class Ocupacao extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Classe]].
+     * Gets query for [[classe]].
      *
      * @return \yii\db\ActiveQuery
      */

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AviaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Aviaos';
+$this->title = 'Aviões';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Aviao', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Avião', ['create'], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -28,16 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
 
-                            'id',
+                            'designacao',
                             'marca',
                             'modelo',
                             'combustivelatual',
-                            'combustivelmaximo',
-                            //'data_registo',
-                            //'estado',
-                            //'id_companhia',
+                            'estado',
+                            [
+                                'label' => 'Companhia',
+                                'attribute' => 'sigla',
+                                'value' => function($model) {
+                                    return $model->companhia->sigla;
+                                }
+                            ],
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],

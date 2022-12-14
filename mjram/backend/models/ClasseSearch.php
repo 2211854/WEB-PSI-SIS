@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 use common\models\Classe;
 
 /**
- * ClasseSearch represents the model behind the search form of `common\models\Classe`.
+ * ClasseSearch represents the model behind the search form of `common\models\classe`.
  */
 class ClasseSearch extends Classe
 {

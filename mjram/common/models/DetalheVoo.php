@@ -47,13 +47,13 @@ class DetalheVoo extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'preço' => 'Preço',
-            'id_voo' => 'Id Voo',
-            'id_classe' => 'Id Classe',
+            'id_voo' => 'Voo',
+            'id_classe' => 'Classe',
         ];
     }
 
     /**
-     * Gets query for [[Classe]].
+     * Gets query for [[classe]].
      *
      * @return \yii\db\ActiveQuery
      */

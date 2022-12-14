@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Hangar */
 
-$this->title = 'Create Hangar';
+$this->title = 'Criar Hangar';
 $this->params['breadcrumbs'][] = ['label' => 'Hangars', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

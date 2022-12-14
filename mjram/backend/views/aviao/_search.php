@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'designacao') ?>
+
     <?= $form->field($model, 'marca') ?>
 
     <?= $form->field($model, 'modelo') ?>
@@ -31,6 +33,7 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'estado') ?>
 
     <?php // echo $form->field($model, 'id_companhia') ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

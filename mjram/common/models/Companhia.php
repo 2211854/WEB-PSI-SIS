@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $nome
+ * @property string $sigla
  *
  * @property Aviao[] $aviaos
  */
@@ -28,8 +29,10 @@ class Companhia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome'], 'required'],
+            [['nome', 'sigla'], 'required'],
             [['nome'], 'string', 'max' => 100],
+            [['sigla'], 'string', 'max' => 3],
+            [['sigla'], 'unique'],
         ];
     }
 
@@ -41,6 +44,7 @@ class Companhia extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nome' => 'Nome',
+            'sigla' => 'Sigla',
         ];
     }
 

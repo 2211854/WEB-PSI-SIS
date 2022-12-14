@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Aviao;
+use common\models\Companhia;
 
 /**
  * AviaoSearch represents the model behind the search form of `common\models\Aviao`.
@@ -18,7 +19,7 @@ class AviaoSearch extends Aviao
     {
         return [
             [['id', 'combustivelatual', 'combustivelmaximo', 'id_companhia'], 'integer'],
-            [['marca', 'modelo', 'data_registo', 'estado'], 'safe'],
+            [['designacao','marca', 'modelo', 'data_registo', 'estado','sigla'], 'safe'],
         ];
     }
 
@@ -40,12 +41,13 @@ class AviaoSearch extends Aviao
      */
     public function search($params)
     {
-        $query = Aviao::find();
+        $query = Aviao::find()->joinWith(['companhia']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['designacao','sigla','estado','marca','modelo','combustivelatual','id']],
         ]);
 
         $this->load($params);
@@ -65,9 +67,12 @@ class AviaoSearch extends Aviao
             'id_companhia' => $this->id_companhia,
         ]);
 
-        $query->andFilterWhere(['like', 'marca', $this->marca])
+        $query->andFilterWhere(['like', 'designacao', $this->designacao])
+            ->andFilterWhere(['like', 'marca', $this->marca])
             ->andFilterWhere(['like', 'modelo', $this->modelo])
-            ->andFilterWhere(['like', 'estado', $this->estado]);
+            ->andFilterWhere(['like', 'estado', $this->estado])
+            ->andFilterWhere(['like', 'companhia.sigla', $this->sigla]);
+
 
         return $dataProvider;
     }

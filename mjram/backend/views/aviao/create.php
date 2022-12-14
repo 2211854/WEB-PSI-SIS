@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Aviao */
 
-$this->title = 'Create Aviao';
-$this->params['breadcrumbs'][] = ['label' => 'Aviaos', 'url' => ['index']];
+$this->title = 'Criar Avião';
+$this->params['breadcrumbs'][] = ['label' => 'Aviões', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

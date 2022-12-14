@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "aviao".
  *
  * @property int $id
+ * @property string|null $designacao
  * @property string $marca
  * @property string $modelo
  * @property int $combustivelatual
@@ -23,6 +24,7 @@ use Yii;
  */
 class Aviao extends \yii\db\ActiveRecord
 {
+    public $sigla;
     /**
      * {@inheritdoc}
      */
@@ -41,6 +43,7 @@ class Aviao extends \yii\db\ActiveRecord
             [['combustivelatual', 'combustivelmaximo', 'id_companhia'], 'integer'],
             [['data_registo'], 'safe'],
             [['estado'], 'string'],
+            [['designacao'], 'string', 'max' => 20],
             [['marca', 'modelo'], 'string', 'max' => 50],
             [['id_companhia'], 'exist', 'skipOnError' => true, 'targetClass' => Companhia::class, 'targetAttribute' => ['id_companhia' => 'id']],
         ];
@@ -53,6 +56,7 @@ class Aviao extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'designacao' => 'Designacao',
             'marca' => 'Marca',
             'modelo' => 'Modelo',
             'combustivelatual' => 'Combustivelatual',

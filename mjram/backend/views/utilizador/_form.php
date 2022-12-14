@@ -14,10 +14,6 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'telemovel')->textInput() ?>
 
-    <?= $form->field($model, 'palavrapasse')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'nif')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>

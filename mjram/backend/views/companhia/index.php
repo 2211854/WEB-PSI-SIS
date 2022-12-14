@@ -17,21 +17,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Companhia', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Companhia', ['create'], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
 
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+                    <?php
+                        if(isset($actionStatus)&& isset($name)){
+
+                            $mensagem = $actionStatus == 'success' ? "Companhia $name  eliminada com sucesso!" : "Não foi possivel eliminar a companhia $name!";
+
+                            echo \hail812\adminlte\widgets\Alert::widget([
+                                'type' => $actionStatus,
+                                'body' => '<h3>'.$mensagem.'</h3>',
+                            ]);
+                        }
+                    ?>
+
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
                             'nome',
+                            'sigla',
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],

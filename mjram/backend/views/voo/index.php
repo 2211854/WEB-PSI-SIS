@@ -31,10 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'id',
+                            'designacao',
                             'data_registo',
                             'estado',
                             'id_aviao',
-                            'id_pista',
+                            //'id_pista',
                             //'id_funcionario',
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],

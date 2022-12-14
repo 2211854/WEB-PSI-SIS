@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $model,
                         'attributes' => [
                             'id',
+                            'designacao',
                             'data_registo',
                             'estado',
                             'id_aviao',

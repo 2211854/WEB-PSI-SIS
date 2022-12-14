@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Hangar', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Hangar', ['create'], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -28,9 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
                             'designacao',
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],

@@ -18,7 +18,7 @@ class VooSearch extends Voo
     {
         return [
             [['id', 'id_aviao', 'id_pista', 'id_funcionario'], 'integer'],
-            [['data_registo', 'estado'], 'safe'],
+            [['designacao', 'data_registo', 'estado'], 'safe'],
         ];
     }
 
@@ -65,7 +65,8 @@ class VooSearch extends Voo
             'id_funcionario' => $this->id_funcionario,
         ]);
 
-        $query->andFilterWhere(['like', 'estado', $this->estado]);
+        $query->andFilterWhere(['like', 'designacao', $this->designacao])
+            ->andFilterWhere(['like', 'estado', $this->estado]);
 
         return $dataProvider;
     }
