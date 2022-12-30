@@ -1,19 +1,19 @@
 <?php
 
-namespace backend\modules\api\controllers;
+namespace backend\controllers;
 
-use \yii\rest\ActiveController;
 use Yii;
-use common\models\Utilizador;
+use common\models\PedidoRecurso;
+use app\models\PedidorecursoSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-class UtilizadorController extends ActiveController
 /**
- * UtilizadorController implements the CRUD actions for Utilizador model.
+ * PedidorecursoController implements the CRUD actions for PedidoRecurso model.
  */
+class PedidorecursoController extends Controller
 {
-    public $modelClass = 'common\models\User'; //Parte CRUD
     /**
      * {@inheritdoc}
      */
@@ -30,30 +30,41 @@ class UtilizadorController extends ActiveController
     }
 
     /**
-     * Lists all Utilizador models.
+     * Lists all PedidoRecurso models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UtilizadorSearch();
+        $searchModel = new PedidorecursoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
-     * Displays a single Utilizador model.
+     * Displays a single PedidoRecurso model.
      * @param string $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
     /**
-     * Creates a new Utilizador model.
+     * Creates a new PedidoRecurso model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Utilizador();
+        $model = new PedidoRecurso();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -65,7 +76,7 @@ class UtilizadorController extends ActiveController
     }
 
     /**
-     * Updates an existing Utilizador model.
+     * Updates an existing PedidoRecurso model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id ID
      * @return mixed
@@ -84,25 +95,30 @@ class UtilizadorController extends ActiveController
         ]);
     }
 
-    public function actionList()
+    /**
+     * Deletes an existing PedidoRecurso model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id ID
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
     {
-        $utilizadorModel = new $this->modelClass;
-        return $utilizadorModel::find()->all();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Utilizador model based on its primary key value.
+     * Finds the PedidoRecurso model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id ID
-     * @return Utilizador the loaded model
+     * @return PedidoRecurso the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Utilizador::findOne($id)) !== null) {
+        if (($model = PedidoRecurso::findOne($id)) !== null) {
             return $model;
         }
 

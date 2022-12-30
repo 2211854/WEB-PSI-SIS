@@ -1,19 +1,19 @@
 <?php
 
-namespace backend\modules\api\controllers;
+namespace backend\controllers;
 
-use \yii\rest\ActiveController;
 use Yii;
-use common\models\Utilizador;
+use common\models\Voo;
+use app\models\VooSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-class UtilizadorController extends ActiveController
 /**
- * UtilizadorController implements the CRUD actions for Utilizador model.
+ * VooController implements the CRUD actions for Voo model.
  */
+class VooController extends Controller
 {
-    public $modelClass = 'common\models\User'; //Parte CRUD
     /**
      * {@inheritdoc}
      */
@@ -30,30 +30,41 @@ class UtilizadorController extends ActiveController
     }
 
     /**
-     * Lists all Utilizador models.
+     * Lists all Voo models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UtilizadorSearch();
+        $searchModel = new VooSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
-     * Displays a single Utilizador model.
+     * Displays a single Voo model.
      * @param string $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
     /**
-     * Creates a new Utilizador model.
+     * Creates a new Voo model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Utilizador();
+        $model = new Voo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -65,7 +76,7 @@ class UtilizadorController extends ActiveController
     }
 
     /**
-     * Updates an existing Utilizador model.
+     * Updates an existing Voo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id ID
      * @return mixed
@@ -84,25 +95,30 @@ class UtilizadorController extends ActiveController
         ]);
     }
 
-    public function actionList()
+    /**
+     * Deletes an existing Voo model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id ID
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
     {
-        $utilizadorModel = new $this->modelClass;
-        return $utilizadorModel::find()->all();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Utilizador model based on its primary key value.
+     * Finds the Voo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id ID
-     * @return Utilizador the loaded model
+     * @return Voo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Utilizador::findOne($id)) !== null) {
+        if (($model = Voo::findOne($id)) !== null) {
             return $model;
         }
 

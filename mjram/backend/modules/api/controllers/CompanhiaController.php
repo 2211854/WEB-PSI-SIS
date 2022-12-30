@@ -1,19 +1,19 @@
 <?php
 
-namespace backend\modules\api\controllers;
+namespace backend\controllers;
 
-use \yii\rest\ActiveController;
 use Yii;
-use common\models\Utilizador;
+use common\models\Companhia;
+use app\models\CompanhiaSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-class UtilizadorController extends ActiveController
 /**
- * UtilizadorController implements the CRUD actions for Utilizador model.
+ * CompanhiaController implements the CRUD actions for Companhia model.
  */
+class CompanhiaController extends Controller
 {
-    public $modelClass = 'common\models\User'; //Parte CRUD
     /**
      * {@inheritdoc}
      */
@@ -30,30 +30,41 @@ class UtilizadorController extends ActiveController
     }
 
     /**
-     * Lists all Utilizador models.
+     * Lists all Companhia models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UtilizadorSearch();
+        $searchModel = new CompanhiaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
-     * Displays a single Utilizador model.
+     * Displays a single Companhia model.
      * @param string $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
     /**
-     * Creates a new Utilizador model.
+     * Creates a new Companhia model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Utilizador();
+        $model = new Companhia();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -65,7 +76,7 @@ class UtilizadorController extends ActiveController
     }
 
     /**
-     * Updates an existing Utilizador model.
+     * Updates an existing Companhia model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id ID
      * @return mixed
@@ -84,25 +95,30 @@ class UtilizadorController extends ActiveController
         ]);
     }
 
-    public function actionList()
+    /**
+     * Deletes an existing Companhia model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param string $id ID
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
     {
-        $utilizadorModel = new $this->modelClass;
-        return $utilizadorModel::find()->all();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Utilizador model based on its primary key value.
+     * Finds the Companhia model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id ID
-     * @return Utilizador the loaded model
+     * @return Companhia the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Utilizador::findOne($id)) !== null) {
+        if (($model = Companhia::findOne($id)) !== null) {
             return $model;
         }
 

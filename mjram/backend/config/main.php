@@ -51,21 +51,33 @@ return [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/default',
+                    'controller' => 'api/utilizador',
                     'pluralize' => false,
                     'tokens' => [
-                        '{limite}'=>'<limite:\\w+>',
+
                     ],
                     'extraPatterns' => [
-                        /*'GET total' => 'total',   // 'total' é 'actionTotal'
-                        'GET {id}/morada' => 'morada', // 'morada' é 'actionMorada'
-                        'GET set/{limite}' => 'set',   // 'set' é 'actionSet‘*/
+                        'GET list' => 'list',   // actionList
+                        'GET /{id}' => 'perfil',   // actionList
 
                     ] ,
+
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/utilizador',
+                    'controller' => 'api/aviao',
+                    'pluralize' => false,
+                    'tokens' => [
+
+                    ],
+                    'extraPatterns' => [
+                        'GET list' => 'list',   // actionList
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/companhia',
                     'pluralize' => false,
                     'tokens' => [
 
