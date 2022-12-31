@@ -19,6 +19,9 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -44,6 +47,7 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            //'enableStrictParsing' => true,
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
@@ -58,6 +62,32 @@ return [
                         'GET set/{limite}' => 'set',   // 'set' é 'actionSet‘*/
 
                     ] ,
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/utilizador',
+                    'pluralize' => false,
+                    'tokens' => [
+
+                    ],
+                    'extraPatterns' => [
+                        'GET list' => 'list',   // actionList
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/cliente',
+                    'pluralize' => false,
+                    'tokens' => [
+                        '{limite}'=>'<limite:\\w+>',
+                    ],
+                    'extraPatterns' => [
+                        'GET total' => 'total',   // 'total' é 'actionTotal'
+                        'GET {id}/morada' => 'morada', // 'morada' é 'actionMorada'
+                        'GET set/{limite}' => 'set',   // 'set' é 'actionSet‘
+
+                    ],
                 ],
             ],
         ],
