@@ -6,7 +6,7 @@ use \yii\rest\ActiveController;
 
 class UtilizadorController extends ActiveController
 {
-    public $modelClass = 'common\models\User'; //Parte CRUD
+    public $modelClass = 'common\models\Utilizador'; //Parte CRUD
 
 
 
