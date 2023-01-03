@@ -18,7 +18,9 @@ use yii\helpers\Html;
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                        <li class="nav-item">
+                            <?= Html::a('logn',['site/login'],['class' => 'nav-link']) ?>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
                         <li class="nav-item"><a class="nav-link" href="category.html">Pesquisa</a></li>
                         <li class="nav-item"><a class="nav-link" href="single-product.html">Voo</a></li>
