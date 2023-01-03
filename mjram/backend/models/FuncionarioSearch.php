@@ -17,8 +17,8 @@ class FuncionarioSearch extends Funcionario
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['nib'], 'safe'],
+            [['id','telemovel','nif','cartaocidadao'], 'integer'],
+            [['nib','username','email','nome','role','apelidos'], 'safe'],
         ];
     }
 
@@ -40,12 +40,13 @@ class FuncionarioSearch extends Funcionario
      */
     public function search($params)
     {
-        $query = Funcionario::find();
+        $query = Funcionario::find()->joinWith(['utilizador','user']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['username','email','nib','nome','apelidos','telemovel','nif','cartaocidadao']],
         ]);
 
         $this->load($params);
@@ -57,11 +58,16 @@ class FuncionarioSearch extends Funcionario
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
+        $query->andFilterWhere(['id' => $this->id,]);
 
-        $query->andFilterWhere(['like', 'nib', $this->nib]);
+        $query->andFilterWhere(['like', 'nib', $this->nib])
+            ->andFilterWhere(['like', 'user.username', $this->username])
+            ->andFilterWhere(['like', 'user.email', $this->email])
+            ->andFilterWhere(['like', 'utilizador.nome', $this->nome])
+            ->andFilterWhere(['like', 'utilizador.apelidos', $this->apelidos])
+            ->andFilterWhere(['like', 'utilizador.telemovel', $this->telemovel])
+            ->andFilterWhere(['like', 'utilizador.nif', $this->nif])
+            ->andFilterWhere(['like', 'utilizador.cartaocidadao', $this->cartaocidadao]);
 
         return $dataProvider;
     }

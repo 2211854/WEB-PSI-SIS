@@ -117,14 +117,41 @@ class FuncionarioController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $modelFuncionario = Funcionario::findOne($id);
+        $modelUtilizador = Utilizador::findOne($id);
+        $modelUser = User::findOne($modelUtilizador->id_user);
+        $modelUtilizador->username = $modelUser->username;
+        $modelUtilizador->email = $modelUser->email;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $auth = Yii::$app->authManager;
+        $userRole = Yii::$app->db ->createCommand("Select * from auth_assignment where user_id='".$modelUtilizador->id_user."'")->queryOne();
+        $prerole = $userRole['item_name'];
+        $roles = [];
+        foreach ($auth->getroles() as $role){
+            if($role->name != 'cliente' && $role->name != 'admin')
+                array_push($roles, [$role->name => $role->name] );
+        }
+
+        if ($modelFuncionario->load(Yii::$app->request->post()) && $modelUtilizador->load(Yii::$app->request->post())) {
+            $modelUser->username = $modelUtilizador->username;
+            $modelUser->email = $modelUtilizador->email;
+            $modelUser->save();
+
+            $auth = \Yii::$app->authManager;
+            $auth->revokeAll($modelUtilizador->id_user);
+            $userRole = $auth->getRole($modelUtilizador->role);
+            $auth->assign($userRole, $modelUser->getId());
+            $modelUtilizador->save(false);
+            $modelFuncionario->save();
+
+            return $this->redirect(['view', 'id' => $modelFuncionario->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'modelFuncionario' => $modelFuncionario,
+            'modelUtilizador' => $modelUtilizador,
+            'prerole' =>$prerole,
+            'roles' => $roles,
         ]);
     }
 

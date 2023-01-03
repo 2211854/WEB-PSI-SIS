@@ -1,11 +1,12 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Funcionario */
+/* @var $modelFuncionario common\models\Funcionario */
+/* @var $modelUtilizador common\models\Utilizador */
+/* @var $modelUser common\models\User */
 
-$this->title = 'Update Funcionario: ' . $model->id;
+$this->title = 'Update Funcionario: ' . $modelFuncionario->id;
 $this->params['breadcrumbs'][] = ['label' => 'Funcionarios', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
@@ -14,8 +15,11 @@ $this->params['breadcrumbs'][] = 'Update';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <?=$this->render('_form', [
-                        'model' => $model
+                    <?=$this->render('_form_update', [
+                        'modelFuncionario' => $modelFuncionario,
+                        'modelUtilizador' => $modelUtilizador,
+                        'roles' => $roles,
+                        'prerole'=> $prerole,
                     ]) ?>
                 </div>
             </div>

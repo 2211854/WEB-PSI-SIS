@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $modelUtilizador common\models\Utilizador */
 /* @var $modelUser common\models\User */
 
-$this->title = 'Create Funcionario';
+$this->title = 'Criar Funcionario';
 $this->params['breadcrumbs'][] = ['label' => 'Funcionarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
