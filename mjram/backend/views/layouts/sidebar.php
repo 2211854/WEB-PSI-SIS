@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Html;
+?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="../site/index" class="brand-link">
@@ -25,12 +28,9 @@
                 </a>
             </div>
             <div class="info">
-                <a href="../site/logout" data-method="post" >
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
+                <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post']) ?>
             </div>
         </div>
-
         <!-- SidebarSearch Form -->
         <!-- href be escaped -->
         <!-- <div class="form-inline">
