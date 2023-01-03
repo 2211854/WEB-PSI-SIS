@@ -20,15 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'telemovel') ?>
 
-    <?= $form->field($model, 'palavrapasse') ?>
-
-    <?= $form->field($model, 'email') ?>
-
     <?= $form->field($model, 'nif') ?>
 
-    <?php // echo $form->field($model, 'nome') ?>
+    <?= $form->field($model, 'nome') ?>
 
-    <?php // echo $form->field($model, 'apelidos') ?>
+    <?= $form->field($model, 'apelidos') ?>
 
     <?php // echo $form->field($model, 'cartaocidadao') ?>
 

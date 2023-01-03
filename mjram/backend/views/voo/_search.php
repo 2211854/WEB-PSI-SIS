@@ -18,13 +18,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'designacao') ?>
+
     <?= $form->field($model, 'data_registo') ?>
 
     <?= $form->field($model, 'estado') ?>
 
     <?= $form->field($model, 'id_aviao') ?>
 
-    <?= $form->field($model, 'id_pista') ?>
+    <?php // echo $form->field($model, 'id_pista') ?>
 
     <?php // echo $form->field($model, 'id_funcionario') ?>
 

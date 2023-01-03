@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Funcionario */
+/* @var $modelFuncionario common\models\Funcionario */
+/* @var $modelUtilizador common\models\Utilizador */
+/* @var $modelUser common\models\User */
 
-$this->title = 'Create Funcionario';
+$this->title = 'Criar Funcionario';
 $this->params['breadcrumbs'][] = ['label' => 'Funcionarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,7 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-md-12">
                     <?=$this->render('_form', [
-                        'model' => $model
+                        'modelFuncionario' => $modelFuncionario,
+                        'modelUtilizador' => $modelUtilizador,
+                        'roles' => $roles,
                     ]) ?>
                 </div>
             </div>

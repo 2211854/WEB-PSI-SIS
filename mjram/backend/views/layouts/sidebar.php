@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="../site/index" class="brand-link">
         <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
@@ -14,6 +14,20 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">Alexander Pierce</a>
+            </div>
+        </div>
+
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+                <a href="#" id="myBtn">
+                    <i class="fas fa-adjust" id="myBtn"></i>
+                </a>
+            </div>
+            <div class="info">
+                <a href="../site/logout" data-method="post" >
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
             </div>
         </div>
 
@@ -34,44 +48,144 @@
         <nav class="mt-2">
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
+                'options' => [
+                    'class'=>'nav nav-pills nav-sidebar flex-column nav-legacy',
+                    'data-widget' => 'treeview',
+                    'role' => 'menu',
+                    'data-accordion' => 'false'
+                ],
                 'items' => [
+                    ['label' => 'VOOS', 'header' => true],
                     [
-                        'label' => 'Starter Pages',
-                        'icon' => 'tachometer-alt',
-                        'badge' => '<span class="right badge badge-info">2</span>',
+                        'label' => 'Aviao',
+                        'icon' => 'plane',
                         'items' => [
-                            ['label' => 'Active Page', 'url' => ['site/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Inactive Page', 'iconStyle' => 'far'],
+                            ['label' => 'Listar', 'url' => ['aviao/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['aviao/create'], 'iconStyle' => 'far'],
                         ]
                     ],
-                    ['label' => 'Simple Link', 'icon' => 'th', 'badge' => '<span class="right badge badge-danger">New</span>'],
-                    ['label' => 'Yii2 PROVIDED', 'header' => true],
-                    ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
+                    [
+                        'label' => 'Categoria Recurso',
+                        'icon' => 'layer-group',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['categoriarecurso/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['categoriarecurso/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'classe',
+                        'icon' => 'layer-group',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['classe/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['classe/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Companhia',
+                        'icon' => 'building',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['companhia/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['companhia/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Detalhe Voo',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['detalhevoo/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['detalhevoo/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Escala Voo',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['escalavoo/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['escalavoo/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Funcionario',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['funcionario/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['funcionario/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'hangar',
+                        'icon' => 'warehouse',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['hangar/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['hangar/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'ocupacao',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['ocupacao/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['ocupacao/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Pedido Recurso',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['pedidorecurso/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['pedidorecurso/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Pista',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['pista/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['pista/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Recurso',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['recurso/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['recurso/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Tarefa',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['tarefa/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['tarefa/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Unidade Medida',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['unidademedida/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['unidademedida/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Utilizador',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['utilizador/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['utilizador/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Voo',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['voo/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    ['label' => 'GII', 'header' => true],
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                    ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
-                    ['label' => 'MULTI LEVEL EXAMPLE', 'header' => true],
-                    ['label' => 'Level1'],
-                    [
-                        'label' => 'Level1',
-                        'items' => [
-                            ['label' => 'Level2', 'iconStyle' => 'far'],
-                            [
-                                'label' => 'Level2',
-                                'iconStyle' => 'far',
-                                'items' => [
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle']
-                                ]
-                            ],
-                            ['label' => 'Level2', 'iconStyle' => 'far']
-                        ]
-                    ],
-                    ['label' => 'Level1'],
-                    ['label' => 'LABELS', 'header' => true],
-                    ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
-                    ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
-                    ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
                     ['label' => 'UTILIZADORES', 'header' => true],
                     ['label' => 'Adicionar', 'url' => ['site/signup'], 'icon' => 'sign-in-alt'],
 

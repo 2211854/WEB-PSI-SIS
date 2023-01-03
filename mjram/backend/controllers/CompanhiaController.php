@@ -33,7 +33,7 @@ class CompanhiaController extends Controller
      * Lists all Companhia models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($actionStatus = null,$name = null)
     {
         $searchModel = new CompanhiaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -41,6 +41,9 @@ class CompanhiaController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
+            'actionStatus' => $actionStatus,
+            'name' => $name,
         ]);
     }
 
@@ -104,9 +107,16 @@ class CompanhiaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
 
-        return $this->redirect(['index']);
+        if(empty($model->aviaos)){
+            $model->delete();
+            return $this->redirect(['index','name'=>$model->nome ,'actionStatus' => 'success']);
+        }
+        else{
+            return $this->redirect(['index','name'=>$model->nome ,'actionStatus' => 'warning']);
+        }
+
     }
 
     /**

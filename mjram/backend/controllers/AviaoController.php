@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Aviao;
+use common\models\Companhia;
 use app\models\AviaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,7 +67,11 @@ class AviaoController extends Controller
     {
         $model = new Aviao();
 
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $modelCompanhia = Companhia::findOne($model->id_companhia);
+            $model->designacao = $modelCompanhia->sigla.$model->id;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -87,6 +92,9 @@ class AviaoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $modelCompanhia = Companhia::findOne($model->id_companhia);
+            $model->designacao = $modelCompanhia->sigla.$model->id;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

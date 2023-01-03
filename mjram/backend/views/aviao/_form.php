@@ -16,15 +16,13 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'modelo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'combustivelatual')->textInput() ?>
+    <?= $form->field($model, 'combustivelmaximo')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'combustivelmaximo')->textInput() ?>
+    <?= $form->field($model, 'combustivelatual')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'data_registo')->textInput() ?>
+    <?= $form->field($model, 'estado')->dropDownList([ 'inativo' => 'Inativo', 'operacional' => 'Operacional', 'manutencao' => 'Manutencao', 'danificado' => 'Danificado', ]) ?>
 
-    <?= $form->field($model, 'estado')->dropDownList([ 'inativo' => 'Inativo', 'operacional' => 'Operacional', 'manutencao' => 'Manutencao', 'danificado' => 'Danificado', ], ['prompt' => '']) ?>
-
-    <?= $form->field($model, 'id_companhia')->textInput() ?>
+    <?= $form->field($model, 'id_companhia')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Companhia::find()->asArray()->all(), 'id', 'nome')) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

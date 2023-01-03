@@ -47,7 +47,7 @@ class OcupacaoController extends Controller
     /**
      * Displays a single ocupacao model.
      * @param string $id_aviao Id Aviao
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -80,7 +80,7 @@ class OcupacaoController extends Controller
      * Updates an existing ocupacao model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id_aviao Id Aviao
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -101,7 +101,7 @@ class OcupacaoController extends Controller
      * Deletes an existing ocupacao model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id_aviao Id Aviao
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -116,7 +116,7 @@ class OcupacaoController extends Controller
      * Finds the ocupacao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id_aviao Id Aviao
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return ocupacao the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

@@ -32,11 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             'id',
                             'telemovel',
-                            'palavrapasse',
-                            'email:email',
                             'nif',
-                            //'nome',
-                            //'apelidos',
+                            'nome',
+                            'apelidos',
                             //'cartaocidadao',
                             //'id_user',
                             //'data_registo',

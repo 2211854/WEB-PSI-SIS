@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ClasseController implements the CRUD actions for Classe model.
+ * ClasseController implements the CRUD actions for classe model.
  */
 class ClasseController extends Controller
 {
@@ -30,7 +30,7 @@ class ClasseController extends Controller
     }
 
     /**
-     * Lists all Classe models.
+     * Lists all classe models.
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +45,7 @@ class ClasseController extends Controller
     }
 
     /**
-     * Displays a single Classe model.
+     * Displays a single classe model.
      * @param string $id ID
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,7 +58,7 @@ class ClasseController extends Controller
     }
 
     /**
-     * Creates a new Classe model.
+     * Creates a new classe model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -76,7 +76,7 @@ class ClasseController extends Controller
     }
 
     /**
-     * Updates an existing Classe model.
+     * Updates an existing classe model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id ID
      * @return mixed
@@ -96,7 +96,7 @@ class ClasseController extends Controller
     }
 
     /**
-     * Deletes an existing Classe model.
+     * Deletes an existing classe model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id ID
      * @return mixed
@@ -110,7 +110,7 @@ class ClasseController extends Controller
     }
 
     /**
-     * Finds the Classe model based on its primary key value.
+     * Finds the classe model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id ID
      * @return Classe the loaded model

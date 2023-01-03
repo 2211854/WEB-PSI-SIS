@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Classe */
 
-$this->title = 'Create Classe';
+$this->title = 'Criar classe';
 $this->params['breadcrumbs'][] = ['label' => 'Classes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

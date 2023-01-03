@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "voo".
  *
  * @property int $id
+ * @property string $designacao
  * @property string $data_registo
  * @property string $estado
  * @property int $id_aviao
@@ -39,10 +40,11 @@ class Voo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['designacao', 'id_aviao', 'id_pista', 'id_funcionario'], 'required'],
             [['data_registo'], 'safe'],
             [['estado'], 'string'],
-            [['id_aviao', 'id_pista', 'id_funcionario'], 'required'],
             [['id_aviao', 'id_pista', 'id_funcionario'], 'integer'],
+            [['designacao'], 'string', 'max' => 20],
             [['id_aviao'], 'exist', 'skipOnError' => true, 'targetClass' => Aviao::class, 'targetAttribute' => ['id_aviao' => 'id']],
             [['id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => Funcionario::class, 'targetAttribute' => ['id_funcionario' => 'id']],
             [['id_pista'], 'exist', 'skipOnError' => true, 'targetClass' => Pista::class, 'targetAttribute' => ['id_pista' => 'id']],
@@ -56,6 +58,7 @@ class Voo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'designacao' => 'Designacao',
             'data_registo' => 'Data Registo',
             'estado' => 'Estado',
             'id_aviao' => 'Id Aviao',

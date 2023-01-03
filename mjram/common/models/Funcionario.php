@@ -18,6 +18,14 @@ use Yii;
  */
 class Funcionario extends \yii\db\ActiveRecord
 {
+    public $username;
+    public $email;
+    public $nome;
+    public $apelidos;
+    public $role;
+    public $telemovel;
+    public $nif;
+    public $cartaocidadao;
     /**
      * {@inheritdoc}
      */
@@ -60,6 +68,19 @@ class Funcionario extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Utilizador::class, ['id' => 'id']);
     }
+
+    function getuser() {
+        return $this->hasOne(User::class, ['id' => 'id']);
+    }
+
+    function getUtilizador() {
+        return $this->hasOne(Utilizador::class, ['id' => 'id']);
+    }
+
+    function getauth_assignment() {
+        return Yii::$app->db ->createCommand("Select * from auth_assignment where user_id='id'")->queryOne();
+    }
+
 
     /**
      * Gets query for [[PedidoRecursos]].

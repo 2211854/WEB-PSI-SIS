@@ -28,10 +28,66 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
+                            [
+                                'label' => 'Username',
+                                'attribute' => 'username',
+                                'value' => function($model) {
+                                    return $model->utilizador->user->username;
+                                }
+                            ],
+                            [
+                                'label' => 'Email',
+                                'attribute' => 'email',
+                                'value' => function($model) {
+                                    return $model->utilizador->user->email;
+                                }
+                            ],
+                            [
+                                'label' => 'Role',
+                                'attribute' => 'role',
+                                'filter'=>array("gestorFinaceiro"=>"gestorFinaceiro","gestorLogistica"=>"gestorLogistica"),
+                                'value' => function($model) {
+                                    $userRole = Yii::$app->db ->createCommand("Select * from auth_assignment where user_id='".$model->utilizador->id_user."'")->queryOne();
+                                    $prerole = $userRole['item_name'];
+                                    return $prerole;
+                                }
+                            ],
+                            [
+                                'label' => 'Nome',
+                                'attribute' => 'nome',
+                                'value' => function($model) {
+                                    return $model->utilizador->nome;
+                                }
+                            ],
+                            [
+                                'label' => 'Apelido',
+                                'attribute' => 'apelidos',
+                                'value' => function($model) {
+                                    return $model->utilizador->apelidos;
+                                }
+                            ],
                             'nib',
+                            [
+                                'label' => 'Telemovel',
+                                'attribute' => 'telemovel',
+                                'value' => function($model) {
+                                    return $model->utilizador->telemovel;
+                                }
+                            ],
+                            [
+                                'label' => 'Nif',
+                                'attribute' => 'nif',
+                                'value' => function($model) {
+                                    return $model->utilizador->nif;
+                                }
+                            ],
+                            [
+                                'label' => 'Cartao Cidadao',
+                                'attribute' => 'cartaocidadao',
+                                'value' => function($model) {
+                                    return $model->utilizador->cartaocidadao;
+                                }
+                            ],
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],

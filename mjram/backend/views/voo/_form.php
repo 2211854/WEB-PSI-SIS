@@ -12,13 +12,13 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'data_registo')->textInput() ?>
+    <?= $form->field($model, 'designacao')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'estado')->dropDownList([ 'atrasado' => 'Atrasado', 'cancelado' => 'Cancelado', 'concluido' => 'Concluido', 'planeado' => 'Planeado', 'circulacao' => 'Circulacao', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'id_aviao')->textInput() ?>
+    <?= $form->field($model, 'id_aviao')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Aviao::find()->asArray()->all(), 'id', 'id')) ?>
 
-    <?= $form->field($model, 'id_pista')->textInput() ?>
+    <?= $form->field($model, 'id_pista')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Pista::find()->asArray()->all(), 'id', 'designacao')) ?>
 
     <?= $form->field($model, 'id_funcionario')->textInput() ?>
 

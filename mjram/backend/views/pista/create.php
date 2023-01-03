@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Pista */
 
-$this->title = 'Create Pista';
+$this->title = 'Criar Pista';
 $this->params['breadcrumbs'][] = ['label' => 'Pistas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

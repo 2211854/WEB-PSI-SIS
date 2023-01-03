@@ -47,7 +47,7 @@ class DetalhevooController extends Controller
     /**
      * Displays a single DetalheVoo model.
      * @param string $id_voo Id Voo
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -80,7 +80,7 @@ class DetalhevooController extends Controller
      * Updates an existing DetalheVoo model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id_voo Id Voo
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -101,7 +101,7 @@ class DetalhevooController extends Controller
      * Deletes an existing DetalheVoo model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id_voo Id Voo
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -116,7 +116,7 @@ class DetalhevooController extends Controller
      * Finds the DetalheVoo model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id_voo Id Voo
-     * @param string $id_classe Id Classe
+     * @param string $id_classe Id classe
      * @return DetalheVoo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

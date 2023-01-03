@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Pista */
 
-$this->title = $model->id;
+$this->title = 'Pista '.$model->designacao;
 $this->params['breadcrumbs'][] = ['label' => 'Pistas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

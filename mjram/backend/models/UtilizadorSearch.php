@@ -18,7 +18,7 @@ class UtilizadorSearch extends Utilizador
     {
         return [
             [['id', 'telemovel', 'cartaocidadao', 'id_user'], 'integer'],
-            [['palavrapasse', 'email', 'nif', 'nome', 'apelidos', 'data_registo'], 'safe'],
+            [['nif', 'nome', 'apelidos', 'data_registo'], 'safe'],
         ];
     }
 
@@ -65,9 +65,7 @@ class UtilizadorSearch extends Utilizador
             'data_registo' => $this->data_registo,
         ]);
 
-        $query->andFilterWhere(['like', 'palavrapasse', $this->palavrapasse])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'nif', $this->nif])
+        $query->andFilterWhere(['like', 'nif', $this->nif])
             ->andFilterWhere(['like', 'nome', $this->nome])
             ->andFilterWhere(['like', 'apelidos', $this->apelidos]);
 

@@ -52,13 +52,13 @@ class ItemVenda extends \yii\db\ActiveRecord
             'id' => 'ID',
             'passaporte' => 'Passaporte',
             'id_venda' => 'Id Venda',
-            'id_classe' => 'Id Classe',
+            'id_classe' => 'Id classe',
             'id_voo' => 'Id Voo',
         ];
     }
 
     /**
-     * Gets query for [[Classe]].
+     * Gets query for [[classe]].
      *
      * @return \yii\db\ActiveQuery
      */
