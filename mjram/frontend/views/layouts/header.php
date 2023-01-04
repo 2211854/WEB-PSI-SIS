@@ -17,13 +17,20 @@ use yii\helpers\Html;
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item">
-                            <?= Html::a('logn',['site/login'],['class' => 'nav-link']) ?>
+                        <li class="nav-item active">
+                            <?= Html::a('Inicio',['site/index'],['class' => 'nav-link']) ?>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+                        <li class="nav-item">
+                            <?= Html::a('Login',['site/login'],['class' => 'nav-link']) ?>
+                        </li>
+                        <li class="nav-item">
+                            <?= Html::a('Registar',['site/signup'],['class' => 'nav-link']) ?>
+                        </li>
+
                         <li class="nav-item"><a class="nav-link" href="category.html">Pesquisa</a></li>
-                        <li class="nav-item"><a class="nav-link" href="single-product.html">Voo</a></li>
+                        <li class="nav-item">
+                            <?= Html::a('Voo',['voo/index'],['class' => 'nav-link']) ?>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="cart.html">Carrinho</a></li>
                         <li class="nav-item"><a class="nav-link" href="checkout.html">compra</a></li>
                         <li class="nav-item"><a class="nav-link" href="cart1.html">Historico</a></li>

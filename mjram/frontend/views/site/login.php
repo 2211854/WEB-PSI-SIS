@@ -17,11 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
                 <h1><?= Html::encode($this->title) ?></h1>
-                <nav class="d-flex align-items-center">
-                    <?= Html::a('Inicio',['site/index'],['class' => 'lnr lnr-arrow-right'])
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Login/Register</a>
-                </nav>
+               <!-- <nav class="d-flex align-items-center">
+                    <?= Html::a('Inicio <span class="lnr lnr-arrow-right"></span>',['site/index'],['class' => 'lnr lnr-arrow-right'])?>
+
+                </nav>-->
             </div>
         </div>
     </div>
@@ -34,11 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-lg-6">
                 <div class="login_box_img">
-                    <img class="img-fluid" src="img/login.jpg" alt="">
+
+                    <?= Html::img('@web/img/login.png', ['width'=>'60','class'=> 'img-fluid']);?>
                     <div class="hover">
                         <h4>New to our website?</h4>
                         <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-                        <a class="primary-btn" href="register.html">Create an Account</a>
+
+                        <?= Html::a('Criar uma conta',['site/signup'],['class' => 'primary-btn']) ?>
                     </div>
                 </div>
             </div>
@@ -51,20 +52,37 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['class' => 'row login_form']
                             ]); ?>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                            <?= $form->field($model, 'username')->textInput(['autofocus' => true,'onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Username"','class' => 'form-control'])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <?= $form->field($model, 'password')->passwordInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Password"','class' => 'form-control'])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <div class="creat_account">
-                                <input type="checkbox" id="f-option2" name="selector">
-                                <label for="f-option2">Keep me logged in</label>
-                            </div>
+                            <?=$form->field(
+                                    $model,
+                                    'rememberMe',
+                                [
+                                        'options' => [
+                                            'class' => 'creat_account',
+                                        ],
+                                ]
+                            )->checkBox([
+                                    'id'=>'f-option2'
+                            ])->label(
+                                    'Deixar-me logado',
+                                    [
+                                            'for'=> 'f-option2'
+                                    ]
+                            )
+
+                            ?>
+
                         </div>
+
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="primary-btn">Log In</button>
-                            <a href="#">Forgot Password?</a>
+                            <?= Html::submitButton('Login', ['class' => 'primary-btn', 'name' => 'login-button']) ?>
+                            <?= Html::a('Forgot password?', ['site/request-password-reset']) ?>
+                            <?= Html::a('Re-enviar email de verificação', ['site/resend-verification-email']) ?>
                         </div>
                     <?php ActiveForm::end(); ?>
                 </div>
