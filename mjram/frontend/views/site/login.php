@@ -62,12 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $model,
                                     'rememberMe',
                                 [
-                                        'options' => [
-                                            'class' => 'creat_account',
-                                        ],
+                                        'options' => ['class' => 'creat_account']
                                 ]
+
                             )->checkBox([
-                                    'id'=>'f-option2'
+                                    'id'=>'f-option2',
+                                'class' => 'creat_account'
                             ])->label(
                                     'Deixar-me logado',
                                     [
