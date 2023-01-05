@@ -66,7 +66,13 @@ class VooController extends Controller
     {
         $model = new Voo();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $funcionario = Yii::$app->db->createCommand("Select * from utilizador where id_user='".Yii::$app->user->id."'")->queryOne();
+            $model->id_funcionario = $funcionario['id'];
+            var_dump($model);
+            $model->save();
+            $model->designacao = '['.$model->aviao->companhia->sigla.' - '.$model->id.'] '.$model->designacao;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

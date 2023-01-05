@@ -61,8 +61,8 @@ class Voo extends \yii\db\ActiveRecord
             'designacao' => 'Designacao',
             'data_registo' => 'Data Registo',
             'estado' => 'Estado',
-            'id_aviao' => 'Id Aviao',
-            'id_pista' => 'Id Pista',
+            'id_aviao' => 'Aviao',
+            'id_pista' => 'Pista',
             'id_funcionario' => 'Id Funcionario',
         ];
     }

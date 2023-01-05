@@ -14,9 +14,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'ocupacao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_aviao')->textInput() ?>
-
-    <?= $form->field($model, 'id_classe')->textInput() ?>
+    <?= $form->field($model, 'id_classe')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Classe::find()->asArray()->all(), 'id', 'designacao')) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

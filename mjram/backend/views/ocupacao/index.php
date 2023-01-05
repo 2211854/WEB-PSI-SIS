@@ -16,8 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
+                        <h1>Ocupação do Avião:<?= $aviao->designacao ?></h1>
                         <div class="col-md-12">
-                            <?= Html::a('Create Ocupacao', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Ocupacao', ['create','aviaoid'=>$aviao->id], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -26,14 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
 
-                            'id',
+
                             'ocupacao',
-                            'id_aviao',
-                            'id_classe',
+                            [
+                                'label' => 'Classe',
+                                'attribute' => 'designacao',
+                                'value' => function($model) {
+                                    return $model->classe->designacao;
+                                }
+                            ],
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],
