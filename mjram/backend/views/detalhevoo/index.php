@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Detalhes do voo: '.$voo->designacao;
+$this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['voo/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Criar Detalhe Voo', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Detalhe Voo', ['create','vooid'=>$voo->id], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -26,11 +27,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
                         'columns' => [
-                            'preço',
-                            'id_voo',
-                            'id_classe',
+                            [
+                                'label' => 'Preço',
+                                'attribute' => 'preço',
+                                'value' => function($model) {
+                                    return $model->preço.'€';
+                                }
+                            ],
+                            [
+                                'label' => 'Classe',
+                                'attribute' => 'classed',
+                                'value' => function($model) {
+                                    return $model->classe->designacao;
+                                }
+                            ],
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],

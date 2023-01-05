@@ -8,6 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Escalas do Voo: '.$voo->designacao;
+$this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['voo/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Escala Voo', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Create Escala Voo', ['create','vooid'=>$voo->id], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 

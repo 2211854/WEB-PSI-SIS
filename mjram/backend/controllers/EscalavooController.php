@@ -67,16 +67,30 @@ class EscalavooController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($vooid)
     {
         $model = new EscalaVoo();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $voo = Voo::findOne($vooid);
+        $model->id_voo = $vooid;
+        if($this->request->isPost){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                return $this->render('create', [
+                    'model' => $model,
+                    'voo' => $voo,
+                    'actionStatus' => 'warning',
+                ]);
+            }
+        }else{
+            $model->loadDefaultValues();
         }
+
 
         return $this->render('create', [
             'model' => $model,
+            'voo' => $voo,
+            'actionStatus' => null,
         ]);
     }
 
@@ -90,13 +104,22 @@ class EscalavooController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if($this->request->isPost){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                return $this->render('update', [
+                    'model' => $model,
+                    'actionStatus' => 'warning',
+                ]);
+            }
+        }else{
+            $model->loadDefaultValues();
         }
 
         return $this->render('update', [
             'model' => $model,
+            'actionStatus' => null,
         ]);
     }
 
