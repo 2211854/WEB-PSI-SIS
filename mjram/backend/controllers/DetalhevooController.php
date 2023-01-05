@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\DetalheVoo;
+use common\models\Voo;
 use app\models\DetalhevooSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * DetalhevooController implements the CRUD actions for DetalheVoo model.
@@ -33,14 +35,17 @@ class DetalhevooController extends Controller
      * Lists all DetalheVoo models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($vooid)
     {
+        $voo = Voo::findOne($vooid);
         $searchModel = new DetalhevooSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider(['query' => $voo->getDetalheVoos(),]);
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'voo' => $voo,
         ]);
     }
 

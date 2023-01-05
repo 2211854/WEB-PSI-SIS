@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EscalavooSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Escala Voos';
+$this->title = 'Escalas do Voo: '.$voo->designacao;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -28,9 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
                             'partida',
                             'destino',
                             'horario_partida',

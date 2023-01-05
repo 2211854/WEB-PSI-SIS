@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\OcupacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ocupacaos';
+$this->title = 'Ocupação do Avião: '. $aviao->designacao;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">
-                        <h1>Ocupação do Avião:<?= $aviao->designacao ?></h1>
                         <div class="col-md-12">
                             <?= Html::a('Criar Ocupacao', ['create','aviaoid'=>$aviao->id], ['class' => 'btn btn-success']) ?>
                         </div>

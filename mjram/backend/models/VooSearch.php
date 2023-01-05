@@ -18,7 +18,7 @@ class VooSearch extends Voo
     {
         return [
             [['id', 'id_aviao', 'id_pista', 'id_funcionario'], 'integer'],
-            [['designacao', 'data_registo', 'estado'], 'safe'],
+            [['designacao', 'data_registo', 'estado','aviaod','pistad','funcionariod'], 'safe'],
         ];
     }
 
@@ -40,12 +40,13 @@ class VooSearch extends Voo
      */
     public function search($params)
     {
-        $query = Voo::find();
+        $query = Voo::find()->joinWith(['aviao','pista','utilizador']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['designacao','data_registo','estado']],
         ]);
 
         $this->load($params);
@@ -66,7 +67,10 @@ class VooSearch extends Voo
         ]);
 
         $query->andFilterWhere(['like', 'designacao', $this->designacao])
-            ->andFilterWhere(['like', 'estado', $this->estado]);
+            ->andFilterWhere(['like', 'estado', $this->estado])
+            ->andFilterWhere(['like', 'aviao.designacao', $this->aviaod])
+            ->andFilterWhere(['like', 'pista.designacao', $this->pistad])
+            ->andFilterWhere(['like', 'utilizador.nome', $this->funcionariod]);
 
         return $dataProvider;
     }

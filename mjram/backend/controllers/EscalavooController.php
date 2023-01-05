@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\EscalaVoo;
+use common\models\Voo;
 use app\models\EscalavooSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * EscalavooController implements the CRUD actions for EscalaVoo model.
@@ -33,14 +35,17 @@ class EscalavooController extends Controller
      * Lists all EscalaVoo models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($vooid)
     {
+        $voo = Voo::findOne($vooid);
         $searchModel = new EscalavooSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider(['query' => $voo->getEscalaVoos(),]);
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'voo' => $voo,
         ]);
     }
 
