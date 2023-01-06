@@ -33,11 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-lg-6">
                 <div class="login_box_img">
-
-                    <?= Html::img('@web/img/login.png', ['width'=>'60','class'=> 'img-fluid']);?>
+                    <?= Html::img('@web/img/login.jpg', ['class'=> 'img-fluid']);?>
                     <div class="hover">
-                        <h4>New to our website?</h4>
-                        <p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+                        <h4>Novo no website?</h4>
+                        <p>Para melhor aproveitamento cria uma conta</p>
 
                         <?= Html::a('Criar uma conta',['site/signup'],['class' => 'primary-btn']) ?>
                     </div>
@@ -45,17 +44,17 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner">
-                    <h3>Autêntica-te para entrares </h3>
+                    <h3>Inicia sessão para entrar na área reservada</h3>
 
                     <?php $form = ActiveForm::begin([
                                 'id' => 'login-form' ,
                                 'options' => ['class' => 'row login_form']
                             ]); ?>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'username')->textInput(['autofocus' => true,'onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Username"','class' => 'form-control'])->label(false) ?>
+                            <?= $form->field($model, 'username')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Nome de Utilizador"','class' => 'form-control','placeholder' => 'Nome de Utilizador'])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'password')->passwordInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Password"','class' => 'form-control'])->label(false) ?>
+                            <?= $form->field($model, 'password')->passwordInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Palavra-Passe"','class' => 'form-control','placeholder' => 'Palavra-Passe'])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
                             <?=$form->field(
@@ -67,7 +66,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             )->checkBox([
                                     'id'=>'f-option2',
-                                'class' => 'creat_account'
+                                'class' => 'creat_account',
+                                'checked' => false
                             ])->label(
                                     'Deixar-me logado',
                                     [
