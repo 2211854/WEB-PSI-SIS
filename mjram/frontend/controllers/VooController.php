@@ -3,6 +3,10 @@
 namespace frontend\controllers;
 
 use common\models\Voo;
+use common\models\EscalaVoo;
+use common\models\DetalheVoo;
+use common\models\Ocupacao;
+
 use app\models\VooSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -65,22 +69,22 @@ class VooController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
-    {
-        $model = new Voo();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+//    public function actionCreate()
+//    {
+//        $model = new Voo();
+//
+//        if ($this->request->isPost) {
+//            if ($model->load($this->request->post()) && $model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            }
+//        } else {
+//            $model->loadDefaultValues();
+//        }
+//
+//        return $this->render('create', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Updates an existing Voo model.
@@ -89,18 +93,18 @@ class VooController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        }
+//
+//        return $this->render('update', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Deletes an existing Voo model.
@@ -109,12 +113,12 @@ class VooController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
+//    public function actionDelete($id)
+//    {
+//        $this->findModel($id)->delete();
+//
+//        return $this->redirect(['index']);
+//    }
 
     /**
      * Finds the Voo model based on its primary key value.

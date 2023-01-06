@@ -1,6 +1,7 @@
 <?php
 /** @var yii\web\View $this */
 use yii\helpers\Html;
+use Faker\Core\DateTime;
 $this->title = 'Index';
 ?>
 <!-- start banner Area -->
@@ -26,7 +27,7 @@ $this->title = 'Index';
 <!-- start features Area -->
 <section class="features-area section_gap">
     <div class="container">
-        <form  class="row features-inner" saction="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+        <?= Html::beginForm(['voo/index', 'id' => 'searchVooForm'], 'post', ['class' =>'row features-inner']) ?>
             <!--single features -->
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
@@ -34,8 +35,7 @@ $this->title = 'Index';
                         <?= Html::img('@web/img/features/partida.png', ['width'=>'60']);?>
                     </div>
                     <h6>Partida:</h6>
-                    <input class="form-control" name="Partida" placeholder="De onde?" onfocus="this.placeholder = ''" onblur="this.placeholder = 'De onde? '"
-                           required="" >
+                    <?= Html::input('text', 'partida','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "De onde?"','class' => 'form-control','placeholder' => 'De onde?','required' => true]) ?>
                 </div>
             </div>
             <!-- single features -->
@@ -45,8 +45,8 @@ $this->title = 'Index';
                         <?= Html::img('@web/img/features/chegada.png', ['width'=>'60']);?>
                     </div>
                     <h6>Chegada:</h6>
-                    <input class="form-control" name="Chegada"  placeholder="Para onde?" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Para onde?'"
-                           required="" >
+                    <?= Html::input('text', 'chegada','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Para onde?"','class' => 'form-control','placeholder' => 'Para onde?']) ?>
+
                 </div>
             </div>
             <!-- single features -->
@@ -57,9 +57,12 @@ $this->title = 'Index';
                     </div>
                     <h6>Dia:</h6>
                     <div class="input-group date" id="datepicker">
-                        <input type="text" class="form-control" name="Chegada"  placeholder="XXXX-XX-XX" onfocus="this.placeholder = ''" onblur="this.placeholder = 'XXXX-XX-XX'" required="">
+
+                        <?= Html::input('text', 'data','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "XXXX-XX-XX"','class' => 'form-control','placeholder' => 'XXXX-XX-XX','min'=>
+                            date('Y-m-d')]) ?>
+
                         <span class="input-group-append">
-	                        </span>
+                                </span>
                     </div>
                 </div>
             </div>
@@ -69,10 +72,12 @@ $this->title = 'Index';
                     <div class="f-icon">
                         <?= Html::img('@web/img/features/procurar.png', ['width'=>'60']);?>
                     </div>
-                    <button href="" class="primary-btn">Procurar</button>
+                    <?= Html::submitButton('Procurar', ['class' => 'primary-btn']) ?>
                 </div>
             </div>
-        </form>
+        <?php Html::endForm(); ?>
+
+
     </div>
 </section>
 <!-- end features Area -->

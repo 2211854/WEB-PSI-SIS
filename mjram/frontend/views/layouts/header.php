@@ -25,20 +25,16 @@ AppAsset::register($this);
                     ['label' => 'Página Inicial', 'url' => ['/site/index']],
                     ['label' => 'Carrinho', 'url' => ['/venda/carrinho'] ,'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Histórico', 'url' => ['/venda/index'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Entrar', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Entrar', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest]
 
                 ];
 
                 if (!Yii::$app->user->isGuest) {
-                    $menuItems[] = Html::tag('li',
-
-                        Html::beginForm(['/site/logout'], 'post')
-                        . Html::submitButton(
-                            'Sair(' . Yii::$app->user->identity->username . ')',
-                            ['class' => 'btn nav-link']
-                        )
-                        . Html::endForm()
-                    , ['class' => 'nav-item']);
+                    $menuItems[] = [
+                            'label' => 'Sair (' . Yii::$app->user->identity->username . ')',
+                            'url' => ['site/logout'],
+                            'linkOptions' => ['data-method' => 'post']
+                    ];
                 }
 
                 echo Nav::widget([
