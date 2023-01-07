@@ -18,7 +18,7 @@ class OcupacaoSearch extends ocupacao
     {
         return [
             [['id', 'id_aviao', 'id_classe'], 'integer'],
-            [['ocupacao'], 'safe'],
+            [['ocupacao','designacao'], 'safe'],
         ];
     }
 
@@ -46,6 +46,7 @@ class OcupacaoSearch extends ocupacao
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['']],
         ]);
 
         $this->load($params);

@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\Aviao;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AviaoSearch */
@@ -41,8 +43,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return $model->companhia->sigla;
                                 }
                             ],
+                            [
+                                'class' => 'hail812\adminlte3\yii\grid\ActionColumn',
+                                'template'=>'{view} {update} {delete} {ocupacao}',
+                                'buttons'=>[
 
-                            ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
+                                    'ocupacao' => function ($action, $model) {
+
+                                        return Html::a('<i class="fas fa-couch"></i>',['ocupacao/index','aviaoid'=>$model->id]);
+
+                                    }
+
+                                ],
+                            ],
+
+
                         ],
                         'summaryOptions' => ['class' => 'summary mb-2'],
                         'pager' => [

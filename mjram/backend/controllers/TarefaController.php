@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Tarefa;
+use common\models\Voo;
 use app\models\TarefaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * TarefaController implements the CRUD actions for Tarefa model.
@@ -33,14 +35,16 @@ class TarefaController extends Controller
      * Lists all Tarefa models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($vooid)
     {
+        $voo = Voo::findOne($vooid);
         $searchModel = new TarefaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider(['query' => $voo->getTarefas(),]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'voo' => $voo,
         ]);
     }
 

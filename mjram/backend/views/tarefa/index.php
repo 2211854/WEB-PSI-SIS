@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TarefaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tarefas';
+$this->title = 'Tarefas do voo: '.$voo->designacao;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Tarefa', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Create Tarefa', ['create','vooid'=>$voo->id], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 

@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Ocupacao;
+use common\models\Aviao;
 use app\models\OcupacaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * OcupacaoController implements the CRUD actions for ocupacao model.
@@ -33,14 +35,18 @@ class OcupacaoController extends Controller
      * Lists all ocupacao models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($aviaoid)
     {
+        $aviao = Aviao::findOne($aviaoid);
         $searchModel = new OcupacaoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $dataProvider = new ActiveDataProvider(['query' => $aviao->getOcupacaos(),]);
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'aviao' => $aviao,
         ]);
     }
 
@@ -63,12 +69,17 @@ class OcupacaoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($aviaoid)
     {
         $model = new ocupacao();
+        $model->id_aviao = $aviaoid;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_aviao' => $model->id_aviao, 'id_classe' => $model->id_classe]);
+        if($this->request->isPost){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_aviao' => $model->id_aviao, 'id_classe' => $model->id_classe]);
+            }
+        } else{
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [

@@ -14,13 +14,11 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'designacao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'estado')->dropDownList([ 'atrasado' => 'Atrasado', 'cancelado' => 'Cancelado', 'concluido' => 'Concluido', 'planeado' => 'Planeado', 'circulacao' => 'Circulacao', ], ['prompt' => '']) ?>
-
-    <?= $form->field($model, 'id_aviao')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Aviao::find()->asArray()->all(), 'id', 'id')) ?>
+    <?= $form->field($model, 'id_aviao')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Aviao::find()->asArray()->all(), 'id', 'designacao')) ?>
 
     <?= $form->field($model, 'id_pista')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Pista::find()->asArray()->all(), 'id', 'designacao')) ?>
 
-    <?= $form->field($model, 'id_funcionario')->textInput() ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

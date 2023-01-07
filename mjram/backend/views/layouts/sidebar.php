@@ -16,7 +16,7 @@ use yii\helpers\Html;
                 <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block"><?=$username?></a>
             </div>
         </div>
 
@@ -65,16 +65,8 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => 'Categoria Recurso',
-                        'icon' => 'layer-group',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['categoriarecurso/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['categoriarecurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
                         'label' => 'classe',
-                        'icon' => 'layer-group',
+                        'icon' => 'couch',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['classe/index'], 'iconStyle' => 'far'],
                             ['label' => 'Criar', 'url' => ['classe/create'], 'iconStyle' => 'far'],
@@ -86,6 +78,54 @@ use yii\helpers\Html;
                         'items' => [
                             ['label' => 'Listar', 'url' => ['companhia/index'], 'iconStyle' => 'far'],
                             ['label' => 'Criar', 'url' => ['companhia/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Funcionarios',
+                        'icon' => 'users',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['funcionario/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['funcionario/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Hangar',
+                        'icon' => 'warehouse',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['hangar/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['hangar/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Pista',
+                        'icon' => 'road',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['pista/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['pista/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Unidade Medida',
+                        'icon' => 'weight-hanging',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['unidademedida/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['unidademedida/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Categoria Recurso',
+                        'icon' => 'layer-group',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['categoriarecurso/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['categoriarecurso/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Voo',
+                        'icon' => 'plane-departure',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['voo/create'], 'iconStyle' => 'far'],
                         ]
                     ],
                     [
@@ -105,43 +145,11 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => 'Funcionario',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['funcionario/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['funcionario/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'hangar',
-                        'icon' => 'warehouse',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['hangar/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['hangar/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'ocupacao',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['ocupacao/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['ocupacao/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
                         'label' => 'Pedido Recurso',
                         'icon' => 'plane',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['pedidorecurso/index'], 'iconStyle' => 'far'],
                             ['label' => 'Criar', 'url' => ['pedidorecurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Pista',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['pista/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['pista/create'], 'iconStyle' => 'far'],
                         ]
                     ],
                     [
@@ -161,14 +169,6 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => 'Unidade Medida',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['unidademedida/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['unidademedida/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
                         'label' => 'Utilizador',
                         'icon' => 'plane',
                         'items' => [
@@ -177,11 +177,11 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => 'Voo',
+                        'label' => 'ocupacao',
                         'icon' => 'plane',
                         'items' => [
-                            ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['voo/create'], 'iconStyle' => 'far'],
+                            ['label' => 'Listar', 'url' => ['ocupacao/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['ocupacao/create'], 'iconStyle' => 'far'],
                         ]
                     ],
                     ['label' => 'GII', 'header' => true],

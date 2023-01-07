@@ -20,12 +20,16 @@ use Yii;
  * @property DetalheVoo[] $detalheVoos
  * @property EscalaVoo[] $escalaVoos
  * @property Funcionario $funcionario
+ * @property Utilizador $utilizador
  * @property ItemVenda[] $itemVendas
  * @property Pista $pista
  * @property Tarefa[] $tarefas
  */
 class Voo extends \yii\db\ActiveRecord
 {
+    public $aviaod;
+    public $pistad;
+    public $funcionariod;
     /**
      * {@inheritdoc}
      */
@@ -61,9 +65,9 @@ class Voo extends \yii\db\ActiveRecord
             'designacao' => 'Designacao',
             'data_registo' => 'Data Registo',
             'estado' => 'Estado',
-            'id_aviao' => 'Id Aviao',
-            'id_pista' => 'Id Pista',
-            'id_funcionario' => 'Id Funcionario',
+            'id_aviao' => 'Aviao',
+            'id_pista' => 'Pista',
+            'id_funcionario' => 'Funcionario',
         ];
     }
 
@@ -115,6 +119,11 @@ class Voo extends \yii\db\ActiveRecord
     public function getFuncionario()
     {
         return $this->hasOne(Funcionario::class, ['id' => 'id_funcionario']);
+    }
+
+    public function getutilizador()
+    {
+        return $this->hasOne(Utilizador::class, ['id' => 'id_funcionario']);
     }
 
     /**
