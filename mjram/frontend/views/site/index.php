@@ -27,7 +27,7 @@ $this->title = 'Index';
 <!-- start features Area -->
 <section class="features-area section_gap">
     <div class="container">
-        <?= Html::beginForm(['voo/index', 'id' => 'searchVooForm'], 'post', ['class' =>'row features-inner']) ?>
+        <?= Html::beginForm(['voo/index', 'id' => 'searchVooForm'], 'get', ['class' =>'row features-inner']) ?>
             <!--single features -->
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
@@ -42,10 +42,10 @@ $this->title = 'Index';
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
                     <div class="f-icon">
-                        <?= Html::img('@web/img/features/chegada.png', ['width'=>'60']);?>
+                        <?= Html::img('@web/img/features/destino.png', ['width'=>'60']);?>
                     </div>
-                    <h6>Chegada:</h6>
-                    <?= Html::input('text', 'chegada','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Para onde?"','class' => 'form-control','placeholder' => 'Para onde?']) ?>
+                    <h6>Destino:</h6>
+                    <?= Html::input('text', 'destino','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Para onde?"','class' => 'form-control','placeholder' => 'Para onde?']) ?>
 
                 </div>
             </div>

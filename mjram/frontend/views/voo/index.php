@@ -21,10 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Voo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+  <!--  <?= GridView::widget([
+        'dataProvider' => $listaVoos,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -41,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  }
             ],
         ],
-    ]); ?>
+    ]); ?>-->
 
     <!-- Start Banner Area -->
     <section class="banner-area organic-breadcrumb">

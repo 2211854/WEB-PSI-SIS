@@ -11,6 +11,7 @@ use common\models\Voo;
  */
 class VooSearch extends Voo
 {
+
     /**
      * {@inheritdoc}
      */

@@ -5,12 +5,14 @@ namespace frontend\controllers;
 use common\models\Voo;
 use common\models\EscalaVoo;
 use common\models\DetalheVoo;
-use common\models\Ocupacao;
 
 use app\models\VooSearch;
+use yii\data\ActiveDataProvider;
+use yii\debug\models\timeline\DataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use function PHPUnit\Framework\isEmpty;
 
 /**
  * VooController implements the CRUD actions for Voo model.
@@ -42,15 +44,40 @@ class VooController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new VooSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        $params = $this->request->get();
+        var_dump($params);
+
+//        $listaVoos = $this->findListaVoos($params);
+
+
+
+        $listaVoos = Voo::find()->all();
+        $listaVoosEncontrados = [];
+        foreach ($listaVoos as $voo) {
+            $model = $this->findModel($voo->id);
+
+            $escalasVoo = $model->escalaVoos;
+            $indiceMaximo = count($escalasVoo) - 1;
+            if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
+                if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['chegada'])) {
+                   // $trajeto
+                    $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
+                }
+            }
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+
+            'destino' => $params['chegada'],
+            'partida' => $params['partida'],
+            'listaVoos' => $listaVoosEncontrados,
         ]);
+
+
     }
 
+    //SELECT DISTINCT * from voo,escala_voo,detalhe_voo WHERE voo.id = escala_voo.id_voo AND voo.id = detalhe_voo.id;
     /**
      * Displays a single Voo model.
      * @param string $id ID
@@ -135,4 +162,18 @@ class VooController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    protected function  findListaVoos($queryParams)
+    {
+
+        return false;
+    }
+
+    function isLike($needle, $haystack)
+    {
+        $regex = '/' . str_replace('%', '.*?', $needle) . '/';
+
+        return preg_match($regex, $haystack) > 0;
+    }
+
 }
