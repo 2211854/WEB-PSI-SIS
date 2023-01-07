@@ -14,9 +14,13 @@ $this->params['breadcrumbs'][] = 'Update';
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <?=$this->render('_form', [
+                    <?=$this->render('_form_update', [
                         'model' => $model,
-                        'actionStatus' => $actionStatus
+                        'actionStatus' => $actionStatus,
+                        'message' => $message,
+                        'escalasvooseguinte' => $escalasvooseguinte,
+                        'escalasvooanterior' => $escalasvooanterior,
+
                     ]) ?>
                 </div>
             </div>

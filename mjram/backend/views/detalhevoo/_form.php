@@ -10,15 +10,15 @@ use yii\bootstrap4\ActiveForm;
 
 <div class="detalhe-voo-form">
     <?php
-        if(isset($actionStatus)){
+    if(isset($actionStatus)){
 
-            $mensagem = "Já existe um preço para está classe neste voo!";
+        $mensagem = "Já existe um preço para está classe neste voo!";
 
-            echo \hail812\adminlte\widgets\Alert::widget([
-                'type' => $actionStatus,
-                'body' => '<h3>'.$mensagem.'</h3>',
-            ]);
-        }
+        echo \hail812\adminlte\widgets\Alert::widget([
+            'type' => $actionStatus,
+            'body' => '<h3>'.$mensagem.'</h3>',
+        ]);
+    }
     ?>
 
     <?php $form = ActiveForm::begin(); ?>

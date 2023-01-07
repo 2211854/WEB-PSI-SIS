@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\EscalaVoo */
 
 $this->title = $model->voo->designacao;
+$this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['voo/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Escala Voos', 'url' => ['index','vooid'=>$model->id_voo]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

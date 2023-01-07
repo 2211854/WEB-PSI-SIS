@@ -35,7 +35,7 @@ class EscalavooController extends Controller
      * Lists all EscalaVoo models.
      * @return mixed
      */
-    public function actionIndex($vooid)
+    public function actionIndex($vooid,$message = null)
     {
         $voo = Voo::findOne($vooid);
         $searchModel = new EscalavooSearch();
@@ -46,6 +46,7 @@ class EscalavooController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'voo' => $voo,
+            'message' => $message
         ]);
     }
 
@@ -72,25 +73,54 @@ class EscalavooController extends Controller
         $model = new EscalaVoo();
         $voo = Voo::findOne($vooid);
         $model->id_voo = $vooid;
+        $first=false;
+        $minimo = null;
+
+        $escalasvoo = Yii::$app->db->createCommand("Select * from escala_voo where id_voo='".$model->id_voo."' ORDER BY id DESC")->queryOne();
+        if($escalasvoo != null){
+            $model->partida = $escalasvoo['destino'];
+            $minimo = $escalasvoo['horario_chegada'];
+        }else{
+            $first=true;
+        }
+
         if($this->request->isPost){
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) ) {
+                //verificar se a data e horario de chegada e inferior ao da partida
+                if (strtotime($model->horario_chegada)<strtotime($model->horario_partida)){
+                    return $this->render('create', [
+                        'model' => $model,
+                        'voo' => $voo,
+                        'actionStatus' => 'warning',
+                        'message' => 'A data e horario de chegada nao pode ser inferior ao da partida!',
+                        'first'=>$first,
+                        'minimo' =>$minimo,
+                    ]);
+                }else{
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }else{
                 return $this->render('create', [
                     'model' => $model,
                     'voo' => $voo,
                     'actionStatus' => 'warning',
+                    'message' => null,
+                    'first'=>$first,
+                    'minimo' =>$minimo,
                 ]);
             }
         }else{
             $model->loadDefaultValues();
         }
 
-
         return $this->render('create', [
             'model' => $model,
             'voo' => $voo,
             'actionStatus' => null,
+            'message' => null,
+            'first'=>$first,
+            'minimo' =>$minimo,
         ]);
     }
 
@@ -104,13 +134,39 @@ class EscalavooController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+        $escalasvoo = Yii::$app->db->createCommand("Select * from escala_voo where id_voo='".$model->id_voo."' ORDER BY id DESC")->queryOne();
+        $escalasvooanterior = Yii::$app->db->createCommand("select * from escala_voo where id = (select max(id) from escala_voo where id < '".$model->id."' AND id_voo = '".$model->id_voo."');")->queryOne();
+        $escalasvooseguinte = Yii::$app->db->createCommand("select * from escala_voo where id = (select min(id) from escala_voo where id > '".$model->id."' AND id_voo = '".$model->id_voo."');")->queryOne();
+        if($escalasvooanterior != false){
+            $escalasvooanterior = $escalasvooanterior['horario_chegada'];
+        }
+        if($escalasvooseguinte != false){
+            $escalasvooseguinte = $escalasvooseguinte['horario_partida'];
+        }
+
         if($this->request->isPost){
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post())) {
+                //verificar se a data e horario de chegada e inferior ao da partida
+                if (strtotime($model->horario_chegada)<strtotime($model->horario_partida)){
+                    return $this->render('update', [
+                        'model' => $model,
+                        'actionStatus' => 'warning',
+                        'message' => 'A data e horario de chegada nao pode ser inferior ao da partida!',
+                        'escalasvooseguinte' => $escalasvooseguinte,
+                        'escalasvooanterior' => $escalasvooanterior,
+                    ]);
+                }else{
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }else{
                 return $this->render('update', [
                     'model' => $model,
                     'actionStatus' => 'warning',
+                    'message' => 'algo',
+                    'escalasvooseguinte' => $escalasvooseguinte,
+                    'escalasvooanterior' => $escalasvooanterior,
                 ]);
             }
         }else{
@@ -120,6 +176,9 @@ class EscalavooController extends Controller
         return $this->render('update', [
             'model' => $model,
             'actionStatus' => null,
+            'message' => null,
+            'escalasvooseguinte' => $escalasvooseguinte,
+            'escalasvooanterior' => $escalasvooanterior,
         ]);
     }
 
@@ -132,9 +191,19 @@ class EscalavooController extends Controller
      */
     public function actionDelete($id)
     {
+
+        $model = $this->findModel($id);
+
+        $vooid = $model->id_voo;
+        $escalasvooanterior = Yii::$app->db->createCommand("select * from escala_voo where id = (select max(id) from escala_voo where id < '".$model->id."' AND id_voo = '".$model->id_voo."');")->queryOne();
+        $escalasvooseguinte = Yii::$app->db->createCommand("select * from escala_voo where id = (select min(id) from escala_voo where id > '".$model->id."' AND id_voo = '".$model->id_voo."');")->queryOne();
+        if($escalasvooanterior != false && $escalasvooseguinte != false){
+            return $this->redirect(['index','vooid'=>$vooid,'message' => 'Nao é possivel eliminar esta escala pois existem escalas anteriores e posteriores']);;
+        }
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index','vooid'=>$vooid]);
     }
 
     /**

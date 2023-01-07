@@ -9,18 +9,51 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="escala-voo-form">
+    <?php
+    if(isset($actionStatus)){
 
-    <?php $form = ActiveForm::begin(); ?>
+        echo \hail812\adminlte\widgets\Alert::widget([
+            'type' => $actionStatus,
+            'body' => '<h3>'.$message.'</h3>',
+        ]);
+    }
+    ?>
+
+    <?php $form = ActiveForm::begin();
+
+    if(isset($model->partida) && $first==false){
+
+    ?>
+
+    <?= $form->field($model, 'partida')->textInput(['maxlength' => true,'disabled'=>true]) ?>
+
+    <?php }else{?>
 
     <?= $form->field($model, 'partida')->textInput(['maxlength' => true]) ?>
 
+    <?php } ?>
+
     <?= $form->field($model, 'destino')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'horario_partida')->textInput() ?>
+    <?php
+    if(isset($minimo)){
 
-    <?= $form->field($model, 'horario_chegada')->textInput() ?>
+    ?>
 
-    <?= $form->field($model, 'id_voo')->textInput() ?>
+        <?= $form->field($model, 'horario_partida')->textInput(['type' => 'datetime-local','min'=>$minimo]) ?>
+
+        <?= $form->field($model, 'horario_chegada')->textInput(['type' => 'datetime-local','min'=>$minimo]) ?>
+
+
+    <?php }else{?>
+
+        <?= $form->field($model, 'horario_partida')->textInput(['type' => 'datetime-local','min'=>date("Y-m-d H:i", strtotime("+1 day"))]) ?>
+
+        <?= $form->field($model, 'horario_chegada')->textInput(['type' => 'datetime-local','min'=>date("Y-m-d H:i", strtotime("+1 day"))]) ?>
+
+
+    <?php } ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

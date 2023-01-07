@@ -18,7 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-12">
                     <?=$this->render('_form', [
                         'model' => $model,
-                        'actionStatus' => $actionStatus
+                        'actionStatus' => $actionStatus,
+                        'message'=> $message,
+                        'first'=>$first,
+                        'minimo' =>$minimo,
                     ]) ?>
                 </div>
             </div>
