@@ -1,0 +1,14 @@
+Testes Unit:
+-Signup
+-Alteracao da pista do voo
+-pesquisar voo
+-Verificar detalhes de voo
+-Login frontend
+Testes Funcionais:
+-login backend
+-Criação de um funcionario
+-Criacao de um voo
+-criar uma tarefa de manutencao
+-adicionar um bilhete ao carrinha e efetuar a compra
+Testes de aceitação:
+-1 teste de aceitação, que cubra a funcionalidades mais relevante do sistema.

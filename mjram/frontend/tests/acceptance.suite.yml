@@ -1,10 +1,9 @@
-suite_namespace: frontend\tests\functional
-actor: FunctionalTester
+suite_namespace: frontend\tests\acceptance
+actor: AcceptanceTester
 modules:
     enabled:
-        - Filesystem
-        - Yii2
-        - Asserts
+        - Yii2:
+            part: init
     WebDriver:
         host: opera
         url: http://localhost

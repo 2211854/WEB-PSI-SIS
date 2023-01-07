@@ -3,3 +3,18 @@ actor: FunctionalTester
 modules:
     enabled:
         - Yii2
+    WebDriver:
+        host: opera
+        url: http://localhost
+        browser: opera
+        port: 4444
+        window_size: 1024x768
+        restart: true
+    Db:
+        dsn: 'mysql:localhost=mysql:3306;dbname=mjramtester'
+        user: 'root'
+        password: 'root'
+        dump: 'tests/_data/dump.sql'
+        populate: true
+        cleanup: true
+        reconnect: true

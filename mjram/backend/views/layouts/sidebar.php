@@ -28,7 +28,7 @@ use yii\helpers\Html;
                 </a>
             </div>
             <div class="info">
-                <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post']) ?>
+                <?= Html::a('<i class="fas fa-sign-out-alt"></i>', ['/site/logout'], ['data-method' => 'post','name'=> 'btnLogout']) ?>
             </div>
         </div>
         <!-- SidebarSearch Form -->

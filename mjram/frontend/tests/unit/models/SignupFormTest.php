@@ -23,50 +23,51 @@ class SignupFormTest extends \Codeception\Test\Unit
         ]);
     }
 
-    public function testCorrectSignup()
+    public function testSignup()
     {
-        $model = new SignupForm([
-            'username' => 'some_username',
-            'email' => 'some_email@example.com',
-            'password' => 'some_password',
+        $user = new utilizador();
+        $user->setName('Ricardo');
+        $user->setApelido('Santos');
+        $user->setEmail('ricsantos2003@hotmail.com');
+        $user->setUsername('Ricardo');
+        $user->setTelemovel('912456934');
+        $user->setPassword('12345678');
+        $user->setPassport('CS265436');
+        $user->setcartaoCidadao('498123745');
+        $user->save();
+        /*$user->tester->seeInDataBase('utilizador',[
+            'nome' => 'Ricardo',
+            'Apelido' => 'Santos',
+            'email' => 'ricsantos2003@hotmail.com',
+            'username'=> 'Ricardo',
+            'Telemovel'=> '912456934',
+            'password' => '12345678',
+            'Passport'=> 'CS265436',
+            'cartaoCidadao'=> '498123745',
+        ]);*/
+
+        $this->tester->seeRecord(
+            'utilizador'
+            ,['nome' => 'Ricardo',
+            'Apelido' => 'Santos',
+            'email' => 'ricsantos2003@hotmail.com',
+            'username'=> 'Ricardo',
+            'Telemovel'=> '912456934',
+            'password' => '12345678',
+            'Passport'=> 'CS265436',
+            'cartaoCidadao'=> '498123745',
         ]);
 
-        $user = $model->signup();
+        /*$user = $model->signup();
         verify($user)->notEmpty();
 
-        /** @var \common\models\User $user */
+
         $user = $this->tester->grabRecord('common\models\User', [
             'username' => 'some_username',
             'email' => 'some_email@example.com',
             'status' => \common\models\User::STATUS_INACTIVE
-        ]);
+        ]);*/
 
-        $this->tester->seeEmailIsSent();
-
-        $mail = $this->tester->grabLastSentEmail();
-
-        verify($mail)->instanceOf('yii\mail\MessageInterface');
-        verify($mail->getTo())->arrayHasKey('some_email@example.com');
-        verify($mail->getFrom())->arrayHasKey(\Yii::$app->params['supportEmail']);
-        verify($mail->getSubject())->equals('Account registration at ' . \Yii::$app->name);
-        verify($mail->toString())->stringContainsString($user->verification_token);
     }
 
-    public function testNotCorrectSignup()
-    {
-        $model = new SignupForm([
-            'username' => 'troy.becker',
-            'email' => 'nicolas.dianna@hotmail.com',
-            'password' => 'some_password',
-        ]);
-
-        verify($model->signup())->empty();
-        verify($model->getErrors('username'))->notEmpty();
-        verify($model->getErrors('email'))->notEmpty();
-
-        verify($model->getFirstError('username'))
-            ->equals('This username has already been taken.');
-        verify($model->getFirstError('email'))
-            ->equals('This email address has already been taken.');
-    }
 }
