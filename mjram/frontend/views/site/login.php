@@ -10,6 +10,88 @@ use yii\bootstrap5\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1><?= Html::encode($this->title) ?></h1>
+               <!-- <nav class="d-flex align-items-center">
+                    <?= Html::a('Inicio <span class="lnr lnr-arrow-right"></span>',['site/index'],['class' => 'lnr lnr-arrow-right'])?>
+
+                </nav>-->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <?= Html::img('@web/img/login.jpg', ['class'=> 'img-fluid']);?>
+                    <div class="hover">
+                        <h4>Novo no website?</h4>
+                        <p>Para melhor aproveitamento cria uma conta</p>
+
+                        <?= Html::a('Criar uma conta',['site/signup'],['class' => 'primary-btn']) ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+                    <h3>Inicia sessão para entrar na área reservada</h3>
+
+                    <?php $form = ActiveForm::begin([
+                                'id' => 'login-form' ,
+                                'options' => ['class' => 'row login_form']
+                            ]); ?>
+                        <div class="col-md-12 form-group">
+                            <?= $form->field($model, 'username')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Nome de Utilizador"','class' => 'form-control','placeholder' => 'Nome de Utilizador'])->label(false) ?>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <?= $form->field($model, 'password')->passwordInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Palavra-Passe"','class' => 'form-control','placeholder' => 'Palavra-Passe'])->label(false) ?>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <?=$form->field(
+                                    $model,
+                                    'rememberMe',
+                                [
+                                        'options' => ['class' => 'creat_account']
+                                ]
+
+                            )->checkBox([
+                                    'id'=>'f-option2',
+                                'class' => 'creat_account',
+                                'checked' => false
+                            ])->label(
+                                    'Deixar-me logado',
+                                    [
+                                            'for'=> 'f-option2'
+                                    ]
+                            )
+
+                            ?>
+
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <?= Html::submitButton('Login', ['class' => 'primary-btn', 'name' => 'login-button']) ?>
+                            <?= Html::a('Forgot password?', ['site/request-password-reset']) ?>
+                            <?= Html::a('Re-enviar email de verificação', ['site/resend-verification-email']) ?>
+                        </div>
+                    <?php ActiveForm::end(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Login Box Area =================-->
+<!--
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -38,4 +120,4 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-</div>
+</div>-->

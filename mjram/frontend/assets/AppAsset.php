@@ -12,6 +12,10 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        [
+            'href' => 'img/fav.png',
+            'rel' => 'icon',
+        ],
         'css/site.css',
         'css/linearicons.css',
         'css/font-awesome.min.css',
