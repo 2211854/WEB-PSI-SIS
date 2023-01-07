@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 04-Dez-2022 às 19:45
+-- Tempo de geração: 07-Jan-2023 às 21:22
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 8.0.13
 
@@ -44,7 +44,10 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('admin', '1', 1667833664),
 ('cliente', '5', 1668380635),
 ('funcionarioManutencao', '2', 1668380312),
-('gestorFinaceiro', '3', 1668380450);
+('funcionarioManutencao', '6', 1671023493),
+('gestorFinaceiro', '12', 1671737448),
+('gestorFinaceiro', '3', 1668380450),
+('gestorLogistica', '13', 1672250004);
 
 -- --------------------------------------------------------
 
@@ -128,16 +131,17 @@ CREATE TABLE IF NOT EXISTS `auth_rule` (
 DROP TABLE IF EXISTS `aviao`;
 CREATE TABLE IF NOT EXISTS `aviao` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `marca` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `modelo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designacao` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `marca` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modelo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `combustivelatual` bigint NOT NULL,
   `combustivelmaximo` bigint NOT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `estado` enum('inativo','operacional','manutencao','danificado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'operacional',
+  `estado` enum('inativo','operacional','manutencao','danificado') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'operacional',
   `id_companhia` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_aviao_companhia` (`id_companhia`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -148,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `aviao` (
 DROP TABLE IF EXISTS `categoria_recurso`;
 CREATE TABLE IF NOT EXISTS `categoria_recurso` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -161,9 +165,18 @@ CREATE TABLE IF NOT EXISTS `categoria_recurso` (
 DROP TABLE IF EXISTS `classe`;
 CREATE TABLE IF NOT EXISTS `classe` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `classe`
+--
+
+INSERT INTO `classe` (`id`, `designacao`) VALUES
+(1, 'Economica'),
+(2, 'Primeira'),
+(3, 'Business');
 
 -- --------------------------------------------------------
 
@@ -174,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `classe` (
 DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE IF NOT EXISTS `cliente` (
   `id` bigint UNSIGNED NOT NULL,
-  `passaporte` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `passaporte` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -187,9 +200,11 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 DROP TABLE IF EXISTS `companhia`;
 CREATE TABLE IF NOT EXISTS `companhia` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `nome` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sigla` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sigla` (`sigla`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -206,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `detalhe_voo` (
   PRIMARY KEY (`id_classe`,`id_voo`),
   KEY `id` (`id`),
   KEY `fk_detalhe_voo` (`id_voo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -217,14 +232,14 @@ CREATE TABLE IF NOT EXISTS `detalhe_voo` (
 DROP TABLE IF EXISTS `escala_voo`;
 CREATE TABLE IF NOT EXISTS `escala_voo` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `partida` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `destino` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `partida` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `destino` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `horario_partida` datetime NOT NULL,
   `horario_chegada` datetime NOT NULL,
   `id_voo` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_escala_voo` (`id_voo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -235,9 +250,18 @@ CREATE TABLE IF NOT EXISTS `escala_voo` (
 DROP TABLE IF EXISTS `funcionario`;
 CREATE TABLE IF NOT EXISTS `funcionario` (
   `id` bigint UNSIGNED NOT NULL,
-  `nib` varchar(21) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nib` varchar(21) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `funcionario`
+--
+
+INSERT INTO `funcionario` (`id`, `nib`) VALUES
+(2, '123456789123456789122'),
+(3, '123456789012345678999'),
+(4, '123456789987456321147');
 
 -- --------------------------------------------------------
 
@@ -248,9 +272,16 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
 DROP TABLE IF EXISTS `hangar`;
 CREATE TABLE IF NOT EXISTS `hangar` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `hangar`
+--
+
+INSERT INTO `hangar` (`id`, `designacao`) VALUES
+(1, 'Norte 1');
 
 -- --------------------------------------------------------
 
@@ -261,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `hangar` (
 DROP TABLE IF EXISTS `item_venda`;
 CREATE TABLE IF NOT EXISTS `item_venda` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `passaporte` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `passaporte` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_venda` bigint UNSIGNED NOT NULL,
   `id_classe` bigint UNSIGNED NOT NULL,
   `id_voo` bigint UNSIGNED NOT NULL,
@@ -306,13 +337,13 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 DROP TABLE IF EXISTS `ocupacao`;
 CREATE TABLE IF NOT EXISTS `ocupacao` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `ocupacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ocupacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_aviao` bigint UNSIGNED NOT NULL,
   `id_classe` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id_aviao`,`id_classe`),
   KEY `id` (`id`),
   KEY `fk_ocupacao_classe` (`id_classe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -328,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `pedido_recurso` (
   `custo_total` bigint NOT NULL,
   `id_recurso` bigint UNSIGNED NOT NULL,
   `id_funcionario` bigint UNSIGNED NOT NULL,
-  `estado` enum('aprovado','pago','reprovado','devolvido','entregue','por aprovar') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'por aprovar',
+  `estado` enum('aprovado','pago','reprovado','devolvido','entregue','por aprovar') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'por aprovar',
   PRIMARY KEY (`id`),
   KEY `fk_pedido_recurso` (`id_recurso`),
   KEY `fk_pedido_funcionario` (`id_funcionario`)
@@ -343,12 +374,21 @@ CREATE TABLE IF NOT EXISTS `pedido_recurso` (
 DROP TABLE IF EXISTS `pista`;
 CREATE TABLE IF NOT EXISTS `pista` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `comprimento` bigint NOT NULL,
   `largura` bigint NOT NULL,
-  `estado` enum('danificada','operacional','manutencao') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'operacional',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `estado` enum('danificada','operacional','manutencao') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'operacional',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `designacao` (`designacao`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `pista`
+--
+
+INSERT INTO `pista` (`id`, `designacao`, `comprimento`, `largura`, `estado`) VALUES
+(1, '17/35', 2400, 45, 'operacional'),
+(2, '03/21', 3805, 45, 'operacional');
 
 -- --------------------------------------------------------
 
@@ -359,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `pista` (
 DROP TABLE IF EXISTS `recurso`;
 CREATE TABLE IF NOT EXISTS `recurso` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `stockatual` bigint NOT NULL,
   `id_categoria` bigint UNSIGNED NOT NULL,
   `id_unidade` bigint UNSIGNED NOT NULL,
@@ -377,11 +417,11 @@ CREATE TABLE IF NOT EXISTS `recurso` (
 DROP TABLE IF EXISTS `tarefa`;
 CREATE TABLE IF NOT EXISTS `tarefa` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `designacao` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designacao` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `data_inicio` datetime DEFAULT NULL,
   `data_conclusao` datetime DEFAULT NULL,
-  `estado` enum('cancelado','concluido','planeada') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'planeada',
+  `estado` enum('cancelado','concluido','planeada') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'planeada',
   `id_voo` bigint UNSIGNED NOT NULL,
   `id_hangar` bigint UNSIGNED DEFAULT NULL,
   `id_recurso` bigint UNSIGNED DEFAULT NULL,
@@ -404,9 +444,16 @@ CREATE TABLE IF NOT EXISTS `tarefa` (
 DROP TABLE IF EXISTS `unidade_medida`;
 CREATE TABLE IF NOT EXISTS `unidade_medida` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `unidade_medida`
+--
+
+INSERT INTO `unidade_medida` (`id`, `designacao`) VALUES
+(1, 'Litros');
 
 -- --------------------------------------------------------
 
@@ -430,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `user`
@@ -440,7 +487,10 @@ INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_res
 (1, 'administrador', 'aVUK9dPTMvpy8uLhw4i0tnSH9woOej1d', '$2y$13$bbRRb/VVliZUBbs4EmXmPO1.YK9fM2CneYKdy02eAyppvyrC0ipKS', NULL, 'admin@admin.pt', 10, 1667834207, 1667834207, 'dumx5N1FRwmTbeINxA4TtxAvsh-lxnWH_1667834207'),
 (2, 'funcionariomanutencao1', 'teJNxcluIWLF26olqj4PcaHK7dGBWK98', '$2y$13$PuyWNlWDae1CA8sC84iL2.nkcLzcjhGWrfynGgoOf.GJiasRkC5yO', NULL, '2211854@my.ipleiria.pt', 10, 1668380312, 1668380312, '-rlJPIrSTOmM1aj6wZo0t876olmwZy4H_1668380312'),
 (3, 'gestorfinanceiro1', 'G9IV_vrd4HoedthC5MtyOk3M7-8htrmP', '$2y$13$m9HfspFYoQw6PVQGISsdjODGWgZxEmqfTVGoahdSphvSJurvH351W', NULL, 'gestorfinanceiro@gestores.pt', 10, 1668380450, 1668380450, '3DNmnQP9O_GGrLye7lyqpcTySAXlBO9W_1668380450'),
-(5, 'cliente1', 'KaKekjEYs4he59dJQIC_wtdOk2jU4hmW', '$2y$13$lhekKfGMkTcJXDOalXB3ROlDsErQcChcUkc2lEZQhuoRPYhYxRvKm', NULL, 'cliente1@clientesbons.pt', 10, 1668380635, 1668380635, 'MxrURdoJqwvri6asAU6wdz5dGfKIhEU__1668380635');
+(5, 'cliente1', 'KaKekjEYs4he59dJQIC_wtdOk2jU4hmW', '$2y$13$lhekKfGMkTcJXDOalXB3ROlDsErQcChcUkc2lEZQhuoRPYhYxRvKm', NULL, 'cliente1@clientesbons.pt', 10, 1668380635, 1668380635, 'MxrURdoJqwvri6asAU6wdz5dGfKIhEU__1668380635'),
+(6, '', 'WVwF6k8ACUjEjWSsHYodNQO7YgkwviXs', '$2y$13$0bW5D27aB1/irY0QA/IIsepBfoxADmCbvEBtTTX1YxpP7WBJTFvjy', NULL, '', 10, 1671023492, 1671023492, 'tdT8tDsnue0UqJE4PoX0lv9swrzDVbON_1671023492'),
+(12, 'FMteste2editado', '_TqCak9QBodaUTq9D5cvIhenEKu3ZVLO', '$2y$13$GPB48o2.um89Bh5qnj2Ai.endyk7YFPMP.TTZUa6gkdT7QmxvVtLe', NULL, 'FMteste2@teste2.pt', 10, 1671025530, 1671735236, 'MzGBr3Xo9Hn_R_2SJqXuL35bYMUcGQJW_1671025530'),
+(13, 'GLteste1', '1O7Z_jOJU_v3MMOfcUwfMjOBCSsPINA1', '$2y$13$EX5toqPW9neke/GVYRA2ru5Gyu3/K2cwV77WQzcQofH9VGKx38chW', NULL, 'GLteste1@teste1.pt', 10, 1672250004, 1672250004, 'Xd2YSqWb4GOTAvp_swhyr20XZ9X_hI8V_1672250003');
 
 -- --------------------------------------------------------
 
@@ -452,17 +502,25 @@ DROP TABLE IF EXISTS `utilizador`;
 CREATE TABLE IF NOT EXISTS `utilizador` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `telemovel` int NOT NULL,
-  `palavrapasse` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nif` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nome` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `apelidos` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nif` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `apelidos` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `cartaocidadao` int NOT NULL,
   `id_user` int NOT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_utilizador_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `utilizador`
+--
+
+INSERT INTO `utilizador` (`id`, `telemovel`, `nif`, `nome`, `apelidos`, `cartaocidadao`, `id_user`, `data_registo`) VALUES
+(1, 123456789, '123456789', 'FMteste1Nome', 'FMteste1Apelido', 123456789, 6, '2022-12-14 13:11:33'),
+(2, 2147483647, '213213123', 'FMteste2Nomeeditado', 'FMteste2Apelido', 2147483647, 12, '2022-12-14 13:45:30'),
+(3, 12345679, '213454789', 'GLteste1Nome', 'GLteste1Apelido', 9876125, 13, '2022-12-28 17:53:24'),
+(4, 842657139, '777555111', 'adminNome', 'adminApelido', 147852369, 1, '2023-01-05 00:55:44');
 
 -- --------------------------------------------------------
 
@@ -473,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `utilizador` (
 DROP TABLE IF EXISTS `venda`;
 CREATE TABLE IF NOT EXISTS `venda` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `estado` enum('cancelado','pago','carrinho') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'carrinho',
+  `estado` enum('cancelado','pago','carrinho') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'carrinho',
   `data_compra` datetime DEFAULT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_cliente` bigint UNSIGNED NOT NULL,
@@ -490,8 +548,9 @@ CREATE TABLE IF NOT EXISTS `venda` (
 DROP TABLE IF EXISTS `voo`;
 CREATE TABLE IF NOT EXISTS `voo` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `designacao` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `estado` enum('atrasado','cancelado','concluido','planeado','circulacao') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'planeado',
+  `estado` enum('atrasado','cancelado','concluido','planeado','circulacao') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'planeado',
   `id_aviao` bigint UNSIGNED NOT NULL,
   `id_pista` bigint UNSIGNED NOT NULL,
   `id_funcionario` bigint UNSIGNED NOT NULL,
@@ -499,7 +558,7 @@ CREATE TABLE IF NOT EXISTS `voo` (
   KEY `fk_voo_aviao` (`id_aviao`),
   KEY `fk_voo_funcionario` (`id_funcionario`),
   KEY `fk_voo_pista` (`id_pista`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Restrições para despejos de tabelas
