@@ -51,43 +51,153 @@ return [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/default',
+                    'controller' => 'api/user',
                     'pluralize' => false,
                     'tokens' => [
-                        '{limite}'=>'<limite:\\w+>',
                     ],
                     'extraPatterns' => [
-                        /*'GET total' => 'total',   // 'total' é 'actionTotal'
-                        'GET {id}/morada' => 'morada', // 'morada' é 'actionMorada'
-                        'GET set/{limite}' => 'set',   // 'set' é 'actionSet‘*/
-
                     ] ,
+
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/utilizador',
                     'pluralize' => false,
                     'tokens' => [
-
                     ],
                     'extraPatterns' => [
-                        'GET list' => 'list',   // actionList
                     ] ,
 
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/cliente',
+                    'controller' => 'api/funcionario',
                     'pluralize' => false,
                     'tokens' => [
-                        '{limite}'=>'<limite:\\w+>',
                     ],
                     'extraPatterns' => [
-                        'GET total' => 'total',   // 'total' é 'actionTotal'
-                        'GET {id}/morada' => 'morada', // 'morada' é 'actionMorada'
-                        'GET set/{limite}' => 'set',   // 'set' é 'actionSet‘
+                    ] ,
 
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/unidademedida',
+                    'pluralize' => false,
+                    'tokens' => [
                     ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/aviao',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/recurso',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/categoriarecurso',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/classe',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/companhia',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/hangar',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/ocupacao',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/pedidorecurso',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/pista',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/tarefa',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/voo',
+                    'pluralize' => false,
+                    'tokens' => [
+                    ],
+                    'extraPatterns' => [
+                    ] ,
+
                 ],
             ],
         ],

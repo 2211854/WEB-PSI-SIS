@@ -82,6 +82,17 @@ class VendaController extends Controller
         ]);
     }
 
+    public function actionCarrinho()
+    {
+        $searchModel = new VendaSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Updates an existing Venda model.
      * If update is successful, the browser will be redirected to the 'view' page.
