@@ -17,6 +17,7 @@ use Yii;
  */
 class Ocupacao extends \yii\db\ActiveRecord
 {
+    public $designacao;
     /**
      * {@inheritdoc}
      */
@@ -48,8 +49,8 @@ class Ocupacao extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'ocupacao' => 'Ocupacao',
-            'id_aviao' => 'Id Aviao',
-            'id_classe' => 'Id classe',
+            'id_aviao' => 'Aviao',
+            'id_classe' => 'Classe',
         ];
     }
 

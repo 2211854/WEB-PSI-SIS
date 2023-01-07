@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Voo', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Voo', ['create'], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -28,17 +28,54 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
                             'designacao',
                             'data_registo',
                             'estado',
-                            'id_aviao',
-                            //'id_pista',
-                            //'id_funcionario',
+                            [
+                                'label' => 'Aviao',
+                                'attribute' => 'aviaod',
+                                'value' => function($model) {
+                                    return $model->aviao->designacao;
+                                }
+                            ],
+                            [
+                                'label' => 'Pista',
+                                'attribute' => 'pistad',
+                                'value' => function($model) {
+                                    return $model->pista->designacao;
+                                }
+                            ],[
+                                'label' => 'Funcionario',
+                                'attribute' => 'funcionariod',
+                                'value' => function($model) {
+                                    return $model->funcionario->utilizador->nome;
+                                }
+                            ],
 
-                            ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
+                            [
+                                'class' => 'hail812\adminlte3\yii\grid\ActionColumn',
+                                'template'=>'{view} {update} {delete} {detalhevoo} {escalavoo} {tarefa}',
+                                'buttons'=>[
+
+                                    'detalhevoo' => function ($action, $model) {
+
+                                        return Html::a('<i class="fas fa-euro-sign"></i>',['detalhevoo/index','vooid'=>$model->id]);
+
+                                    },
+                                    'escalavoo' => function ($action, $model) {
+
+                                        return Html::a('<i class="fas fa-map-pin"></i>',['escalavoo/index','vooid'=>$model->id]);
+
+                                    },
+
+                                    'tarefa' => function ($action, $model) {
+
+                                        return Html::a('<i class="fas fa-tasks"></i>',['tarefa/index','vooid'=>$model->id]);
+
+                                    }
+
+                                ],
+                            ],
                         ],
                         'summaryOptions' => ['class' => 'summary mb-2'],
                         'pager' => [

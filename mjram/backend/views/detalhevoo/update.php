@@ -3,9 +3,9 @@
 /* @var $this yii\web\View */
 /* @var $model common\models\DetalheVoo */
 
-$this->title = 'Update Detalhe Voo: ' . $model->id_voo;
-$this->params['breadcrumbs'][] = ['label' => 'Detalhe Voos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_voo, 'url' => ['view', 'id_voo' => $model->id_voo, 'id_classe' => $model->id_classe]];
+$this->title = 'Update Detalhes do Voo: ' . $model->voo->designacao;
+$this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['voo/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Detalhe Voos', 'url' => ['index','vooid'=>$model->id_voo]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 
@@ -15,7 +15,8 @@ $this->params['breadcrumbs'][] = 'Update';
             <div class="row">
                 <div class="col-md-12">
                     <?=$this->render('_form', [
-                        'model' => $model
+                        'model' => $model,
+                        'actionStatus' => $actionStatus
                     ]) ?>
                 </div>
             </div>

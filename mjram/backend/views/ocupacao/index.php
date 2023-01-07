@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\OcupacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ocupacaos';
+$this->title = 'Ocupação do Avião: '. $aviao->designacao;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Ocupacao', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Ocupacao', ['create','aviaoid'=>$aviao->id], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -26,14 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
 
-                            'id',
+
                             'ocupacao',
-                            'id_aviao',
-                            'id_classe',
+                            [
+                                'label' => 'Classe',
+                                'attribute' => 'designacao',
+                                'value' => function($model) {
+                                    return $model->classe->designacao;
+                                }
+                            ],
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],

@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\DetalheVoo;
+use common\models\Voo;
 use app\models\DetalhevooSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
 
 /**
  * DetalhevooController implements the CRUD actions for DetalheVoo model.
@@ -33,14 +35,17 @@ class DetalhevooController extends Controller
      * Lists all DetalheVoo models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($vooid)
     {
+        $voo = Voo::findOne($vooid);
         $searchModel = new DetalhevooSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider(['query' => $voo->getDetalheVoos(),]);
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'voo' => $voo,
         ]);
     }
 
@@ -63,16 +68,31 @@ class DetalhevooController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($vooid)
     {
         $model = new DetalheVoo();
+        $voo = Voo::findOne($vooid);
+        $model->id_voo = $vooid;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_voo' => $model->id_voo, 'id_classe' => $model->id_classe]);
+        if($this->request->isPost){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_voo' => $model->id_voo, 'id_classe' => $model->id_classe]);
+            }else{
+
+                return $this->render('create', [
+                    'model' => $model,
+                    'voo' => $voo,
+                    'actionStatus' => 'warning',
+                ]);
+            }
+        } else{
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
+            'voo' => $voo,
+            'actionStatus' => null,
         ]);
     }
 
@@ -87,13 +107,22 @@ class DetalhevooController extends Controller
     public function actionUpdate($id_voo, $id_classe)
     {
         $model = $this->findModel($id_voo, $id_classe);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id_voo' => $model->id_voo, 'id_classe' => $model->id_classe]);
+        if($this->request->isPost){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id_voo' => $model->id_voo, 'id_classe' => $model->id_classe]);
+            }else{
+                return $this->render('update', [
+                    'model' => $model,
+                    'actionStatus' => 'warning',
+                ]);
+            }
+        }else{
+            $model->loadDefaultValues();
         }
 
         return $this->render('update', [
             'model' => $model,
+            'actionStatus' => null,
         ]);
     }
 
@@ -109,7 +138,7 @@ class DetalhevooController extends Controller
     {
         $this->findModel($id_voo, $id_classe)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index','vooid'=>$id_voo]);
     }
 
     /**

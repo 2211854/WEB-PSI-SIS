@@ -5,8 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\DetalheVoo */
 
-$this->title = 'Create Detalhe Voo';
-$this->params['breadcrumbs'][] = ['label' => 'Detalhe Voos', 'url' => ['index']];
+$this->title = 'Criar Detalhe do Voo: '.$voo->designacao;
+$this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['voo/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Detalhe Voos', 'url' => ['index','vooid'=>$model->id_voo]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -16,7 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-md-12">
                     <?=$this->render('_form', [
-                        'model' => $model
+                        'model' => $model,
+                        'actionStatus' => $actionStatus
                     ]) ?>
                 </div>
             </div>

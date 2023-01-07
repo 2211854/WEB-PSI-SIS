@@ -6,8 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\EscalaVoo */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Escala Voos', 'url' => ['index']];
+$this->title = $model->voo->designacao;
+$this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['voo/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Escala Voos', 'url' => ['index','vooid'=>$model->id_voo]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -30,12 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= DetailView::widget([
                         'model' => $model,
                         'attributes' => [
-                            'id',
                             'partida',
                             'destino',
                             'horario_partida',
                             'horario_chegada',
-                            'id_voo',
                         ],
                     ]) ?>
                 </div>
