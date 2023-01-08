@@ -47,153 +47,156 @@ use yii\helpers\Html;
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
-            echo \hail812\adminlte\widgets\Menu::widget([
-                'options' => [
-                    'class'=>'nav nav-pills nav-sidebar flex-column nav-legacy',
-                    'data-widget' => 'treeview',
-                    'role' => 'menu',
-                    'data-accordion' => 'false'
-                ],
-                'items' => [
-                    ['label' => 'VOOS', 'header' => true],
-                    [
-                        'label' => 'Aviao',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['aviao/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['aviao/create'], 'iconStyle' => 'far'],
-                        ]
+            if(!Yii::$app->user->isGuest){
+                echo \hail812\adminlte\widgets\Menu::widget([
+                    'options' => [
+                        'class'=>'nav nav-pills nav-sidebar flex-column nav-legacy',
+                        'data-widget' => 'treeview',
+                        'role' => 'menu',
+                        'data-accordion' => 'false'
                     ],
-                    [
-                        'label' => 'classe',
-                        'icon' => 'couch',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['classe/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['classe/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Companhia',
-                        'icon' => 'building',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['companhia/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['companhia/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Funcionarios',
-                        'icon' => 'users',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['funcionario/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['funcionario/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Hangar',
-                        'icon' => 'warehouse',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['hangar/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['hangar/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Pista',
-                        'icon' => 'road',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['pista/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['pista/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Unidade Medida',
-                        'icon' => 'weight-hanging',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['unidademedida/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['unidademedida/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Categoria Recurso',
-                        'icon' => 'layer-group',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['categoriarecurso/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['categoriarecurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Voo',
-                        'icon' => 'plane-departure',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['voo/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Detalhe Voo',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['detalhevoo/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['detalhevoo/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Escala Voo',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['escalavoo/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['escalavoo/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Pedido Recurso',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['pedidorecurso/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['pedidorecurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Recurso',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['recurso/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['recurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Tarefa',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['tarefa/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['tarefa/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Utilizador',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['utilizador/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['utilizador/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'ocupacao',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['ocupacao/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['ocupacao/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    ['label' => 'GII', 'header' => true],
-                    ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                    ['label' => 'UTILIZADORES', 'header' => true],
-                    ['label' => 'Adicionar', 'url' => ['site/signup'], 'icon' => 'sign-in-alt'],
+                    'items' => [
+                        ['label' => 'VOOS', 'header' => true],
+                        [
+                            'label' => 'Aviao',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['aviao/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['aviao/create'], 'iconStyle' => 'far'],
+                            ]
+
+                        ],
+                        [
+                            'label' => 'classe',
+                            'icon' => 'couch',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['classe/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['classe/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Companhia',
+                            'icon' => 'building',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['companhia/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['companhia/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Funcionarios',
+                            'icon' => 'users',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['funcionario/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['funcionario/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Hangar',
+                            'icon' => 'warehouse',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['hangar/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['hangar/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Pista',
+                            'icon' => 'road',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['pista/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['pista/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Unidade Medida',
+                            'icon' => 'weight-hanging',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['unidademedida/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['unidademedida/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Categoria Recurso',
+                            'icon' => 'layer-group',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['categoriarecurso/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['categoriarecurso/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Voo',
+                            'icon' => 'plane-departure',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['voo/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Detalhe Voo',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['detalhevoo/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['detalhevoo/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Escala Voo',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['escalavoo/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['escalavoo/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Pedido Recurso',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['pedidorecurso/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['pedidorecurso/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Recurso',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['recurso/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['recurso/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Tarefa',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['tarefa/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['tarefa/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'Utilizador',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['utilizador/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['utilizador/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        [
+                            'label' => 'ocupacao',
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['ocupacao/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['ocupacao/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+                        ['label' => 'GII', 'header' => true],
+                        ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
+                        ['label' => 'UTILIZADORES', 'header' => true],
+                        ['label' => 'Adicionar', 'url' => ['site/signup'], 'icon' => 'sign-in-alt'],
 
 
 
 
-                ],
-            ]);
+                    ],
+                ]);
+            }
             ?>
         </nav>
         <!-- /.sidebar-menu -->
