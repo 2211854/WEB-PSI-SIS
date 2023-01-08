@@ -2,7 +2,7 @@
 /** @var yii\web\View $this */
 use yii\helpers\Html;
 use Faker\Core\DateTime;
-$this->title = 'Index';
+$this->title = 'Página Inicial';
 ?>
 <!-- start banner Area -->
 <section class="banner-area">
@@ -45,7 +45,7 @@ $this->title = 'Index';
                         <?= Html::img('@web/img/features/destino.png', ['width'=>'60']);?>
                     </div>
                     <h6>Destino:</h6>
-                    <?= Html::input('text', 'destino','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Para onde?"','class' => 'form-control','placeholder' => 'Para onde?']) ?>
+                    <?= Html::input('text', 'destino','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Para onde?"','class' => 'form-control','placeholder' => 'Para onde?','required' => true]) ?>
 
                 </div>
             </div>
@@ -59,7 +59,7 @@ $this->title = 'Index';
                     <div class="input-group date" id="datepicker">
 
                         <?= Html::input('text', 'data','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "XXXX-XX-XX"','class' => 'form-control','placeholder' => 'XXXX-XX-XX','min'=>
-                            date('Y-m-d')]) ?>
+                            date('Y-m-d'), 'required' => true]) ?>
 
                         <span class="input-group-append">
                                 </span>
