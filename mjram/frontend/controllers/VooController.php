@@ -31,6 +31,7 @@ class VooController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'index' => ['GET'],
                     ],
                 ],
             ]
@@ -46,7 +47,6 @@ class VooController extends Controller
     {
 
         $params = $this->request->get();
-        var_dump($params);
 
 //        $listaVoos = $this->findListaVoos($params);
 
@@ -60,8 +60,7 @@ class VooController extends Controller
             $escalasVoo = $model->escalaVoos;
             $indiceMaximo = count($escalasVoo) - 1;
             if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
-                if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['chegada'])) {
-                   // $trajeto
+                if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
                     $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
                 }
             }
@@ -69,9 +68,9 @@ class VooController extends Controller
 
         return $this->render('index', [
 
-            'destino' => $params['chegada'],
+            'destino' => $params['destino'],
             'partida' => $params['partida'],
-            'listaVoos' => $listaVoosEncontrados,
+            'listaVoos' => $listaVoosEncontrados
         ]);
 
 
@@ -86,8 +85,18 @@ class VooController extends Controller
      */
     public function actionView($id)
     {
+        $detalhe = DetalheVoo::findOne(['id' => $id]);
+        $voo = $detalhe->voo;
+        $numeroEscalas = count($voo->escalaVoos) - 1;
+        $destino = $voo->escalaVoos[$numeroEscalas]->destino;
+        $partida = $voo->escalaVoos[0]->partida;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'destino' => $destino,
+            'partida' => $partida,
+            'voo'=> $voo,
+            'detalhe' => $detalhe,
+            'escalas'=> $voo->escalaVoos
         ]);
     }
 

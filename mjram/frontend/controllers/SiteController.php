@@ -177,8 +177,7 @@ class SiteController extends Controller
                 $modelUtilizador->id_user = $modelUser->getId();
                 $modelUtilizador->save(false);
                 $modelCliente->id = $modelUtilizador->id;
-                $modelCliente->save();
-
+                $modelCliente->save(false);
                 return $this->redirect(['site/login']);
 
             } catch ( Exception $e) {

@@ -2,8 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\DetalheVoo;
+use common\models\ItemVenda;
+use common\models\Utilizador;
 use common\models\Venda;
 use app\models\VendaSearch;
+use yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,21 +69,34 @@ class VendaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new Venda();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        if(!Yii::$app->user->isGuest){
+            $detalhevoo = DetalheVoo::findOne(['id'=>$id]);
+
+            $utilizadorCliente = Utilizador::findOne(['id_user' => Yii::$app->user->id ]);
+            $modelVenda = Venda::findOne(['id_cliente' => $utilizadorCliente->id, 'estado' => 'carrinho']);
+            $modelVenda = ($modelVenda == null ? new Venda() : $modelVenda);
+            $modelVenda->id_cliente = $utilizadorCliente->id;
+            $modelVenda->save();
+            $modelItemVenda = new ItemVenda();
+            var_dump($this->request->post());
+            if ($this->request->isPost) {
+                $modelItemVenda->passaporte = ($this->request->post())['passaporte'];
+                $modelItemVenda->id_venda = $modelVenda->id;
+                $modelItemVenda->id_classe = $detalhevoo->id_classe;
+                $modelItemVenda->id_voo = $detalhevoo->id_voo;
+                $modelItemVenda->save();
+                return $this->redirect(['itemvenda/index', 'id' => $modelVenda->id]);
             }
-        } else {
-            $model->loadDefaultValues();
+
+        }
+        else{
+            return $this->redirect(['site/login']);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     public function actionCarrinho()
@@ -87,7 +104,7 @@ class VendaController extends Controller
         $searchModel = new VendaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('carrinho', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
