@@ -2,10 +2,14 @@
 
 namespace frontend\controllers;
 
+use common\models\Cliente;
+use common\models\Utilizador;
+use common\models\User;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\db\Exception;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -152,14 +156,39 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+        $auth = Yii::$app->authManager;
+        $modelCliente = new Cliente();
+        $modelUtilizador = new Utilizador();
+        $modelUser = new User();
+        if ($modelCliente->load(Yii::$app->request->post()) && $modelUtilizador->load(Yii::$app->request->post())) {
+            try {
+                $modelUser->username = $modelUtilizador->username;
+                $modelUser->email = $modelUtilizador->email;
+                $modelUser->setPassword($modelUtilizador->password);
+                $modelUser->generateAuthKey();
+                $modelUser->generateEmailVerificationToken();
+
+                $modelUser->status = 10;
+                $modelUser->save();
+                $auth = Yii::$app->authManager;
+                $userRole = $auth->getRole('cliente');
+                $auth->assign($userRole, $modelUser->getId());
+
+                $modelUtilizador->id_user = $modelUser->getId();
+                $modelUtilizador->save(false);
+                $modelCliente->id = $modelUtilizador->id;
+                echo $modelCliente->save();
+
+                return $this->redirect(['site/login']);
+
+            } catch ( Exception $e) {
+                throw new BadRequestHttpException($e->getMessage());
+            }
         }
 
         return $this->render('signup', [
-            'model' => $model,
+            'modelCliente' => $modelCliente,
+            'modelUtilizador' => $modelUtilizador,
         ]);
     }
 
