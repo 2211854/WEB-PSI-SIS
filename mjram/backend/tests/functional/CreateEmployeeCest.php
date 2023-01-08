@@ -9,6 +9,8 @@ class CreateEmployeeCest
 {
     public function _before(FunctionalTester $I)
     {
+        $admin = \common\models\User::findByUsername('administrador');
+        $I->amLoggedInAs($admin);
     }
 
     // tests
