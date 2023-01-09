@@ -18,7 +18,7 @@ class RecursoSearch extends Recurso
     {
         return [
             [['id', 'stockatual', 'id_categoria', 'id_unidade'], 'integer'],
-            [['nome'], 'safe'],
+            [['nome','unidaded','categoriad'], 'safe'],
         ];
     }
 
@@ -40,12 +40,13 @@ class RecursoSearch extends Recurso
      */
     public function search($params)
     {
-        $query = Recurso::find();
+        $query = Recurso::find()->joinWith(['categoria','unidade']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['nome','stockatual','unidaded','categoriad']],
         ]);
 
         $this->load($params);
@@ -64,7 +65,9 @@ class RecursoSearch extends Recurso
             'id_unidade' => $this->id_unidade,
         ]);
 
-        $query->andFilterWhere(['like', 'nome', $this->nome]);
+        $query->andFilterWhere(['like', 'nome', $this->nome])
+                ->andFilterWhere(['like', 'categoria_recurso.designacao', $this->categoriad])
+            ->andFilterWhere(['like', 'unidade_medida.designacao', $this->unidaded]);
 
         return $dataProvider;
     }

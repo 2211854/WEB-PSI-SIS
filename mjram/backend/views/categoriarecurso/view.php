@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\CategoriaRecurso */
 
-$this->title = $model->id;
+$this->title = $model->designacao;
 $this->params['breadcrumbs'][] = ['label' => 'Categoria Recursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= DetailView::widget([
                         'model' => $model,
                         'attributes' => [
-                            'id',
                             'designacao',
                         ],
                     ]) ?>

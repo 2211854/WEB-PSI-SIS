@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\ocupacao */
 
 $this->title = 'Criar Ocupacao';
+$this->params['breadcrumbs'][] = ['label' => 'Ocupacoes', 'url' => ['index','aviaoid' => $model->id_aviao]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -15,7 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-md-12">
                     <?=$this->render('_form', [
-                        'model' => $model
+                        'model' => $model,
+                        'message' => $message,
                     ]) ?>
                 </div>
             </div>

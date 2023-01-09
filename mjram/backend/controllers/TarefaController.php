@@ -66,16 +66,39 @@ class TarefaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($vooid)
     {
+        //vooid  and id_funcionario_registo
+        $voo = Voo::findOne($vooid);
         $model = new Tarefa();
+        $model->id_voo = $vooid;
+        $funcionario = Yii::$app->db->createCommand("Select * from utilizador where id_user='".Yii::$app->user->id."'")->queryOne();
+        $model->id_funcionario_registo = $funcionario['id'];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->id_recurso != '' && $model->quantidade == ''){
+                return $this->render('create', [
+                    'model' => $model,
+                    'message'=>'Tem que inserir a quantidade do recurso!',
+                    'voo' => $voo,
+                ]);
+            }elseif ($model->id_recurso == '' && $model->quantidade != ''){
+                return $this->render('create', [
+                    'model' => $model,
+                    'message'=>'Tem que inserir o recurso para puder ter uma quantidade!',
+                    'voo' => $voo,
+                ]);
+            }else{
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'message'=>null,
+            'voo' => $voo,
         ]);
     }
 
@@ -89,6 +112,7 @@ class TarefaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $voo = Voo::findOne($model->id_voo);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -96,6 +120,7 @@ class TarefaController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'voo' =>$voo,
         ]);
     }
 

@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Tarefa', ['create','vooid'=>$voo->id], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Tarefa', ['create','vooid'=>$voo->id], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -26,21 +26,70 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
                             'designacao',
                             'data_registo',
                             'data_inicio',
                             'data_conclusao',
-                            //'estado',
-                            //'id_voo',
-                            //'id_hangar',
-                            //'id_recurso',
-                            //'id_funcionario_registo',
-                            //'id_funcionario_responsavel',
+                            [
+                                'label' => 'Estado',
+                                'attribute' => 'estado',
+                                'value' => function($model) {
+                                    return $model->estado;
+                                }
+                            ],
+                            [
+                                'label' => 'Hangar',
+                                'attribute' => 'hangard',
+                                'value' => function($model) {
+                                    if(!isset($model->hangar)){
+                                        return '';
+                                    }else{
+                                        return $model->hangar->designacao;
+                                    }
+                                }
+                            ],
+                            [
+                                'label' => 'Recurso',
+                                'attribute' => 'recursod',
+                                'value' => function($model) {
+                                    if(!isset($model->recurso)){
+                                        return '';
+                                    }else{
+                                        return $model->recurso->nome;
+                                    }
+                                }
+                            ],
+                            [
+                                'label' => 'Quantidade',
+                                'attribute' => 'quantidaded',
+                                'value' => function($model) {
+                                    if(!isset($model->quantidade)){
+                                        return '';
+                                    }else{
+                                        return $model->quantidade . ' ' . $model->recurso->unidade->designacao;
+                                    }
+
+                                }
+                            ],
+                            [
+                                'label' => 'Func. Registo',
+                                'attribute' => 'funcionario_registod',
+                                'value' => function($model) {
+                                    return $model->funcionarioRegisto->utilizador->nome;
+                                }
+                            ],
+                            [
+                                'label' => 'Func. Responsavel',
+                                'attribute' => 'funcionario_responsaveld',
+                                'value' => function($model) {
+                                    if(!isset($model->funcionarioResponsavel)){
+                                        return '';
+                                    }else{
+                                        return $model->funcionarioResponsavel->utilizador->nome;
+                                    }
+                                }
+                            ],
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],

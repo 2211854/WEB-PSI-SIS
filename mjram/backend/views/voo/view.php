@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Voo */
 
-$this->title = $model->id;
+$this->title = $model->designacao;
 $this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -30,13 +30,29 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= DetailView::widget([
                         'model' => $model,
                         'attributes' => [
-                            'id',
                             'designacao',
                             'data_registo',
                             'estado',
-                            'id_aviao',
-                            'id_pista',
-                            'id_funcionario',
+                            [
+                                'label' => 'Aviao',
+                                'attribute' => 'aviaod',
+                                'value' => function($model) {
+                                    return $model->aviao->designacao;
+                                }
+                            ],
+                            [
+                                'label' => 'Pista',
+                                'attribute' => 'pistad',
+                                'value' => function($model) {
+                                    return $model->pista->designacao;
+                                }
+                            ],[
+                                'label' => 'Funcionario',
+                                'attribute' => 'funcionariod',
+                                'value' => function($model) {
+                                    return $model->funcionario->utilizador->nome;
+                                }
+                            ],
                         ],
                     ]) ?>
                 </div>

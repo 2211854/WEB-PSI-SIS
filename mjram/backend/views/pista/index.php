@@ -9,6 +9,16 @@ use yii\grid\GridView;
 
 $this->title = 'Pistas';
 $this->params['breadcrumbs'][] = $this->title;
+
+
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
+
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -32,7 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'designacao',
                             'comprimento',
                             'largura',
-                            'estado',
+                            [
+                                'label' => 'Estado',
+                                'attribute' => 'estado',
+                                'filter'=>array("danificada"=>"danificada","operacional"=>"operacional","manutencao"=>"manutencao"),
+                                'value' => function($model) {
+                                    return $model->estado;
+                                }
+                            ],
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
                         ],

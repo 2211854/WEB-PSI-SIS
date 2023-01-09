@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Tarefa */
 
-$this->title = 'Create Tarefa';
-$this->params['breadcrumbs'][] = ['label' => 'Tarefas', 'url' => ['index']];
+$this->title = 'Criar Tarefa';
+$this->params['breadcrumbs'][] = ['label' => 'Tarefas', 'url' => ['index','vooid'=>$voo->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -16,7 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-md-12">
                     <?=$this->render('_form', [
-                        'model' => $model
+                        'model' => $model,
+                        'message'=>$message,
+                        'voo'=>$voo
                     ]) ?>
                 </div>
             </div>

@@ -3,9 +3,8 @@
 /* @var $this yii\web\View */
 /* @var $model common\models\CategoriaRecurso */
 
-$this->title = 'Update Categoria Recurso: ' . $model->id;
+$this->title = 'Update Categoria Recurso: ' . $model->designacao;
 $this->params['breadcrumbs'][] = ['label' => 'Categoria Recursos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 

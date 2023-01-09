@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\PedidoRecurso */
 
-$this->title = $model->id;
+$this->title = 'Pedido recurso: '.$model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Pedido Recursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -31,11 +31,35 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $model,
                         'attributes' => [
                             'id',
-                            'quantidade',
+                            [
+                                'label' => 'Quantidade',
+                                'attribute' => 'quantidade',
+                                'value' => function($model) {
+                                    return $model->quantidade .' '. $model->recurso->unidade->designacao;
+                                }
+                            ],
                             'data_registo',
-                            'custo_total',
-                            'id_recurso',
-                            'id_funcionario',
+                            [
+                                'label' => 'Custo Total',
+                                'attribute' => 'custo_total',
+                                'value' => function($model) {
+                                    return $model->custo_total . ' €';
+                                }
+                            ],
+                            [
+                                'label' => 'Recurso',
+                                'attribute' => 'recurso',
+                                'value' => function($model) {
+                                    return $model->recurso->nome;
+                                }
+                            ],
+                            [
+                                'label' => 'Funcionario',
+                                'attribute' => 'funcionario',
+                                'value' => function($model) {
+                                    return $model->funcionario->utilizador->nome;
+                                }
+                            ],
                             'estado',
                         ],
                     ]) ?>

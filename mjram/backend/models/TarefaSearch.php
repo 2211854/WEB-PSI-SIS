@@ -17,8 +17,8 @@ class TarefaSearch extends Tarefa
     public function rules()
     {
         return [
-            [['id', 'id_voo', 'id_hangar', 'id_recurso', 'id_funcionario_registo', 'id_funcionario_responsavel'], 'integer'],
-            [['designacao', 'data_registo', 'data_inicio', 'data_conclusao', 'estado'], 'safe'],
+            [['id', 'id_voo', 'id_hangar', 'id_recurso', 'quantidade', 'id_funcionario_registo', 'id_funcionario_responsavel'], 'integer'],
+            [['designacao', 'data_registo', 'data_inicio', 'data_conclusao', 'estado','hangard','recursod','quantidaded','funcionario_registod','funcionario_responsaveld'], 'safe'],
         ];
     }
 
@@ -40,12 +40,13 @@ class TarefaSearch extends Tarefa
      */
     public function search($params)
     {
-        $query = Tarefa::find();
+        $query = Tarefa::find()->joinWith(['hangar']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['designacao','data_registo','data_inicio','data_conclusao','estado','hangard','recursod','quantidaded','funcionario_registod','funcionario_responsaveld',]],
         ]);
 
         $this->load($params);
@@ -65,12 +66,14 @@ class TarefaSearch extends Tarefa
             'id_voo' => $this->id_voo,
             'id_hangar' => $this->id_hangar,
             'id_recurso' => $this->id_recurso,
+            'quantidade' => $this->quantidade,
             'id_funcionario_registo' => $this->id_funcionario_registo,
             'id_funcionario_responsavel' => $this->id_funcionario_responsavel,
         ]);
 
         $query->andFilterWhere(['like', 'designacao', $this->designacao])
-            ->andFilterWhere(['like', 'estado', $this->estado]);
+            ->andFilterWhere(['like', 'estado', $this->estado])
+            ->andFilterWhere(['like', 'hangar.nome', $this->hagard]);
 
         return $dataProvider;
     }

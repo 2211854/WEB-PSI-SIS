@@ -14,11 +14,11 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'stockatual')->textInput() ?>
+    <?= $form->field($model, 'stockatual')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'id_categoria')->textInput() ?>
+    <?= $form->field($model, 'id_categoria')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\CategoriaRecurso::find()->asArray()->all(), 'id', 'designacao')) ?>
 
-    <?= $form->field($model, 'id_unidade')->textInput() ?>
+    <?= $form->field($model, 'id_unidade')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\UnidadeMedida::find()->asArray()->all(), 'id', 'designacao')) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -9,6 +9,14 @@ use yii\grid\GridView;
 
 $this->title = 'Pedido Recursos';
 $this->params['breadcrumbs'][] = $this->title;
+
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -17,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Pedido Recurso', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('Criar Pedido Recurso', ['create'], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -28,17 +36,50 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
 
                             'id',
-                            'quantidade',
-                            'data_registo',
-                            'custo_total',
-                            'id_recurso',
-                            //'id_funcionario',
-                            //'estado',
 
-                            ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
+                            [
+                                'label' => 'Quantidade',
+                                'attribute' => 'quantidade',
+                                'value' => function($model) {
+                                    return $model->quantidade .' '. $model->recurso->unidade->designacao;
+                                }
+                            ],
+                            'data_registo',
+                            [
+                                'label' => 'Custo Total',
+                                'attribute' => 'custo_total',
+                                'value' => function($model) {
+                                    return $model->custo_total . ' €';
+                                }
+                            ],
+                            [
+                                'label' => 'Recurso',
+                                'attribute' => 'recursod',
+                                'value' => function($model) {
+                                    return $model->recurso->nome;
+                                }
+                            ],
+                            [
+                                'label' => 'Funcionario',
+                                'attribute' => 'funcionariod',
+                                'value' => function($model) {
+                                    return $model->funcionario->utilizador->nome;
+                                }
+                            ],
+                            [
+                                'label' => 'Estado',
+                                'attribute' => 'estado',
+                                'filter'=>array("aprovado"=>"aprovado","pago"=>"pago","reprovado"=>"reprovado","devolvido"=>"devolvido","entregue"=>"entregue","por aprovar"=>"por aprovar"),
+                                'value' => function($model) {
+                                    return $model->estado;
+                                }
+                            ],
+                            [
+                                'class' => 'hail812\adminlte3\yii\grid\ActionColumn',
+                                'template'=>'{view} {update}',
+                                ],
                         ],
                         'summaryOptions' => ['class' => 'summary mb-2'],
                         'pager' => [

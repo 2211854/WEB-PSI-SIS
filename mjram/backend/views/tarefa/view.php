@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Tarefa */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tarefas', 'url' => ['index']];
+$this->title = $model->voo->designacao. '- Tarefa: '. $model->designacao;
+$this->params['breadcrumbs'][] = ['label' => 'Tarefas', 'url' => ['index','vooid'=>$model->id_voo]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -30,17 +30,70 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= DetailView::widget([
                         'model' => $model,
                         'attributes' => [
-                            'id',
                             'designacao',
                             'data_registo',
                             'data_inicio',
                             'data_conclusao',
                             'estado',
-                            'id_voo',
-                            'id_hangar',
-                            'id_recurso',
-                            'id_funcionario_registo',
-                            'id_funcionario_responsavel',
+                            [
+                                'label' => 'Voo',
+                                'attribute' => 'vood',
+                                'value' => function($model) {
+                                    return $model->voo->designacao;
+                                }
+                            ],
+                            [
+                                'label' => 'Hangar',
+                                'attribute' => 'hangard',
+                                'value' => function($model) {
+                                    if(!isset($model->hangar)){
+                                        return '';
+                                    }else{
+                                        return $model->hangar->designacao;
+                                    }
+                                }
+                            ],
+                            [
+                                'label' => 'Recurso',
+                                'attribute' => 'recursod',
+                                'value' => function($model) {
+                                    if(!isset($model->recurso)){
+                                        return '';
+                                    }else{
+                                        return $model->recurso->nome;
+                                    }
+                                }
+                            ],
+                            [
+                                'label' => 'Quantidade',
+                                'attribute' => 'quantidaded',
+                                'value' => function($model) {
+                                    if(!isset($model->quantidade)){
+                                        return '';
+                                    }else{
+                                        return $model->quantidade . ' ' . $model->recurso->unidade->designacao;
+                                    }
+
+                                }
+                            ],
+                            [
+                                'label' => 'Func. Registo',
+                                'attribute' => 'funcionario_registod',
+                                'value' => function($model) {
+                                    return $model->funcionarioRegisto->utilizador->nome;
+                                }
+                            ],
+                            [
+                                'label' => 'Func. Responsavel',
+                                'attribute' => 'funcionario_responsaveld',
+                                'value' => function($model) {
+                                    if(!isset($model->funcionarioResponsavel)){
+                                        return '';
+                                    }else{
+                                        return $model->funcionarioResponsavel->utilizador->nome;
+                                    }
+                                }
+                            ],
                         ],
                     ]) ?>
                 </div>

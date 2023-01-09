@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\UnidadeMedida;
 use app\models\UnidademedidaSearch;
+use yii\db\IntegrityException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,7 +34,7 @@ class UnidademedidaController extends Controller
      * Lists all UnidadeMedida models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($message = null)
     {
         $searchModel = new UnidademedidaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -41,6 +42,7 @@ class UnidademedidaController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'message' => $message,
         ]);
     }
 
@@ -104,8 +106,21 @@ class UnidademedidaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        try
+        {
+            $this->findModel($id)->delete();
+        }
+        catch(IntegrityException $e)
+        {
+            // Cannot delete or update a parent row: a foreign key constraint fails
+            if($e->errorInfo[1] == 1451 )
+            {
+                return $this->redirect(['index','message'=>'Nao pode eliminar dados que estejam a ser utilizados!']);
+            }
+            else{
+                throw $e;
+            }
+        }
         return $this->redirect(['index']);
     }
 

@@ -9,6 +9,14 @@ use yii\grid\GridView;
 
 $this->title = 'Unidade Medidas';
 $this->params['breadcrumbs'][] = $this->title;
+
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -28,9 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            'id',
                             'designacao',
 
                             ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],

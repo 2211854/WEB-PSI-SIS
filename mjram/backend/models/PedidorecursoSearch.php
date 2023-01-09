@@ -18,7 +18,7 @@ class PedidorecursoSearch extends PedidoRecurso
     {
         return [
             [['id', 'quantidade', 'custo_total', 'id_recurso', 'id_funcionario'], 'integer'],
-            [['data_registo', 'estado'], 'safe'],
+            [['data_registo', 'estado','funcionariod','recursod'], 'safe'],
         ];
     }
 
@@ -40,12 +40,13 @@ class PedidorecursoSearch extends PedidoRecurso
      */
     public function search($params)
     {
-        $query = PedidoRecurso::find();
+        $query = PedidoRecurso::find()->joinWith(['recurso','utilizador']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['attributes' => ['id','quantidade','data_registo','custo_total','estado','recursod','funcionariod']],
         ]);
 
         $this->load($params);
@@ -66,7 +67,9 @@ class PedidorecursoSearch extends PedidoRecurso
             'id_funcionario' => $this->id_funcionario,
         ]);
 
-        $query->andFilterWhere(['like', 'estado', $this->estado]);
+        $query->andFilterWhere(['like', 'estado', $this->estado])
+            ->andFilterWhere(['like', 'recurso.nome', $this->recursod])
+            ->andFilterWhere(['like', 'utilizador.nome', $this->funcionariod]);
 
         return $dataProvider;
     }

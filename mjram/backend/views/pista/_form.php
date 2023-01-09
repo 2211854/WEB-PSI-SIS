@@ -14,11 +14,11 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'designacao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'comprimento')->textInput() ?>
+    <?= $form->field($model, 'comprimento')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'largura')->textInput() ?>
+    <?= $form->field($model, 'largura')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'estado')->dropDownList([ 'danificada' => 'Danificada', 'operacional' => 'Operacional', 'manutencao' => 'Manutencao', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'estado')->dropDownList([ 'danificada' => 'Danificada', 'operacional' => 'Operacional', 'manutencao' => 'Manutencao', ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

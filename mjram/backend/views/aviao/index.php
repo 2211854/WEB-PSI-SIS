@@ -11,6 +11,15 @@ use yii\helpers\Url;
 
 $this->title = 'Aviões';
 $this->params['breadcrumbs'][] = $this->title;
+
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
+
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -35,7 +44,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'marca',
                             'modelo',
                             'combustivelatual',
-                            'estado',
+                            [
+                                'label' => 'Estado',
+                                'attribute' => 'estado',
+                                'filter'=>array("inativo"=>"inativo","operacional"=>"operacional","manutencao"=>"manutencao","danificado"=>"danificado"),
+                                'value' => function($model) {
+                                    return $model->estado;
+                                }
+                            ],
                             [
                                 'label' => 'Companhia',
                                 'attribute' => 'sigla',

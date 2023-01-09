@@ -8,6 +8,7 @@ use app\models\ClasseSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\IntegrityException;
 
 /**
  * ClasseController implements the CRUD actions for classe model.
@@ -33,7 +34,7 @@ class ClasseController extends Controller
      * Lists all classe models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($message = null)
     {
         $searchModel = new ClasseSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -41,6 +42,7 @@ class ClasseController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'message' => $message,
         ]);
     }
 
@@ -104,8 +106,21 @@ class ClasseController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        try
+        {
+            $this->findModel($id)->delete();
+        }
+        catch(IntegrityException $e)
+        {
+            // Cannot delete or update a parent row: a foreign key constraint fails
+            if($e->errorInfo[1] == 1451 )
+            {
+                return $this->redirect(['index','message'=>'Nao pode eliminar dados que estejam a ser utilizados!']);
+            }
+            else{
+                throw $e;
+            }
+        }
         return $this->redirect(['index']);
     }
 

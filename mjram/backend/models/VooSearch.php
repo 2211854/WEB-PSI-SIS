@@ -66,8 +66,8 @@ class VooSearch extends Voo
             'id_funcionario' => $this->id_funcionario,
         ]);
 
-        $query->andFilterWhere(['like', 'designacao', $this->designacao])
-            ->andFilterWhere(['like', 'estado', $this->estado])
+        $query->andFilterWhere(['like', 'voo.designacao', $this->designacao])
+            ->andFilterWhere(['like', 'voo.estado', $this->estado])
             ->andFilterWhere(['like', 'aviao.designacao', $this->aviaod])
             ->andFilterWhere(['like', 'pista.designacao', $this->pistad])
             ->andFilterWhere(['like', 'utilizador.nome', $this->funcionariod]);

@@ -16,6 +16,7 @@ use Yii;
  * @property int $id_voo
  * @property int|null $id_hangar
  * @property int|null $id_recurso
+ * @property int|null $quantidade
  * @property int $id_funcionario_registo
  * @property int|null $id_funcionario_responsavel
  *
@@ -27,6 +28,11 @@ use Yii;
  */
 class Tarefa extends \yii\db\ActiveRecord
 {
+    public $hangard;
+    public $recursod;
+    public $quantidaded;
+    public $funcionario_registod;
+    public $funcionario_responsaveld;
     /**
      * {@inheritdoc}
      */
@@ -44,7 +50,7 @@ class Tarefa extends \yii\db\ActiveRecord
             [['designacao', 'id_voo', 'id_funcionario_registo'], 'required'],
             [['data_registo', 'data_inicio', 'data_conclusao'], 'safe'],
             [['estado'], 'string'],
-            [['id_voo', 'id_hangar', 'id_recurso', 'id_funcionario_registo', 'id_funcionario_responsavel'], 'integer'],
+            [['id_voo', 'id_hangar', 'id_recurso', 'quantidade', 'id_funcionario_registo', 'id_funcionario_responsavel'], 'integer'],
             [['designacao'], 'string', 'max' => 100],
             [['id_funcionario_registo'], 'exist', 'skipOnError' => true, 'targetClass' => Funcionario::class, 'targetAttribute' => ['id_funcionario_registo' => 'id']],
             [['id_funcionario_responsavel'], 'exist', 'skipOnError' => true, 'targetClass' => Funcionario::class, 'targetAttribute' => ['id_funcionario_responsavel' => 'id']],
@@ -67,10 +73,11 @@ class Tarefa extends \yii\db\ActiveRecord
             'data_conclusao' => 'Data Conclusao',
             'estado' => 'Estado',
             'id_voo' => 'Id Voo',
-            'id_hangar' => 'Id Hangar',
-            'id_recurso' => 'Id Recurso',
-            'id_funcionario_registo' => 'Id Funcionario Registo',
-            'id_funcionario_responsavel' => 'Id Funcionario Responsavel',
+            'id_hangar' => 'Hangar',
+            'id_recurso' => 'Recurso',
+            'quantidade' => 'Quantidade',
+            'id_funcionario_registo' => 'Func. Registo',
+            'id_funcionario_responsavel' => 'Func. Responsavel',
         ];
     }
 

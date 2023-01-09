@@ -34,6 +34,8 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'id_recurso') ?>
 
+    <?php // echo $form->field($model, 'quantidade') ?>
+
     <?php // echo $form->field($model, 'id_funcionario_registo') ?>
 
     <?php // echo $form->field($model, 'id_funcionario_responsavel') ?>

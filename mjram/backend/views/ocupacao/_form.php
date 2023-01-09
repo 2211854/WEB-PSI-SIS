@@ -6,6 +6,14 @@ use yii\bootstrap4\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\ocupacao */
 /* @var $form yii\bootstrap4\ActiveForm */
+
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
 ?>
 
 <div class="ocupacao-form">

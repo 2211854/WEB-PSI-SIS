@@ -6,6 +6,8 @@ use Yii;
 use common\models\Aviao;
 use common\models\Companhia;
 use app\models\AviaoSearch;
+use yii\db\Exception;
+use yii\db\IntegrityException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +25,33 @@ class AviaoController extends Controller
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexAviao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createAviao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewAviao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateAviao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteAviao'],
+                    ],
+                ],
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -34,7 +63,7 @@ class AviaoController extends Controller
      * Lists all Aviao models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($message = null)
     {
         $searchModel = new AviaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -42,6 +71,7 @@ class AviaoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'message' => $message,
         ]);
     }
 
@@ -68,15 +98,25 @@ class AviaoController extends Controller
         $model = new Aviao();
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $modelCompanhia = Companhia::findOne($model->id_companhia);
-            $model->designacao = $modelCompanhia->sigla.$model->id;
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->combustivelmaximo < $model->combustivelatual){
+                return $this->render('create', [
+                    'model' => $model,
+                    'message' => 'O combustivel atual nao pode ser superior ao maximo!',
+                ]);
+            }else{
+                $model->save();
+                $modelCompanhia = Companhia::findOne($model->id_companhia);
+                $model->designacao = $modelCompanhia->sigla.$model->id;
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('create', [
             'model' => $model,
+            'message' => null,
         ]);
     }
 
@@ -112,8 +152,21 @@ class AviaoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        try
+        {
+            $this->findModel($id)->delete();
+        }
+        catch(IntegrityException $e)
+        {
+            // Cannot delete or update a parent row: a foreign key constraint fails
+            if($e->errorInfo[1] == 1451 )
+            {
+                return $this->redirect(['index','message'=>'Nao pode eliminar dados que estejam a ser utilizados!']);
+            }
+            else{
+                throw $e;
+            }
+        }
         return $this->redirect(['index']);
     }
 
