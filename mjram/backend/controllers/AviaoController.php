@@ -31,6 +31,26 @@ class AviaoController extends Controller
                         'actions'=> ['index'],
                         'roles' => ['indexAviao'],
                     ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createAviao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewAviao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateAviao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteAviao'],
+                    ],
                 ],
                 'actions' => [
                     'delete' => ['POST'],
