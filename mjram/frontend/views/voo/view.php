@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--                                    </div>-->
                                     <p></p>
                                     <div class="card_area d-flex align-items-center">
-                                        <?=Html::submitButton('Adicionar ao carrinho',['class' => 'primary-btn'])?>
+                                        <?=Html::submitButton('Adicionar ao carrinho',['class' => 'primary-btn', ])?>
                                     </div>
                                 <?= Html::endForm(); ?>
                             </div>

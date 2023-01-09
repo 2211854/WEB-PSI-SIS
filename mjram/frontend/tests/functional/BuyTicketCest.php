@@ -9,7 +9,7 @@ class BuyTicketCest
 {
     public function _before(FunctionalTester $I)
     {
-        $admin = \common\models\User::findByUsername('clienteFernando');
+        $admin = \common\models\User::findByUsername('ricardo');
         $I->amLoggedInAs($admin);
     }
 
@@ -17,18 +17,25 @@ class BuyTicketCest
     public function PesquisarTicket(FunctionalTester $I)
     {
         $I->amOnRoute('/site/index');
-        $I->fillField('partida', 'lisboa');
-        $I->fillField('destino', 'Luton');
-        $I->fillField('data', '2023-01-24');
+        $I->fillField('partida', 'Faro');
+        $I->fillField('destino', 'Madrid');
+        $I->fillField('data', '2023-01-19');
         $I->click('Procurar');
+    }
+    public function detalhesTicket(FunctionalTester $I)
+    {
+        $I->amOnRoute('/voo/index?id=searchVooForm&partida=Faro&destino=Madrid&data=2023-01-19');
+        $I->click('Detalhes');
     }
     public function AddTicket(FunctionalTester $I)
     {
-        //fazer
-        $I->amOnRoute('/site/index');
-        $I->fillField('partida', 'lisboa');
-        $I->fillField('destino', 'Luton');
-        $I->fillField('data', '2023-01-24');
-        $I->click('Procurar');
+        $I->amOnRoute('/web/voo/view?id=8');
+        $I->fillField('passporte', 'cs12345678');
+        $I->click('Adicionar ao carrinho');
+    }
+    public function buyTicket(FunctionalTester $I)
+    {
+        $I->amOnRoute('/web/itemvenda/index?id=1');
+        $I->click('Efetuar pagamento');
     }
 }

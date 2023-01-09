@@ -145,7 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                         <div class="col" >
                                             <?=  Html::tag('button',
-                                                 Html::a('Detalhes',['voo/view','id' =>$detalhe->id ],['class' => ' text-white'])
+                                                 Html::a('Detalhes',['voo/view','id' =>$detalhe->id ],['class' => ' text-white', 'value' => 'Detalhes'])
                                                 ,['class' => 'primary-btn'])
                                             ?>
                                         </div>
