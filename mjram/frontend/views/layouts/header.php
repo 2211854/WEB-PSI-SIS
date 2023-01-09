@@ -47,6 +47,26 @@ AppAsset::register($this);
                 NavBar::end();
                 ?>
 
+        <?php
+
+
+
+
+            $flashes = Yii::$app->session->getAllFlashes();
+            if(count($flashes)){
+                foreach ($flashes as $errortype => $message)
+                {
+                    $title = $errortype == 'danger' ? 'Atenção!' : 'Nota:';
+                    ?>
+                    <div class="alert alert-<?=$errortype?> w-50 mt-2 mr-auto ml-auto">
+                        <strong><?=$title?></strong> <?=$message?>
+                    </div>
+                    <?php
+
+                }
+            }
+        ?>
+
     </div>
 </header>
 <!-- End Header Area -->

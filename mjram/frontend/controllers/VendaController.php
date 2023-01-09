@@ -123,7 +123,8 @@ class VendaController extends Controller
         $modelUtilizador = Utilizador::findOne(['id_user'=> \Yii::$app->user->id]);
 
         $model = Venda::findOne(['estado'=>'carrinho','id_cliente'=> $modelUtilizador->cliente->id,'data_compra'=>null]);
-        if (isset($model)){
+
+        if (isset($model) && count($model->itemVendas)>0){
             $model->estado = 'pago';
             $model->data_compra = (new DateTime())->format('Y-m-d H:i:s');
             $model->save();
@@ -146,8 +147,46 @@ class VendaController extends Controller
             $model->estado= 'cancelado';
             $model->save();
         }
-
         return $this->redirect(['venda/index']);
+    }
+
+    public function actionImprimir($id){
+        $utilizador = Utilizador::findOne(['id_user'=>\Yii::$app->user->id]);
+
+        $Venda = Venda::findAll(['id' => $id]);
+
+        $subtotal = 0;
+
+        $subtotais = [];
+        $listaVendas = [];
+
+        $itensvenda=ItemVenda::findAll(['id_venda'=>$venda->id]);
+        $detalhesvoo = DetalheVoo::find()->all();
+
+        foreach ($itensvenda as $itemvenda)
+        {
+            foreach( $detalhesvoo as $detalhe)
+            {
+                if($detalhe->id_classe == $itemvenda->classe->id){
+                    $subtotal+=$detalhe->preço;
+                }
+            }
+
+        }
+
+        if($venda->estado != 'carrinho')
+        {
+            $subtotais[$venda->id] = $subtotal ;
+            $listaVendas[] = $venda;
+        }
+
+        $subtotal= 0;
+
+
+        return $this->render('imprimir', [
+            'subtotais' => $subtotais,
+            'listaVendas' => $listaVendas,
+        ]);
     }
 
     /**

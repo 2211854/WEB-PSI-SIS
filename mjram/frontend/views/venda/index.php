@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </td>
 
                                 </tr>
-                                <tr id="collapse<?=$venda->id?>" class="collapse" data-bs-parent="#accordion" style="">
+                                <tr id="collapse<?=$venda->id?>" class="collapse card-body" data-bs-parent="#accordion" >
                                     <td colspan="5">
                                         <table class="table border">
                                             <thead>
