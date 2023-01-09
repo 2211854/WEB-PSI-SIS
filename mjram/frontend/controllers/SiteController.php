@@ -2,10 +2,14 @@
 
 namespace frontend\controllers;
 
+use common\models\Cliente;
+use common\models\Utilizador;
+use common\models\User;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\db\Exception;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -117,33 +121,33 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        }
-
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
+//    public function actionContact()
+//    {
+//        $model = new ContactForm();
+//        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+//            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+//                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
+//            } else {
+//                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
+//            }
+//
+//            return $this->refresh();
+//        }
+//
+//        return $this->render('contact', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Displays about page.
      *
      * @return mixed
      */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+//    public function actionAbout()
+//    {
+//        return $this->render('about');
+//    }
 
     /**
      * Signs user up.
@@ -152,14 +156,38 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+        $auth = Yii::$app->authManager;
+        $modelCliente = new Cliente();
+        $modelUtilizador = new Utilizador();
+        $modelUser = new User();
+        if ($modelCliente->load(Yii::$app->request->post()) && $modelUtilizador->load(Yii::$app->request->post())) {
+            try {
+                $modelUser->username = $modelUtilizador->username;
+                $modelUser->email = $modelUtilizador->email;
+                $modelUser->setPassword($modelUtilizador->password);
+                $modelUser->generateAuthKey();
+                $modelUser->generateEmailVerificationToken();
+
+                $modelUser->status = 10;
+                $modelUser->save();
+                $auth = Yii::$app->authManager;
+                $userRole = $auth->getRole('cliente');
+                $auth->assign($userRole, $modelUser->getId());
+
+                $modelUtilizador->id_user = $modelUser->getId();
+                $modelUtilizador->save(false);
+                $modelCliente->id = $modelUtilizador->id;
+                $modelCliente->save(false);
+                return $this->redirect(['site/login']);
+
+            } catch ( Exception $e) {
+                throw new BadRequestHttpException($e->getMessage());
+            }
         }
 
         return $this->render('signup', [
-            'model' => $model,
+            'modelCliente' => $modelCliente,
+            'modelUtilizador' => $modelUtilizador,
         ]);
     }
 
@@ -168,23 +196,23 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            }
-
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
-        }
-
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
-    }
+//    public function actionRequestPasswordReset()
+//    {
+//        $model = new PasswordResetRequestForm();
+//        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+//            if ($model->sendEmail()) {
+//                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+//
+//                return $this->goHome();
+//            }
+//
+//            Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+//        }
+//
+//        return $this->render('requestPasswordResetToken', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Resets password.
@@ -193,24 +221,24 @@ class SiteController extends Controller
      * @return mixed
      * @throws BadRequestHttpException
      */
-    public function actionResetPassword($token)
-    {
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
-
-            return $this->goHome();
-        }
-
-        return $this->render('resetPassword', [
-            'model' => $model,
-        ]);
-    }
+//    public function actionResetPassword($token)
+//    {
+//        try {
+//            $model = new ResetPasswordForm($token);
+//        } catch (InvalidArgumentException $e) {
+//            throw new BadRequestHttpException($e->getMessage());
+//        }
+//
+//        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+//            Yii::$app->session->setFlash('success', 'New password saved.');
+//
+//            return $this->goHome();
+//        }
+//
+//        return $this->render('resetPassword', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Verify email address
@@ -219,40 +247,40 @@ class SiteController extends Controller
      * @throws BadRequestHttpException
      * @return yii\web\Response
      */
-    public function actionVerifyEmail($token)
-    {
-        try {
-            $model = new VerifyEmailForm($token);
-        } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-        if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
-            Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
-            return $this->goHome();
-        }
-
-        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
-        return $this->goHome();
-    }
+//    public function actionVerifyEmail($token)
+//    {
+//        try {
+//            $model = new VerifyEmailForm($token);
+//        } catch (InvalidArgumentException $e) {
+//            throw new BadRequestHttpException($e->getMessage());
+//        }
+//        if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
+//            Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
+//            return $this->goHome();
+//        }
+//
+//        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
+//        return $this->goHome();
+//    }
 
     /**
      * Resend verification email
      *
      * @return mixed
      */
-    public function actionResendVerificationEmail()
-    {
-        $model = new ResendVerificationEmailForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
-                return $this->goHome();
-            }
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
-        }
-
-        return $this->render('resendVerificationEmail', [
-            'model' => $model
-        ]);
-    }
+//    public function actionResendVerificationEmail()
+//    {
+//        $model = new ResendVerificationEmailForm();
+//        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+//            if ($model->sendEmail()) {
+//                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+//                return $this->goHome();
+//            }
+//            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
+//        }
+//
+//        return $this->render('resendVerificationEmail', [
+//            'model' => $model
+//        ]);
+//    }
 }

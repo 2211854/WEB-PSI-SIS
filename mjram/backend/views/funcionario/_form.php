@@ -28,7 +28,7 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($modelFuncionario, 'nib')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($modelUtilizador, 'telemovel')->textInput(['type' => 'number']) ?>
+    <?= $form->field($modelUtilizador, 'telemovel')->textInput(['maxlength' => true, 'type' => 'number']) ?>
 
     <?= $form->field($modelUtilizador, 'nif')->textInput(['maxlength' => true,'type' => 'number']) ?>
 

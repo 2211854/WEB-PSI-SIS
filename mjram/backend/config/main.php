@@ -47,13 +47,13 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            //'enableStrictParsing' => true,
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/user',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -64,6 +64,7 @@ return [
                     'controller' => 'api/utilizador',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -74,6 +75,7 @@ return [
                     'controller' => 'api/funcionario',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -84,6 +86,7 @@ return [
                     'controller' => 'api/unidademedida',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -94,6 +97,7 @@ return [
                     'controller' => 'api/aviao',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -104,6 +108,7 @@ return [
                     'controller' => 'api/recurso',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -114,6 +119,7 @@ return [
                     'controller' => 'api/categoriarecurso',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -124,6 +130,7 @@ return [
                     'controller' => 'api/classe',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -134,6 +141,7 @@ return [
                     'controller' => 'api/companhia',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -144,6 +152,7 @@ return [
                     'controller' => 'api/hangar',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -154,6 +163,7 @@ return [
                     'controller' => 'api/ocupacao',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -164,6 +174,7 @@ return [
                     'controller' => 'api/pedidorecurso',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -174,6 +185,7 @@ return [
                     'controller' => 'api/pista',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -184,6 +196,7 @@ return [
                     'controller' => 'api/tarefa',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,
@@ -194,6 +207,7 @@ return [
                     'controller' => 'api/voo',
                     'pluralize' => false,
                     'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
                     ] ,

@@ -7,7 +7,9 @@ use common\models\EscalaVoo;
 use common\models\DetalheVoo;
 
 use app\models\VooSearch;
+use DateTime;
 use yii\data\ActiveDataProvider;
+use yii\db\Exception;
 use yii\debug\models\timeline\DataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -31,6 +33,7 @@ class VooController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'index' => ['GET'],
                     ],
                 ],
             ]
@@ -44,35 +47,41 @@ class VooController extends Controller
      */
     public function actionIndex()
     {
-
         $params = $this->request->get();
-        var_dump($params);
+        if(isset($params['partida']) && isset($params['destino']) && isset($params['data'])){
+            $listaVoos = Voo::findAll(['estado'=>'planeado']);
+            $listaVoosEncontrados = [];
+            $data = new DateTime($params['data']);
+            $data = $data->format('Y-m-d');
+            foreach ($listaVoos as $voo) {
 
-//        $listaVoos = $this->findListaVoos($params);
+                $model = $this->findModel($voo->id);
+                $escalasVoo = $model->escalaVoos;
+                $indiceMaximo = count($escalasVoo) - 1;
+                if($indiceMaximo >=0)
+                {
+                    $datapartida = new DateTime($escalasVoo[0]->horario_partida);
+                    $datapartida = $datapartida->format('Y-m-d');
+                    if($data == $datapartida){
+                        if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
+                            if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
+                                $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
+                            }
+                        }
 
+                    }
 
-
-        $listaVoos = Voo::find()->all();
-        $listaVoosEncontrados = [];
-        foreach ($listaVoos as $voo) {
-            $model = $this->findModel($voo->id);
-
-            $escalasVoo = $model->escalaVoos;
-            $indiceMaximo = count($escalasVoo) - 1;
-            if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
-                if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['chegada'])) {
-                   // $trajeto
-                    $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
                 }
             }
+
+            return $this->render('index', [
+                'destino' => $params['destino'],
+                'partida' => $params['partida'],
+                'listaVoos' => $listaVoosEncontrados
+            ]);
+
         }
-
-        return $this->render('index', [
-
-            'destino' => $params['chegada'],
-            'partida' => $params['partida'],
-            'listaVoos' => $listaVoosEncontrados,
-        ]);
+        $this->redirect(['site/error']);
 
 
     }
@@ -86,8 +95,18 @@ class VooController extends Controller
      */
     public function actionView($id)
     {
+        $detalhe = DetalheVoo::findOne(['id' => $id]);
+        $voo = $detalhe->voo;
+        $numeroEscalas = count($voo->escalaVoos) - 1;
+        $destino = $voo->escalaVoos[$numeroEscalas]->destino;
+        $partida = $voo->escalaVoos[0]->partida;
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'destino' => $destino,
+            'partida' => $partida,
+            'voo'=> $voo,
+            'detalhe' => $detalhe,
+            'escalas'=> $voo->escalaVoos
         ]);
     }
 
@@ -163,17 +182,13 @@ class VooController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    protected function  findListaVoos($queryParams)
-    {
-
-        return false;
-    }
 
     function isLike($needle, $haystack)
     {
+        $needle = strtoupper($needle);
         $regex = '/' . str_replace('%', '.*?', $needle) . '/';
 
-        return preg_match($regex, $haystack) > 0;
+        return preg_match($regex, strtoupper($haystack)) > 0;
     }
 
 }

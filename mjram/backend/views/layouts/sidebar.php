@@ -47,6 +47,7 @@ use yii\helpers\Html;
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
+  if(!Yii::$app->user->isGuest){
             echo \hail812\adminlte\widgets\Menu::widget([
                 'options' => [
                     'class'=>'nav nav-pills nav-sidebar flex-column nav-legacy',
@@ -189,11 +190,10 @@ use yii\helpers\Html;
                     ['label' => 'UTILIZADORES', 'header' => true],
                     ['label' => 'Adicionar', 'url' => ['site/signup'], 'icon' => 'sign-in-alt'],
 
-
-
-
-                ],
-            ]);
+               
+                ]);
+            }
+           }
             ?>
         </nav>
         <!-- /.sidebar-menu -->

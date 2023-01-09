@@ -8,7 +8,9 @@ class UtilizadorController extends ActiveController
 {
     public $modelClass = 'common\models\Utilizador'; //Parte CRUD
 
-
-
+    public function actionIndex()
+    {
+        return $this->render('index');
+    }
 
 }

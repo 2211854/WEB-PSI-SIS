@@ -2,8 +2,14 @@
 
 namespace frontend\controllers;
 
+
+use common\models\DetalheVoo;
+use common\models\ItemVenda;
+use common\models\Utilizador;
 use common\models\Venda;
 use app\models\VendaSearch;
+use Yii;
+use DateTime;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,14 +42,47 @@ class VendaController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex() //historico de compras
     {
-        $searchModel = new VendaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $utilizador = Utilizador::findOne(['id_user'=>\Yii::$app->user->id]);
 
+        $Vendas = Venda::findAll(['id_cliente' => $utilizador->id]);
+
+        $utilizador = Utilizador::findOne(['id_user'=>Yii::$app->user->id]);
+        $subtotal = 0;
+
+        $subtotais = [];
+        $listaVendas = [];
+
+        foreach ($Vendas as $venda)
+        {
+
+            $itensvenda=ItemVenda::findAll(['id_venda'=>$venda->id]);
+            $detalhesvoo = DetalheVoo::find()->all();
+
+            foreach ($itensvenda as $itemvenda)
+            {
+                foreach( $detalhesvoo as $detalhe)
+                {
+                    if($detalhe->id_classe == $itemvenda->classe->id){
+                        $subtotal+=$detalhe->preço;
+                    }
+                }
+
+            }
+
+            if($venda->estado != 'carrinho')
+            {
+                $subtotais[$venda->id] = $subtotal ;
+                $listaVendas[] = $venda;
+            }
+
+            $subtotal= 0;
+
+        }
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'subtotais' => $subtotais,
+            'listaVendas' => $listaVendas,
         ]);
     }
 
@@ -53,45 +92,24 @@ class VendaController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Venda model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
-    {
-        $model = new Venda();
+//    public function actionCreate($id)
+//    {
+//
+//
+//    }
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionCarrinho()
-    {
-        $searchModel = new VendaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
     /**
      * Updates an existing Venda model.
@@ -100,17 +118,19 @@ class VendaController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $model = $this->findModel($id);
+        $modelUtilizador = Utilizador::findOne(['id_user'=> \Yii::$app->user->id]);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = Venda::findOne(['estado'=>'carrinho','id_cliente'=> $modelUtilizador->cliente->id,'data_compra'=>null]);
+
+        if (isset($model) && count($model->itemVendas)>0){
+            $model->estado = 'pago';
+            $model->data_compra = (new DateTime())->format('Y-m-d H:i:s');
+            $model->save();
         }
+        $this->redirect(['venda/index']);
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -122,9 +142,51 @@ class VendaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if ($model->estado != 'carrinho'){
+            $model->estado= 'cancelado';
+            $model->save();
+        }
+        return $this->redirect(['venda/index']);
+    }
 
-        return $this->redirect(['index']);
+    public function actionImprimir($id){
+        $utilizador = Utilizador::findOne(['id_user'=>\Yii::$app->user->id]);
+
+        $Venda = Venda::findAll(['id' => $id]);
+
+        $subtotal = 0;
+
+        $subtotais = [];
+        $listaVendas = [];
+
+        $itensvenda=ItemVenda::findAll(['id_venda'=>$venda->id]);
+        $detalhesvoo = DetalheVoo::find()->all();
+
+        foreach ($itensvenda as $itemvenda)
+        {
+            foreach( $detalhesvoo as $detalhe)
+            {
+                if($detalhe->id_classe == $itemvenda->classe->id){
+                    $subtotal+=$detalhe->preço;
+                }
+            }
+
+        }
+
+        if($venda->estado != 'carrinho')
+        {
+            $subtotais[$venda->id] = $subtotal ;
+            $listaVendas[] = $venda;
+        }
+
+        $subtotal= 0;
+
+
+        return $this->render('imprimir', [
+            'subtotais' => $subtotais,
+            'listaVendas' => $listaVendas,
+        ]);
     }
 
     /**

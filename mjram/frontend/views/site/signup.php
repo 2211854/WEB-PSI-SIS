@@ -3,9 +3,12 @@
 /** @var yii\web\View $this */
 /** @var yii\bootstrap5\ActiveForm $form */
 /** @var \frontend\models\SignupForm $model */
+/** @var \common\models\Utilizador $modelUtilizador */
+/** @var \common\models\Cliente $modelCliente */
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+
 
 $this->title = 'Criar nova conta';
 $this->params['breadcrumbs'][] = $this->title;
@@ -35,40 +38,43 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?php $form = ActiveForm::begin(['id' => 'form-signup',
                         'options' => [
-                                'class' => 'row register_form',
-                                'novalidate'=>'novalidate'
+                                'class' => 'row register_form'
                         ]
                          ]); ?>
 
                     <div class="col-lg-6">
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'nome')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Nome"','class' => 'form-control','placeholder' => 'Nome'])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'nome')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Nome"','class' => 'form-control','placeholder' => 'Nome','required'=> true])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'username')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Nome de Utilizador"','class' => 'form-control','placeholder' => 'Nome de Utilizador'])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'username')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Nome de Utilizador"','class' => 'form-control','placeholder' => 'Nome de Utilizador','required' => true])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'telemovel')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Telemovel"','class' => 'form-control','placeholder' => 'Telemovel'])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'telemovel')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Telemovel"','class' => 'form-control','placeholder' => 'Telemovel','required' => true])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'passaport')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Passaport"','class' => 'form-control','placeholder' => 'Passaport'])->label(false) ?>
+                            <?= $form->field($modelCliente, 'passaporte')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Passaport"','class' => 'form-control','placeholder' => 'Passaport', 'required' => true])->label(false) ?>
                         </div>
-
                     </div>
                     <div class="col-lg-6">
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'apelidos')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Apelidos"','class' => 'form-control','placeholder' => 'Apelidos'])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'apelidos')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Apelidos"','class' => 'form-control','placeholder' => 'Apelidos','required'=> true])->label(false) ?>
 
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'email')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Email"','class' => 'form-control','placeholder' => 'Email'])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'email')->textInput(['type'=>'email','onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Email"','class' => 'form-control','placeholder' => 'Email', 'required' => true],)->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'password')->passwordInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Palavra-Passe"','class' => 'form-control','placeholder' => 'Palavra-Passe'])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'password')->passwordInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Palavra-Passe"','class' => 'form-control','placeholder' => 'Palavra-Passe', 'required' => true])->label(false) ?>
 
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($model, 'cartaocidadao')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Cartao de Cidadaão"','class' => 'form-control','placeholder' => 'Cartão de Cidadão'])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'cartaocidadao')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Cartao de Cidadaão"','class' => 'form-control','placeholder' => 'Cartão de Cidadão','required' => true])->label(false) ?>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-12 form-group justify-content-center">
+                            <?= $form->field($modelUtilizador, 'nif')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "NIF"','class' => 'form-control','placeholder' => 'NIF', 'required' => true])->label(false) ?>
                         </div>
                     </div>
                     <div class="col">

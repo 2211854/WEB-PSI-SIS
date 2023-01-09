@@ -22,9 +22,9 @@ AppAsset::register($this);
                         ]
                 );
                 $menuItems = [
-                    ['label' => 'Página Inicial', 'url' => ['/site/index']],
-                    ['label' => 'Carrinho', 'url' => ['/venda/carrinho'] ,'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Histórico', 'url' => ['/venda/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Página Inicial', 'url' => ['site/index']],
+                    ['label' => 'Carrinho', 'url' => ['itemvenda/index'] ,'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Histórico', 'url' => ['venda/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Entrar', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest]
 
                 ];
@@ -46,6 +46,26 @@ AppAsset::register($this);
 
                 NavBar::end();
                 ?>
+
+        <?php
+
+
+
+
+            $flashes = Yii::$app->session->getAllFlashes();
+            if(count($flashes)){
+                foreach ($flashes as $errortype => $message)
+                {
+                    $title = $errortype == 'danger' ? 'Atenção!' : 'Nota:';
+                    ?>
+                    <div class="alert alert-<?=$errortype?> w-50 mt-2 mr-auto ml-auto">
+                        <strong><?=$title?></strong> <?=$message?>
+                    </div>
+                    <?php
+
+                }
+            }
+        ?>
 
     </div>
 </header>

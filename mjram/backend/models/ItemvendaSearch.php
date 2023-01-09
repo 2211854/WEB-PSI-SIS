@@ -41,7 +41,6 @@ class ItemvendaSearch extends ItemVenda
     public function search($params)
     {
         $query = ItemVenda::find();
-
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

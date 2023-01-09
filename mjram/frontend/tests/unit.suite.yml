@@ -6,9 +6,9 @@ modules:
             part: [orm, email, fixtures]
         - Asserts
     WebDriver:
-        host: opera
-        url: http://localhost
-        browser: opera
+        host: chrome
+        url: http://localhost/WEB-PSI-SIS/mjram
+        browser: chrome
         port: 4444
         window_size: 1024x768
         restart: true

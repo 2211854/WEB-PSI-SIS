@@ -2,8 +2,13 @@
 
 namespace frontend\controllers;
 
+use common\models\DetalheVoo;
 use common\models\ItemVenda;
 use app\models\ItemvendaSearch;
+use common\models\Voo;
+use yii;
+use common\models\Utilizador;
+use common\models\Venda;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,7 +29,7 @@ class ItemvendaController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
+                        'delete' => ['post'],
                     ],
                 ],
             ]
@@ -36,12 +41,36 @@ class ItemvendaController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex()//carrinho
     {
         $searchModel = new ItemvendaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $subtotal = 0;
+
+        $utilizador = Utilizador::findOne(['id_user'=>Yii::$app->user->id]);
+        $modelVenda = Venda::findOne(['estado'=>'carrinho','id_cliente'=>$utilizador->id]);
+        $modelVenda = $modelVenda == null ? new Venda() : $modelVenda;
+        $modelVenda->id_cliente = $utilizador->id;
+
+        $modelVenda->save();
+        $model=ItemVenda::findAll(['id_venda'=>$modelVenda->id]);
+        $detalhesvoo = DetalheVoo::find()->all();
+
+        foreach ($model as $itemvenda)
+        {
+            foreach( $detalhesvoo as $detalhe)
+            {
+                if($detalhe->id_classe == $itemvenda->classe->id){
+                    $subtotal+=$detalhe->preço;
+                }
+            }
+
+        }
+
+        $dataProvider = $searchModel->search([]);
+        $dataProvider->query->andWhere(['id_venda'=>$modelVenda->id]);
         return $this->render('index', [
+            'subtotal' =>$subtotal,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -54,33 +83,47 @@ class ItemvendaController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($passaporte, $id_voo)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($passaporte, $id_voo),
-        ]);
-    }
+//    public function actionView($passaporte, $id_voo)
+//    {
+//
+//        return $this->render('view', [
+//            'model' => $this->findModel($passaporte, $id_voo),
+//        ]);
+//    }
 
     /**
      * Creates a new ItemVenda model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new ItemVenda();
+        if(!Yii::$app->user->isGuest){
+            $detalhevoo = DetalheVoo::findOne(['id'=>$id]);
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'passaporte' => $model->passaporte, 'id_voo' => $model->id_voo]);
+            $utilizadorCliente = Utilizador::findOne(['id_user' => Yii::$app->user->id ]);
+            $modelVenda = Venda::findOne(['id_cliente' => $utilizadorCliente->id, 'estado' => 'carrinho']);
+            $modelVenda = $modelVenda == null ? new Venda() : $modelVenda;
+            $modelVenda->id_cliente = $utilizadorCliente->id;
+
+            $modelVenda->save();
+            $modelItemVenda = new ItemVenda();
+
+            if ($this->request->isPost) {
+                $modelItemVenda->passaporte = ($this->request->post())['passaporte'];
+                $modelItemVenda->id_venda = $modelVenda->id;
+                $modelItemVenda->id_classe = $detalhevoo->id_classe;
+                $modelItemVenda->id_voo = $detalhevoo->id_voo;
+                $modelItemVenda->save();
+                return $this->redirect(['itemvenda/index', 'id' => $modelVenda->id]);
             }
-        } else {
-            $model->loadDefaultValues();
+
+        }
+        else{
+            return $this->redirect(['site/login']);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
@@ -90,19 +133,21 @@ class ItemvendaController extends Controller
      * @param string $id_voo Id Voo
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($passaporte, $id_voo)
-    {
-        $model = $this->findModel($passaporte, $id_voo);
+     *
+     * */
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'passaporte' => $model->passaporte, 'id_voo' => $model->id_voo]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+//    public function actionUpdate($passaporte, $id_voo)
+//    {
+//        $model = $this->findModel($passaporte, $id_voo);
+//
+//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'passaporte' => $model->passaporte, 'id_voo' => $model->id_voo]);
+//        }
+//
+//        return $this->render('update', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Deletes an existing ItemVenda model.
@@ -112,10 +157,11 @@ class ItemvendaController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($passaporte, $id_voo)
+    public function actionDelete($id)
     {
-        $this->findModel($passaporte, $id_voo)->delete();
 
+        $model = ItemVenda::findOne(['id'=> $id]);
+        $model->delete();
         return $this->redirect(['index']);
     }
 
