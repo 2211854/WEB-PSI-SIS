@@ -40,7 +40,7 @@ class VendaController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex() //historico de compras
     {
         $searchModel = new VendaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
@@ -57,58 +57,24 @@ class VendaController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+//    public function actionView($id)
+//    {
+//        return $this->render('view', [
+//            'model' => $this->findModel($id),
+//        ]);
+//    }
 
     /**
      * Creates a new Venda model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($id)
-    {
+//    public function actionCreate($id)
+//    {
+//
+//
+//    }
 
-        if(!Yii::$app->user->isGuest){
-            $detalhevoo = DetalheVoo::findOne(['id'=>$id]);
-
-            $utilizadorCliente = Utilizador::findOne(['id_user' => Yii::$app->user->id ]);
-            $modelVenda = Venda::findOne(['id_cliente' => $utilizadorCliente->id, 'estado' => 'carrinho']);
-            $modelVenda = ($modelVenda == null ? new Venda() : $modelVenda);
-            $modelVenda->id_cliente = $utilizadorCliente->id;
-            $modelVenda->save();
-            $modelItemVenda = new ItemVenda();
-            var_dump($this->request->post());
-            if ($this->request->isPost) {
-                $modelItemVenda->passaporte = ($this->request->post())['passaporte'];
-                $modelItemVenda->id_venda = $modelVenda->id;
-                $modelItemVenda->id_classe = $detalhevoo->id_classe;
-                $modelItemVenda->id_voo = $detalhevoo->id_voo;
-                $modelItemVenda->save();
-                return $this->redirect(['itemvenda/index', 'id' => $modelVenda->id]);
-            }
-
-        }
-        else{
-            return $this->redirect(['site/login']);
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionCarrinho()
-    {
-        $searchModel = new VendaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
-
-        return $this->render('carrinho', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
     /**
      * Updates an existing Venda model.
@@ -117,18 +83,18 @@ class VendaController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+//    public function actionUpdate($id)
+//    {
+//        $model = $this->findModel($id);
+//
+//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+//            return $this->redirect(['view', 'id' => $model->id]);
+//        }
+//
+//        return $this->render('update', [
+//            'model' => $model,
+//        ]);
+//    }
 
     /**
      * Deletes an existing Venda model.
@@ -139,7 +105,9 @@ class VendaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->estado= 'cancelado';
+        $model->save();
 
         return $this->redirect(['index']);
     }

@@ -22,9 +22,9 @@ AppAsset::register($this);
                         ]
                 );
                 $menuItems = [
-                    ['label' => 'Página Inicial', 'url' => ['/site/index']],
-                    ['label' => 'Carrinho', 'url' => ['/venda/carrinho'] ,'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Histórico', 'url' => ['/venda/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Página Inicial', 'url' => ['site/index']],
+                    ['label' => 'Carrinho', 'url' => ['itemvenda/index'] ,'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Histórico', 'url' => ['venda/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Entrar', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest]
 
                 ];

@@ -108,8 +108,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p></p>
                         <div class="row">
                             <div class="col">
-                                <h3 class="mb-30">Dados do passageiro</h3>
-                                <?= Html::beginForm(['venda/create','id'=>$voo->id], 'post') ?>
+                                <h3 class="mb-30">Dados do tripulante</h3>
+                                <?= Html::beginForm(['itemvenda/create','id'=>$voo->id], 'post') ?>
                                     <div class="mt-10">
                                         <?= Html::input('text', 'passaporte','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Passaporte"','class' => 'single-input','placeholder' => 'Passaporte','required' => true]) ?>
                                     </div>
@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="card_area d-flex align-items-center">
                                         <?=Html::submitButton('Adicionar ao carrinho',['class' => 'primary-btn'])?>
                                     </div>
-                                <?php Html::endForm(); ?>
+                                <?= Html::endForm(); ?>
                             </div>
                         </div>
                         <p></p>
