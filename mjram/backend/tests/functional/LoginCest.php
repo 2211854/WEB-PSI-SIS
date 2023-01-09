@@ -58,5 +58,6 @@ class LoginCest
         $I->fillField('LoginForm[username]', 'administrador');
         $I->fillField('LoginForm[password]', '12345678');
         $I->click('Sign In');
+        $I->amGoingTo('sucess on login');
     }
 }
