@@ -189,10 +189,9 @@ use yii\helpers\Html;
                     ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
                     ['label' => 'UTILIZADORES', 'header' => true],
                     ['label' => 'Adicionar', 'url' => ['site/signup'], 'icon' => 'sign-in-alt'],
-
+                ]
                
-                ]);
-            }
+            ]);
            }
             ?>
         </nav>

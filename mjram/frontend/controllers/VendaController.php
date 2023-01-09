@@ -153,14 +153,14 @@ class VendaController extends Controller
     public function actionImprimir($id){
         $utilizador = Utilizador::findOne(['id_user'=>\Yii::$app->user->id]);
 
-        $Venda = Venda::findAll(['id' => $id]);
+        $venda = Venda::findAll(['id' => $id]);
 
         $subtotal = 0;
 
         $subtotais = [];
         $listaVendas = [];
 
-        $itensvenda=ItemVenda::findAll(['id_venda'=>$venda->id]);
+        $itensvenda=ItemVenda::findAll(['id_venda'=> $venda->id]);
         $detalhesvoo = DetalheVoo::find()->all();
 
         foreach ($itensvenda as $itemvenda)
@@ -177,7 +177,6 @@ class VendaController extends Controller
         if($venda->estado != 'carrinho')
         {
             $subtotais[$venda->id] = $subtotal ;
-            $listaVendas[] = $venda;
         }
 
         $subtotal= 0;
@@ -185,7 +184,7 @@ class VendaController extends Controller
 
         return $this->render('imprimir', [
             'subtotais' => $subtotais,
-            'listaVendas' => $listaVendas,
+            'venda' => $venda,
         ]);
     }
 
