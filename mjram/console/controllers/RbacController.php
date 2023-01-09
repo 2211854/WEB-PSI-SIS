@@ -404,7 +404,7 @@ class RbacController extends Controller
         $gestorPistas = $auth->createRole('gestorPistas');
         $auth->add($gestorPistas);
         $auth->addChild($gestorPistas, $loginBO);
-        $auth->addChild($gestorPistas, $siteIndexBo);
+        $auth->addChild($gestorPistas, $siteIndexBO);
         $auth->addChild($gestorPistas, $logoutBO);
         $auth->addChild($gestorPistas, $createAviao);
         $auth->addChild($gestorPistas, $updateAviao);
@@ -461,7 +461,7 @@ class RbacController extends Controller
         $gestorLogistica = $auth->createRole('gestorLogistica');
         $auth->add($gestorLogistica);
         $auth->addChild($gestorLogistica, $loginBO);
-        $auth->addChild($gestorLogistica, $siteIndexBo);
+        $auth->addChild($gestorLogistica, $siteIndexBO);
         $auth->addChild($gestorLogistica, $logoutBO);
         $auth->addChild($gestorLogistica, $createCategoriarecurso);
         $auth->addChild($gestorLogistica, $updateCategoriarecurso);
@@ -488,7 +488,7 @@ class RbacController extends Controller
         $gestorFinaceiro = $auth->createRole('gestorFinaceiro');
         $auth->add($gestorFinaceiro);
         $auth->addChild($gestorFinaceiro, $loginBO);
-        $auth->addChild($gestorFinaceiro, $siteIndexBo);
+        $auth->addChild($gestorFinaceiro, $siteIndexBO);
         $auth->addChild($gestorFinaceiro, $logoutBO);
         $auth->addChild($gestorFinaceiro, $createDetalhevoo);
         $auth->addChild($gestorFinaceiro, $updateDetalhevoo);
@@ -529,7 +529,7 @@ class RbacController extends Controller
         $auth->addChild($admin, $gestorFinaceiro);
         $auth->addChild($admin, $funcionarioManutencao);
         $auth->addChild($admin, $loginFO);
-        $auth->addChild($admin, $siteIndexBo);
+        $auth->addChild($admin, $siteIndexBO);
         $auth->addChild($admin, $logoutBO);
         $auth->addChild($admin, $createAviao);
         $auth->addChild($admin, $updateAviao);

@@ -25,6 +25,13 @@ class AviaoController extends Controller
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexAviao'],
+                    ],
+                ],
                 'actions' => [
                     'delete' => ['POST'],
                 ],
