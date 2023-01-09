@@ -9,6 +9,7 @@ use common\models\Voo;
 use yii;
 use common\models\Utilizador;
 use common\models\Venda;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,31 @@ class ItemvendaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+//                'access' => [
+//                    'class' => AccessControl::class,
+//                    'rules' =>[
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['index'],
+//                            'roles' => ['@'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['view'],
+//                            'roles' => ['@'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['delete'],
+//                            'roles' => ['@'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['imprimir'],
+//                            'roles' => ['@'],
+//                        ],
+//                    ],
+//                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -115,6 +141,7 @@ class ItemvendaController extends Controller
                 $modelItemVenda->id_classe = $detalhevoo->id_classe;
                 $modelItemVenda->id_voo = $detalhevoo->id_voo;
                 $modelItemVenda->save();
+                Yii::$app->session->setFlash('success','O Item foi adicionado ao carrinho');
                 return $this->redirect(['itemvenda/index', 'id' => $modelVenda->id]);
             }
 
@@ -162,6 +189,7 @@ class ItemvendaController extends Controller
 
         $model = ItemVenda::findOne(['id'=> $id]);
         $model->delete();
+        Yii::$app->session->setFlash('warning','Item removido do carrinho');
         return $this->redirect(['index']);
     }
 

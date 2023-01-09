@@ -10,7 +10,9 @@ use app\models\VooSearch;
 use DateTime;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
+use Yii;
 use yii\debug\models\timeline\DataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,6 +31,21 @@ class VooController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+//                'access' => [
+//                    'class' => AccessControl::class,
+//                    'rules' =>[
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['index'],
+//                            'roles' => ['@'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['view'],
+//                            'roles' => ['@'],
+//                        ],
+//                    ],
+//                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -81,6 +98,7 @@ class VooController extends Controller
             ]);
 
         }
+        Yii::$app->session->setFlash('danger','Não foram reconhecidos os dados de pesquisa');
         $this->redirect(['site/error']);
 
 

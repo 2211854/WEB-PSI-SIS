@@ -10,6 +10,7 @@ use common\models\Venda;
 use app\models\VendaSearch;
 use Yii;
 use DateTime;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,6 +28,31 @@ class VendaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+//                'access' => [
+//                    'class' => AccessControl::class,
+//                    'rules' =>[
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['index'],
+//                            'roles' => ['@'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['view'],
+//                            'roles' => ['@'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['delete'],
+//                            'roles' => ['@'],
+//                        ],
+//                        [
+//                            'allow' => true,
+//                            'actions'=> ['imprimir'],
+//                            'roles' => ['@'],
+//                        ],
+//                    ],
+//                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -129,6 +155,7 @@ class VendaController extends Controller
             $model->data_compra = (new DateTime())->format('Y-m-d H:i:s');
             $model->save();
         }
+        Yii::$app->session->setFlash('warning','Não foi possivel efetuar o pagamento visto que o carrinho encontra-se vazio');
         $this->redirect(['venda/index']);
 
     }
@@ -147,43 +174,42 @@ class VendaController extends Controller
             $model->estado= 'cancelado';
             $model->save();
         }
+        Yii::$app->session->setFlash('success','Fatura cancelada com sucesso');
         return $this->redirect(['venda/index']);
     }
 
     public function actionImprimir($id){
         $utilizador = Utilizador::findOne(['id_user'=>\Yii::$app->user->id]);
 
-        $venda = Venda::findAll(['id' => $id]);
+        $venda = Venda::findOne(['id' => $id]);
 
         $subtotal = 0;
 
         $subtotais = [];
-        $listaVendas = [];
 
-        $itensvenda=ItemVenda::findAll(['id_venda'=> $venda->id]);
-        $detalhesvoo = DetalheVoo::find()->all();
-
-        foreach ($itensvenda as $itemvenda)
+        if($venda->estado == 'pago')
         {
-            foreach( $detalhesvoo as $detalhe)
+
+            $itensvenda=ItemVenda::findAll(['id_venda'=> $venda->id]);
+            $detalhesvoo = DetalheVoo::find()->all();
+
+            foreach ($itensvenda as $itemvenda)
             {
-                if($detalhe->id_classe == $itemvenda->classe->id){
-                    $subtotal+=$detalhe->preço;
+                foreach( $detalhesvoo as $detalhe)
+                {
+                    if($detalhe->id_classe == $itemvenda->classe->id){
+                        $subtotal+=$detalhe->preço;
+                    }
                 }
+
             }
 
-        }
 
-        if($venda->estado != 'carrinho')
-        {
-            $subtotais[$venda->id] = $subtotal ;
         }
-
-        $subtotal= 0;
 
 
         return $this->render('imprimir', [
-            'subtotais' => $subtotais,
+            'subtotal' => $subtotal,
             'venda' => $venda,
         ]);
     }

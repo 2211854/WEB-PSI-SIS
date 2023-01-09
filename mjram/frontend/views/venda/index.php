@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             foreach ($listaVendas as $venda)
                             {
                                 ?>
-                                <tr data-bs-toggle="collapse" href="#collapse<?= $venda->id?>" aria-expanded="true">
+                                <tr>
                                     <td>
                                         <h5><?=$venda->id?></h5>
                                     </td>
@@ -65,7 +65,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </td>
                                     <td>
                                         <h5><?=$subtotais[$venda->id]?>€</h5>
-                                        <i class="fa-solid fa-file-arrow-down"></i>
+
+                                        <?=($venda->estado == 'pago'? Html::a('Imprimir',['venda/imprimir','id'=>$venda->id])."<br>" : false)?>
+                                        <?=($venda->estado == 'pago'? Html::a('Cancelar',['venda/delete','id'=>$venda->id], ['data-method'=>'post'])."<br>" : false)?>
+                                        <a  data-bs-toggle="collapse" href="#collapse<?= $venda->id?>" aria-expanded="true" >
+                                            Detalhes
+                                        </a>
                                     </td>
 
                                 </tr>
@@ -101,7 +106,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             echo $detalhe->preço.'€';
                                                         }
                                                     }
-                                                    ?></td>
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <?php
 

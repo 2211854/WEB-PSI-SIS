@@ -31,22 +31,26 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
+//            'access' => [
+//                'class' => AccessControl::class,
+//                'rules' => [
+//                    [
+//                        'actions' => ['signup'],
+//                        'allow' => true,
+//                        'roles' => ['?'],
+//                    ],
+//                    [
+//                        'actions' => ['logout'],
+//                        'allow' => true,
+//                        'roles' => ['@'],
+//                    ],
+//                    [
+//                        'actions' => ['login'],
+//                        'allow' => true,
+//                        'roles' => ['loginFO'],
+//                    ],
+//                ],
+//            ],
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
@@ -94,6 +98,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            Yii::$app->session->setFlash('sucess','Entraste na tua área reservada');
             return $this->goBack();
         }
 
@@ -178,9 +183,11 @@ class SiteController extends Controller
                 $modelUtilizador->save(false);
                 $modelCliente->id = $modelUtilizador->id;
                 $modelCliente->save(false);
+                Yii::$app->session->setFlash('sucess','Foste registado com sucesso, faz login');
                 return $this->redirect(['site/login']);
 
             } catch ( Exception $e) {
+                Yii::$app->session->setFlash('danger',$e->getMessage());
                 throw new BadRequestHttpException($e->getMessage());
             }
         }
