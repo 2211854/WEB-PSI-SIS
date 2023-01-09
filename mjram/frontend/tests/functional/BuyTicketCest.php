@@ -22,7 +22,7 @@ class BuyTicketCest
         $I->fillField('data', '2023-01-24');
         $I->click('Procurar');
     }
-    public function BuyTicket(FunctionalTester $I)
+    public function AddTicket(FunctionalTester $I)
     {
         //fazer
         $I->amOnRoute('/site/index');

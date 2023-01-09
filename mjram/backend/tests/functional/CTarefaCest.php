@@ -5,7 +5,7 @@ namespace backend\tests\Functional;
 
 use backend\tests\FunctionalTester;
 
-class CTarefaManutencaoCest
+class CTarefaCest
 {
     public function _before(FunctionalTester $I)
     {
