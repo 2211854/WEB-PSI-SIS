@@ -51,13 +51,18 @@ class VooController extends Controller
             $listaVoos = Voo::findAll(['estado'=>'planeado']);
             $listaVoosEncontrados = [];
             foreach ($listaVoos as $voo) {
+
                 $model = $this->findModel($voo->id);
                 $escalasVoo = $model->escalaVoos;
                 $indiceMaximo = count($escalasVoo) - 1;
-                if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
-                    if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
-                        $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
+                if($indiceMaximo >=0)
+                {
+                    if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
+                        if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
+                            $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
+                        }
                     }
+
                 }
             }
 
