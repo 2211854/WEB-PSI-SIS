@@ -89,7 +89,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                             ],
 
-                            ['class' => 'hail812\adminlte3\yii\grid\ActionColumn'],
+                            [
+                                'class' => 'hail812\adminlte3\yii\grid\ActionColumn',
+                                'template'=>'{view} {update} {delete}',
+                                'buttons'=>[
+
+                                    'delete' => function ($action, $model) {
+                                            if($model->utilizador->user->status == 0){
+                                                return Html::a('<i class="fas fa-check"></i>',['funcionario/delete','id'=>$model->id],[ 'data-method'=>'POST']);
+                                            }else{
+                                                return Html::a('<i class="fas fa-trash"></i>',['funcionario/delete','id'=>$model->id],['data-method'=>'POST']);
+                                            }
+                                    },
+
+                                ],
+                            ],
                         ],
                         'summaryOptions' => ['class' => 'summary mb-2'],
                         'pager' => [

@@ -129,6 +129,30 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
+                        'label' => 'Recurso',
+                        'icon' => 'box',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['recurso/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['recurso/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Pedido Recurso',
+                        'icon' => 'parachute-box',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['pedidorecurso/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['pedidorecurso/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Tarefa',
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['tarefa/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['tarefa/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
                         'label' => 'Detalhe Voo',
                         'icon' => 'plane',
                         'items' => [
@@ -142,30 +166,6 @@ use yii\helpers\Html;
                         'items' => [
                             ['label' => 'Listar', 'url' => ['escalavoo/index'], 'iconStyle' => 'far'],
                             ['label' => 'Criar', 'url' => ['escalavoo/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Pedido Recurso',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['pedidorecurso/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['pedidorecurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Recurso',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['recurso/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['recurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Tarefa',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['tarefa/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['tarefa/create'], 'iconStyle' => 'far'],
                         ]
                     ],
                     [

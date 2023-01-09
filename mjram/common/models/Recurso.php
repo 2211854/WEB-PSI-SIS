@@ -20,6 +20,8 @@ use Yii;
  */
 class Recurso extends \yii\db\ActiveRecord
 {
+    public $unidaded;
+    public $categoriad;
     /**
      * {@inheritdoc}
      */
@@ -51,8 +53,8 @@ class Recurso extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Nome',
             'stockatual' => 'Stockatual',
-            'id_categoria' => 'Id Categoria',
-            'id_unidade' => 'Id Unidade',
+            'id_categoria' => 'Categoria',
+            'id_unidade' => 'Unidade',
         ];
     }
 

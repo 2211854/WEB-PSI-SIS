@@ -35,7 +35,7 @@ class FuncionarioController extends Controller
      * Lists all Funcionario models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($message = null)
     {
         $searchModel = new FuncionarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -43,6 +43,7 @@ class FuncionarioController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'message' => $message,
         ]);
     }
 
@@ -164,7 +165,16 @@ class FuncionarioController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+
+        $modelUtilizador = Utilizador::findOne($id);
+        $modelUser = User::findOne($modelUtilizador->id_user);
+        if($modelUser->status == 0){
+            $modelUser->status = 10;
+        }else{
+            $modelUser->status = 0;
+        }
+
+        $modelUser->save();
 
         return $this->redirect(['index']);
     }

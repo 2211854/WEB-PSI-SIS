@@ -9,6 +9,13 @@ use yii\grid\GridView;
 
 $this->title = 'Companhias';
 $this->params['breadcrumbs'][] = $this->title;
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -23,18 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-                    <?php
-                        if(isset($actionStatus)&& isset($name)){
-
-                            $mensagem = $actionStatus == 'success' ? "Companhia $name  eliminada com sucesso!" : "Não foi possivel eliminar a companhia $name!";
-
-                            echo \hail812\adminlte\widgets\Alert::widget([
-                                'type' => $actionStatus,
-                                'body' => '<h3>'.$mensagem.'</h3>',
-                            ]);
-                        }
-                    ?>
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,

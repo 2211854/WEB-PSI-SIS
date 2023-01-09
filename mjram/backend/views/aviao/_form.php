@@ -10,6 +10,15 @@ use yii\bootstrap4\ActiveForm;
 
 <div class="aviao-form">
 
+    <?php
+    if(isset($message)){
+
+        echo \hail812\adminlte\widgets\Alert::widget([
+            'type' => 'warning',
+            'body' => '<h3>'.$message.'</h3>',
+        ]);
+    }
+    ?>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'marca')->textInput(['maxlength' => true]) ?>

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Companhia;
 use app\models\CompanhiaSearch;
+use yii\db\IntegrityException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,7 +34,7 @@ class CompanhiaController extends Controller
      * Lists all Companhia models.
      * @return mixed
      */
-    public function actionIndex($actionStatus = null,$name = null)
+    public function actionIndex($message = null)
     {
         $searchModel = new CompanhiaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -41,9 +42,7 @@ class CompanhiaController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-
-            'actionStatus' => $actionStatus,
-            'name' => $name,
+            'message' => $message,
         ]);
     }
 
@@ -107,15 +106,23 @@ class CompanhiaController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
 
-        if(empty($model->aviaos)){
-            $model->delete();
-            return $this->redirect(['index','name'=>$model->nome ,'actionStatus' => 'success']);
+        try
+        {
+            $this->findModel($id)->delete();
         }
-        else{
-            return $this->redirect(['index','name'=>$model->nome ,'actionStatus' => 'warning']);
+        catch(IntegrityException $e)
+        {
+            // Cannot delete or update a parent row: a foreign key constraint fails
+            if($e->errorInfo[1] == 1451 )
+            {
+                return $this->redirect(['index','message'=>'Nao pode eliminar dados que estejam a ser utilizados!']);
+            }
+            else{
+                throw $e;
+            }
         }
+        return $this->redirect(['index']);
 
     }
 

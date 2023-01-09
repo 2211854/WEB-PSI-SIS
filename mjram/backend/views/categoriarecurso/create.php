@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\CategoriaRecurso */
 
-$this->title = 'Create Categoria Recurso';
+$this->title = 'Criar Categoria Recurso';
 $this->params['breadcrumbs'][] = ['label' => 'Categoria Recursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -4,7 +4,9 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\PedidoRecurso;
+use common\models\Recurso;
 use app\models\PedidorecursoSearch;
+use yii\db\IntegrityException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,7 +35,7 @@ class PedidorecursoController extends Controller
      * Lists all PedidoRecurso models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($message = null)
     {
         $searchModel = new PedidorecursoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -41,6 +43,7 @@ class PedidorecursoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'message' => $message,
         ]);
     }
 
@@ -62,11 +65,19 @@ class PedidorecursoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($recursoid = null)
     {
+        //adicionar automaticamente o id do funcionario atual
+        //adicionar o estado e data de registo automaticamente acho que ja faz pela base de dados
         $model = new PedidoRecurso();
+        if ($recursoid!=null){
+            $model->id_recurso = $recursoid;
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $funcionario = Yii::$app->db->createCommand("Select * from utilizador where id_user='".Yii::$app->user->id."'")->queryOne();
+            $model->id_funcionario = $funcionario['id'];
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -85,8 +96,21 @@ class PedidorecursoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $estadoAtual=$model->estado;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->estado == 'entregue' && $estadoAtual!='entregue'){
+
+                $modelRecurso = Recurso::findOne($model->id_recurso);
+                $modelRecurso->stockatual = $modelRecurso->stockatual + $model->quantidade;
+                $modelRecurso->save();
+
+            }elseif ($model->estado == 'devolvido' && $estadoAtual=='entregue'){
+                $modelRecurso = Recurso::findOne($model->id_recurso);
+                $modelRecurso->stockatual = $modelRecurso->stockatual - $model->quantidade;
+                $modelRecurso->save();
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -104,8 +128,21 @@ class PedidorecursoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        try
+        {
+            $this->findModel($id)->delete();
+        }
+        catch(IntegrityException $e)
+        {
+            // Cannot delete or update a parent row: a foreign key constraint fails
+            if($e->errorInfo[1] == 1451 )
+            {
+                return $this->redirect(['index','message'=>'Nao pode eliminar dados que estejam a ser utilizados!']);
+            }
+            else{
+                throw $e;
+            }
+        }
         return $this->redirect(['index']);
     }
 

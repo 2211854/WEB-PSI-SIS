@@ -30,7 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             'designacao',
                             'data_registo',
-                            'estado',
+                            [
+                                'label' => 'Estado',
+                                'attribute' => 'estado',
+                                'filter'=>array('atrasado' => 'Atrasado', 'cancelado' => 'Cancelado', 'concluido' => 'Concluido', 'planeado' => 'Planeado', 'circulacao' => 'Circulacao'),
+                                'value' => function($model) {
+                                    return $model->estado;
+                                }
+                            ],
                             [
                                 'label' => 'Aviao',
                                 'attribute' => 'aviaod',
@@ -54,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             [
                                 'class' => 'hail812\adminlte3\yii\grid\ActionColumn',
-                                'template'=>'{view} {update} {delete} {detalhevoo} {escalavoo} {tarefa}',
+                                'template'=>'{view} {update} {detalhevoo} {escalavoo} {tarefa}',
                                 'buttons'=>[
 
                                     'detalhevoo' => function ($action, $model) {

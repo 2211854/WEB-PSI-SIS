@@ -10,6 +10,13 @@ use yii\grid\GridView;
 $this->title = 'Detalhes do voo: '.$voo->designacao;
 $this->params['breadcrumbs'][] = ['label' => 'Voos', 'url' => ['voo/index']];
 $this->params['breadcrumbs'][] = $this->title;
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
 ?>
 <div class="container-fluid">
     <div class="row">

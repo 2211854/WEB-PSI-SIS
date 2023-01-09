@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\DetalheVoo;
 use common\models\Voo;
+use common\models\ItemVenda;
 use app\models\DetalhevooSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -35,7 +36,7 @@ class DetalhevooController extends Controller
      * Lists all DetalheVoo models.
      * @return mixed
      */
-    public function actionIndex($vooid)
+    public function actionIndex($vooid,$message = null)
     {
         $voo = Voo::findOne($vooid);
         $searchModel = new DetalhevooSearch();
@@ -46,6 +47,7 @@ class DetalhevooController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'voo' => $voo,
+            'message' => $message,
         ]);
     }
 
@@ -136,7 +138,21 @@ class DetalhevooController extends Controller
      */
     public function actionDelete($id_voo, $id_classe)
     {
-        $this->findModel($id_voo, $id_classe)->delete();
+
+        $voo = Voo::findOne($id_voo);
+        $counter = 0;
+        $itens = $voo->getItemVendas();
+        foreach ($itens as $item) {
+            if($item['id_classe'] == $id_classe){
+                $counter = $counter+1;
+            }
+        }
+        if($counter != 0){
+            return $this->redirect(['index','message'=>'Nao pode eliminar dados que estejam a ser utilizados!','vooid'=>$id_voo]);
+        }else{
+            $this->findModel($id_voo, $id_classe)->delete();
+        }
+
 
         return $this->redirect(['index','vooid'=>$id_voo]);
     }

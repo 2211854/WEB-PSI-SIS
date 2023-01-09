@@ -69,7 +69,7 @@ class OcupacaoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($aviaoid)
+    public function actionCreate($aviaoid,$message =null)
     {
         $model = new ocupacao();
         $model->id_aviao = $aviaoid;
@@ -81,9 +81,14 @@ class OcupacaoController extends Controller
         } else{
             $model->loadDefaultValues();
         }
+        if(isset($model->errors['id_aviao'][0])){
+            $message = 'Já existe uma ocupacao com esta classe!';
+        }
+
 
         return $this->render('create', [
             'model' => $model,
+            'message' => $message,
         ]);
     }
 

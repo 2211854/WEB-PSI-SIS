@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 /* @var $model common\models\Recurso */
 
-$this->title = 'Update Recurso: ' . $model->id;
+$this->title = 'Update Recurso: ' . $model->nome;
 $this->params['breadcrumbs'][] = ['label' => 'Recursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

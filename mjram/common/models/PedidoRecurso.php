@@ -20,6 +20,8 @@ use Yii;
  */
 class PedidoRecurso extends \yii\db\ActiveRecord
 {
+    public $recursod;
+    public $funcionariod;
     /**
      * {@inheritdoc}
      */
@@ -53,12 +55,20 @@ class PedidoRecurso extends \yii\db\ActiveRecord
             'quantidade' => 'Quantidade',
             'data_registo' => 'Data Registo',
             'custo_total' => 'Custo Total',
-            'id_recurso' => 'Id Recurso',
-            'id_funcionario' => 'Id Funcionario',
+            'id_recurso' => 'Recurso',
+            'id_funcionario' => 'Funcionario',
             'estado' => 'Estado',
         ];
     }
-
+    /**
+     * Gets query for [[Utilizador]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getutilizador()
+    {
+        return $this->hasOne(Utilizador::class, ['id' => 'id_funcionario']);
+    }
     /**
      * Gets query for [[Funcionario]].
      *

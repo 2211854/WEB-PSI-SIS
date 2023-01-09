@@ -59,11 +59,11 @@ class Aviao extends \yii\db\ActiveRecord
             'designacao' => 'Designacao',
             'marca' => 'Marca',
             'modelo' => 'Modelo',
-            'combustivelatual' => 'Combustivelatual',
-            'combustivelmaximo' => 'Combustivelmaximo',
+            'combustivelatual' => 'Combustivel Atual',
+            'combustivelmaximo' => 'Combustivel Maximo',
             'data_registo' => 'Data Registo',
             'estado' => 'Estado',
-            'id_companhia' => 'Id Companhia',
+            'id_companhia' => 'Companhia',
         ];
     }
 

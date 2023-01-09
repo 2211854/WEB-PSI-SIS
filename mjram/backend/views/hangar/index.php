@@ -9,6 +9,14 @@ use yii\grid\GridView;
 
 $this->title = 'Hangars';
 $this->params['breadcrumbs'][] = $this->title;
+if (isset($message)) {
+
+    echo \hail812\adminlte\widgets\Alert::widget([
+        'type' => 'warning',
+        'body' => '<h3>' . $message . '</h3>',
+    ]);
+}
+
 ?>
 <div class="container-fluid">
     <div class="row">
