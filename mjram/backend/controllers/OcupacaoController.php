@@ -6,6 +6,7 @@ use Yii;
 use common\models\Ocupacao;
 use common\models\Aviao;
 use app\models\OcupacaoSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +23,36 @@ class OcupacaoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexOcupacao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createOcupacao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewOcupacao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateOcupacao'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteOcupacao'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

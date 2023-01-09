@@ -393,7 +393,7 @@ class RbacController extends Controller
         $indexVooFO->description = 'fazer a pesquisa de voos';
         $auth->add($indexVooFO);
         // add "indexVooFO" permission
-        $viewVooFO = $auth->createPermission('indexVooFO');
+        $viewVooFO = $auth->createPermission('viewVooFO');
         $viewVooFO->description = 'Ver os detalhes do voo';
         $auth->add($viewVooFO);
 
@@ -528,7 +528,7 @@ class RbacController extends Controller
         $auth->addChild($admin, $gestorLogistica);
         $auth->addChild($admin, $gestorFinaceiro);
         $auth->addChild($admin, $funcionarioManutencao);
-//        $auth->addChild($admin, $loginFO);
+//        $auth->addChild($admin, $loginBO);
 //        $auth->addChild($admin, $siteIndexBO);
 //        $auth->addChild($admin, $logoutBO);
 //        $auth->addChild($admin, $createAviao);

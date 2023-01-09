@@ -6,6 +6,7 @@ use Yii;
 use common\models\EscalaVoo;
 use common\models\Voo;
 use app\models\EscalavooSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +23,36 @@ class EscalavooController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexEscalavoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createEscalavoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewEscalavoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateEscalavoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteEscalavoo'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

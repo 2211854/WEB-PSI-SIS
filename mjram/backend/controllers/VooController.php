@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Voo;
 use app\models\VooSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,10 +21,40 @@ class VooController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexVoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createVoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewVoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateVoo'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteVoo'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'logout' => ['POST'],
                 ],
             ],
         ];

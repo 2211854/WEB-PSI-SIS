@@ -56,17 +56,21 @@ use yii\helpers\Html;
                     'data-accordion' => 'false'
                 ],
                 'items' => [
+
                     ['label' => 'VOOS', 'header' => true],
-                    [
-                        'label' => 'Aviao',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['aviao/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['aviao/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
+                        [
+                            'label' => 'Aviao',
+                            'visible' => Yii::$app->user->can('indexAviao'),
+                            'icon' => 'plane',
+                            'items' => [
+                                ['label' => 'Listar', 'url' => ['aviao/index'], 'iconStyle' => 'far'],
+                                ['label' => 'Criar', 'url' => ['aviao/create'], 'iconStyle' => 'far'],
+                            ]
+                        ],
+
                     [
                         'label' => 'classe',
+                        'visible' => Yii::$app->user->can('indexClasse'),
                         'icon' => 'couch',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['classe/index'], 'iconStyle' => 'far'],
@@ -75,6 +79,7 @@ use yii\helpers\Html;
                     ],
                     [
                         'label' => 'Companhia',
+                        'visible' => Yii::$app->user->can('indexCompanhia'),
                         'icon' => 'building',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['companhia/index'], 'iconStyle' => 'far'],
@@ -83,6 +88,7 @@ use yii\helpers\Html;
                     ],
                     [
                         'label' => 'Funcionarios',
+                        'visible' => Yii::$app->user->can('indexFuncionario'),
                         'icon' => 'users',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['funcionario/index'], 'iconStyle' => 'far'],
@@ -91,6 +97,7 @@ use yii\helpers\Html;
                     ],
                     [
                         'label' => 'Hangar',
+                        'visible' => Yii::$app->user->can('indexHangar'),
                         'icon' => 'warehouse',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['hangar/index'], 'iconStyle' => 'far'],
@@ -99,6 +106,7 @@ use yii\helpers\Html;
                     ],
                     [
                         'label' => 'Pista',
+                        'visible' => Yii::$app->user->can('indexPista'),
                         'icon' => 'road',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['pista/index'], 'iconStyle' => 'far'],
@@ -106,23 +114,8 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => 'Unidade Medida',
-                        'icon' => 'weight-hanging',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['unidademedida/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['unidademedida/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Categoria Recurso',
-                        'icon' => 'layer-group',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['categoriarecurso/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['categoriarecurso/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
                         'label' => 'Voo',
+                        'visible' => Yii::$app->user->can('indexVoo'),
                         'icon' => 'plane-departure',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
@@ -131,6 +124,7 @@ use yii\helpers\Html;
                     ],
                     [
                         'label' => 'Recurso',
+                        'visible' => Yii::$app->user->can('indexRecurso'),
                         'icon' => 'box',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['recurso/index'], 'iconStyle' => 'far'],
@@ -139,6 +133,7 @@ use yii\helpers\Html;
                     ],
                     [
                         'label' => 'Pedido Recurso',
+                        'visible' => Yii::$app->user->can('indexPedidorecurso'),
                         'icon' => 'parachute-box',
                         'items' => [
                             ['label' => 'Listar', 'url' => ['pedidorecurso/index'], 'iconStyle' => 'far'],
@@ -146,49 +141,23 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => 'Tarefa',
-                        'icon' => 'plane',
+                        'label' => 'Categoria Recurso',
+                        'visible' => Yii::$app->user->can('indexCategoriarecurso'),
+                        'icon' => 'layer-group',
                         'items' => [
-                            ['label' => 'Listar', 'url' => ['tarefa/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['tarefa/create'], 'iconStyle' => 'far'],
+                            ['label' => 'Listar', 'url' => ['categoriarecurso/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['categoriarecurso/create'], 'iconStyle' => 'far'],
                         ]
                     ],
                     [
-                        'label' => 'Detalhe Voo',
-                        'icon' => 'plane',
+                        'label' => 'Unidade Medida',
+                        'visible' => Yii::$app->user->can('indexUnidademedida'),
+                        'icon' => 'weight-hanging',
                         'items' => [
-                            ['label' => 'Listar', 'url' => ['detalhevoo/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['detalhevoo/create'], 'iconStyle' => 'far'],
+                            ['label' => 'Listar', 'url' => ['unidademedida/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['unidademedida/create'], 'iconStyle' => 'far'],
                         ]
                     ],
-                    [
-                        'label' => 'Escala Voo',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['escalavoo/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['escalavoo/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'Utilizador',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['utilizador/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['utilizador/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    [
-                        'label' => 'ocupacao',
-                        'icon' => 'plane',
-                        'items' => [
-                            ['label' => 'Listar', 'url' => ['ocupacao/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['ocupacao/create'], 'iconStyle' => 'far'],
-                        ]
-                    ],
-                    ['label' => 'GII', 'header' => true],
-                    ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                    ['label' => 'UTILIZADORES', 'header' => true],
-                    ['label' => 'Adicionar', 'url' => ['site/signup'], 'icon' => 'sign-in-alt'],
                 ]
                
             ]);

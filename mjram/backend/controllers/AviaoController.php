@@ -8,6 +8,7 @@ use common\models\Companhia;
 use app\models\AviaoSearch;
 use yii\db\Exception;
 use yii\db\IntegrityException;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,8 +24,8 @@ class AviaoController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
+            'access' => [
+                'class' => AccessControl::class,
                 'rules' =>[
                     [
                         'allow' => true,
@@ -52,6 +53,9 @@ class AviaoController extends Controller
                         'roles' => ['deleteAviao'],
                     ],
                 ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],

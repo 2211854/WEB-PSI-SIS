@@ -9,6 +9,7 @@ use yii\db\IntegrityException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CategoriarecursoController implements the CRUD actions for CategoriaRecurso model.
@@ -21,6 +22,36 @@ class CategoriarecursoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexCategoriarecurso'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createCategoriarecurso'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewCategoriarecurso'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateCategoriarecurso'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteCategoriarecurso'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -28,6 +59,7 @@ class CategoriarecursoController extends Controller
                 ],
             ],
         ];
+
     }
 
     /**

@@ -6,6 +6,7 @@ use Yii;
 use common\models\Hangar;
 use app\models\HangarSearch;
 use yii\db\IntegrityException;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +22,36 @@ class HangarController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexHangar'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createHangar'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewHangar'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateHangar'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteHangar'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

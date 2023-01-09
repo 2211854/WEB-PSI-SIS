@@ -7,6 +7,7 @@ use common\models\Funcionario;
 use common\models\User;
 use common\models\Utilizador;
 use app\models\FuncionarioSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +23,36 @@ class FuncionarioController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' =>[
+                    [
+                        'allow' => true,
+                        'actions'=> ['index'],
+                        'roles' => ['indexFuncionario'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['create'],
+                        'roles' => ['createFuncionario'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['view'],
+                        'roles' => ['viewFuncionario'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['update'],
+                        'roles' => ['updateFuncionario'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['delete'],
+                        'roles' => ['deleteFuncionario'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -99,7 +130,7 @@ class FuncionarioController extends Controller
 
 
 
-            return $this->redirect(['view', 'id' => $modelFuncionario->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -145,7 +176,7 @@ class FuncionarioController extends Controller
             $modelUtilizador->save(false);
             $modelFuncionario->save();
 
-            return $this->redirect(['view', 'id' => $modelFuncionario->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

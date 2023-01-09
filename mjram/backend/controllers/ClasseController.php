@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Classe;
 use app\models\ClasseSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,14 +21,44 @@ class ClasseController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
+            return [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' =>[
+                        [
+                            'allow' => true,
+                            'actions'=> ['index'],
+                            'roles' => ['indexClasse'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['create'],
+                            'roles' => ['createClasse'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['view'],
+                            'roles' => ['viewClasse'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['update'],
+                            'roles' => ['updateClasse'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['delete'],
+                            'roles' => ['deleteClasse'],
+                        ],
+                    ],
                 ],
-            ],
-        ];
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+            ];
     }
 
     /**
