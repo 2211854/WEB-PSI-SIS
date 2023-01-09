@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="row">
                             <div class="col">
                                 <h3 class="mb-30">Dados do tripulante</h3>
-                                <?= Html::beginForm(['itemvenda/create','id'=>$voo->id], 'post') ?>
+                                <?= Html::beginForm(['itemvenda/create','id'=>$detalhe->id], 'post') ?>
                                     <div class="mt-10">
                                         <?= Html::input('text', 'passaporte','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Passaporte"','class' => 'single-input','placeholder' => 'Passaporte','required' => true]) ?>
                                     </div>

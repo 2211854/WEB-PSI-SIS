@@ -29,7 +29,7 @@ class ItemvendaController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
+                        'delete' => ['post'],
                     ],
                 ],
             ]
@@ -44,9 +44,33 @@ class ItemvendaController extends Controller
     public function actionIndex()//carrinho
     {
         $searchModel = new ItemvendaSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $subtotal = 0;
+
+        $utilizador = Utilizador::findOne(['id_user'=>Yii::$app->user->id]);
+        $modelVenda = Venda::findOne(['estado'=>'carrinho','id_cliente'=>$utilizador->id]);
+        $modelVenda = $modelVenda == null ? new Venda() : $modelVenda;
+        $modelVenda->id_cliente = $utilizador->id;
+
+        $modelVenda->save();
+        $model=ItemVenda::findAll(['id_venda'=>$modelVenda->id]);
+        $detalhesvoo = DetalheVoo::find()->all();
+
+        foreach ($model as $itemvenda)
+        {
+            foreach( $detalhesvoo as $detalhe)
+            {
+                if($detalhe->id_classe == $itemvenda->classe->id){
+                    $subtotal+=$detalhe->preço;
+                }
+            }
+
+        }
+
+        $dataProvider = $searchModel->search([]);
+        $dataProvider->query->andWhere(['id_venda'=>$modelVenda->id]);
         return $this->render('index', [
+            'subtotal' =>$subtotal,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -72,15 +96,16 @@ class ItemvendaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         if(!Yii::$app->user->isGuest){
             $detalhevoo = DetalheVoo::findOne(['id'=>$id]);
 
             $utilizadorCliente = Utilizador::findOne(['id_user' => Yii::$app->user->id ]);
             $modelVenda = Venda::findOne(['id_cliente' => $utilizadorCliente->id, 'estado' => 'carrinho']);
-            $modelVenda = ($modelVenda == null ? new Venda() : $modelVenda);
+            $modelVenda = $modelVenda == null ? new Venda() : $modelVenda;
             $modelVenda->id_cliente = $utilizadorCliente->id;
+
             $modelVenda->save();
             $modelItemVenda = new ItemVenda();
 
@@ -132,10 +157,11 @@ class ItemvendaController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($passaporte, $id_voo)
+    public function actionDelete($id)
     {
-        $this->findModel($passaporte, $id_voo)->delete();
 
+        $model = ItemVenda::findOne(['id'=> $id]);
+        $model->delete();
         return $this->redirect(['index']);
     }
 

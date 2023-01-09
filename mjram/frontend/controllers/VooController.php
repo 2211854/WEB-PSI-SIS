@@ -7,6 +7,7 @@ use common\models\EscalaVoo;
 use common\models\DetalheVoo;
 
 use app\models\VooSearch;
+use DateTime;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
 use yii\debug\models\timeline\DataProvider;
@@ -47,9 +48,11 @@ class VooController extends Controller
     public function actionIndex()
     {
         $params = $this->request->get();
-        if(isset($params['partida']) && isset($params['destino'])){
+        if(isset($params['partida']) && isset($params['destino']) && isset($params['data'])){
             $listaVoos = Voo::findAll(['estado'=>'planeado']);
             $listaVoosEncontrados = [];
+            $data = new DateTime($params['data']);
+            $data = $data->format('Y-m-d');
             foreach ($listaVoos as $voo) {
 
                 $model = $this->findModel($voo->id);
@@ -57,10 +60,15 @@ class VooController extends Controller
                 $indiceMaximo = count($escalasVoo) - 1;
                 if($indiceMaximo >=0)
                 {
-                    if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
-                        if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
-                            $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
+                    $datapartida = new DateTime($escalasVoo[0]->horario_partida);
+                    $datapartida = $datapartida->format('Y-m-d');
+                    if($data == $datapartida){
+                        if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
+                            if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
+                                $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
+                            }
                         }
+
                     }
 
                 }
@@ -174,17 +182,13 @@ class VooController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    protected function  findListaVoos($queryParams)
-    {
-
-        return false;
-    }
 
     function isLike($needle, $haystack)
     {
+        $needle = strtoupper($needle);
         $regex = '/' . str_replace('%', '.*?', $needle) . '/';
 
-        return preg_match($regex, $haystack) > 0;
+        return preg_match($regex, strtoupper($haystack)) > 0;
     }
 
 }

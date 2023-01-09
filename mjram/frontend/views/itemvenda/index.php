@@ -15,13 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="item-venda-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Item Venda', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <title><?= Html::encode($this->title) ?></title>
 
 
 
@@ -47,22 +41,34 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="cart_inner">
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
+                    'summaryOptions' => ['hidden' =>true],
+                    'tableOptions' => [
+                        'class' => 'table',
+                    ],
                     'options' =>
                         [
-                                'class' => 'table'
+                                'class' => 'table text-center',
+
 
                         ],
                     'columns' => [
                         [
-                                'class' => 'yii\grid\SerialColumn'
+                                'class' => 'yii\grid\SerialColumn',
                         ],
                         [
                                 'label' => 'Partida',
                                 'attribute' => 'partida',
                                 'value' => function($model) {
                                     return $model->voo->escalaVoos[0]->partida;
-                                }
+                                },
+
+                        ],
+                        [
+                            'label' => 'Horário Partida',
+                            'attribute' => 'horariopartida',
+                            'value' => function($model) {
+                                return (new DateTime($model->voo->escalaVoos[0]->horario_partida))->format('Y-m-d H:i');
+                            }
 
                         ],
                         [
@@ -73,182 +79,91 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
 
                         ],
-                        'passaporte',
-                        'id_classe',
-                        'id_voo',
+                        [
+                            'label' => 'Numero escalas',
+                            'attribute' => 'escalas',
+                            'value' => function($model) {
+                                return count($model->voo->escalaVoos) ? count($model->voo->escalaVoos) : 'direto' ;
+                            }
+
+                        ],
+                        [
+                                'label' => 'Passaporte',
+                            'attribute' => 'passaport',
+                            'value' => function($model) {
+                                return $model->passaporte ;
+                            },
+                            'contentOptions' => ['class'=>'fw-bold'],
+
+                        ],
+                        [
+                            'label' => 'Classe',
+                            'attribute' => 'classe',
+                            'value' => function($model) {
+                                return $model->classe->designacao ;
+                            },
+                            'contentOptions' => ['class'=>'fw-bold'],
+
+                        ],
+                        [
+                            'label' => 'Voo',
+                            'attribute' => 'voo',
+                            'value' => function($model) {
+                                return $model->voo->designacao ;
+                            }
+
+                        ],
+                        [
+                            'label' => 'Preco',
+                            'attribute' => 'Preco',
+                            'value' => function($model) {
+                                 $classeid =  $model->classe->id;
+                                 $detalhesvoo = $model->voo->detalheVoos;
+                                 foreach( $detalhesvoo as $detalhe)
+                                     {
+                                         if($detalhe->id_classe == $classeid){
+                                             return $detalhe->preço.'€';
+                                         }
+                                     }
+                            },
+                            'contentOptions' => ['class'=>'fw-bold'],
+
+                        ],
                         [
                             'class' => ActionColumn::className(),
                             'template'=>'{delete}',
-                            'urlCreator' => function ($action, ItemVenda $model, $key, $index, $column) {
-                                return Url::toRoute([$action, 'passaporte' => $model->passaporte, 'id_voo' => $model->id_voo]);
-                            }
+                            'buttons'=>[
+
+                                'delete' => function ($action, $model) {
+
+                                    return Html::a('<i class="lnr lnr lnr-trash"></i>',['itemvenda/delete','id'=>$model->id],['class'=>'icon_btn','data-method'=>'post']);
+
+                                }
+
+                            ],
+                            'contentOptions' => ['class'=>'btn-cart'],
+
                         ],
                     ],
                 ]); ?>
                 <div class="table">
-                    <table class="table text-center">
-                        <thead>
-                        <tr>
-                            <th scope="col">Apelido</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Partida</th>
-                            <th scope="col">Nº de Escalas</th>
-                            <th scope="col">Destino</th>
-                            <th scope="col">Classe</th>
-                            <th scope="col">Passaporte</th>
-                            <th scope="col">Total</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <table class="table">
                         <!-- primeiro produto -->
                         <tr>
-                            <td>
-                                <h5>Antonio</h5>
-                            </td>
-                            <td>
-                                <h5>Josefino</h5>
-                            </td>
-                            <td>
-                                <p>Faro</p>
-                            </td>
-                            <td>
-                                <h5>2</h5>
-                            </td>
-                            <td>
-                                <p>Nice</p>
-                            </td>
-                            <td>
-                                <h5>Economica</h5>
-                            </td>
-                            <td>
-                                <h5>PS38123712</h5>
-                            </td>
-                            <td>
-                                <h5>333.33€</h5>
-                            </td>
-                            <td class="btn-cart">
-                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-trash"></i></a>
-                            </td>
-                        </tr>
-                        <!-- segundo produto -->
-                        <tr>
-                            <td>
-                                <h5>Antonio</h5>
-                            </td>
-                            <td>
-                                <h5>Josefino</h5>
-                            </td>
-                            <td>
-                                <p>Faro</p>
-                            </td>
-                            <td>
-                                <h5>2</h5>
-                            </td>
-                            <td>
-                                <p>Nice</p>
-                            </td>
-                            <td>
-                                <h5>Economica</h5>
-                            </td>
-                            <td>
-                                <h5>PS38123712</h5>
-                            </td>
-                            <td>
-                                <h5>333.33€</h5>
-                            </td>
-                            <td class="btn-cart">
-                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-trash"></i></a>
-                            </td>
-                        </tr>
-                        <!-- terceiro produto -->
-                        <tr>
-                            <td>
-                                <h5>Antonio</h5>
-                            </td>
-                            <td>
-                                <h5>Josefino</h5>
-                            </td>
-                            <td>
-                                <p>Faro</p>
-                            </td>
-                            <td>
-                                <h5>2</h5>
-                            </td>
-                            <td>
-                                <p>Nice</p>
-                            </td>
-                            <td>
-                                <h5>Economica</h5>
-                            </td>
-                            <td>
-                                <h5>PS38123712</h5>
-                            </td>
-                            <td>
-                                <h5>333.33€</h5>
-                            </td>
-                            <td class="btn-cart">
-                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-trash"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
                             <td>
                                 <h5>Subtotal</h5>
                             </td>
                             <td>
-                                <h5>$2160.00</h5>
-                            </td>
-                            <td>
-
+                                <h5>
+                                    <?=$subtotal?>€</h5>
                             </td>
                         </tr>
                         <tr class="out_button_area">
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
+                            <td></td>
+                            <td colspan="">
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="index.html">Continue Shopping</a>
-                                    <a class="primary-btn" href="checkout.html">Proceed to checkout</a>
+                                    <?=Html::a('Continuar a comprar',['site/index'],['class'=> 'gray_btn'])?>
+                                    <?=Html::a('Efetuar pagamento',['venda/update'],['class'=> 'primary-btn'])?>
                                 </div>
                             </td>
                         </tr>

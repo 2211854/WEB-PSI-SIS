@@ -6,21 +6,10 @@
         <div class="row justify-content-center">
             <div class="col-sm-8">
                 <div class="single-footer-widget">
-                    <h6>About Us</h6>
+                    <h6>Desenvolvedores</h6>
                     <p>
                         Nº 2211853    José António Figueiredo Duarte<br>Nº 2211854    Márcio Martins Valério<br>Nº 2211925    Ricardo Filipe André dos Santos
                     </p>
-                </div>
-            </div>
-            <div class="col-sm-auto">
-                <div class="single-footer-widget">
-                    <h6>Follow Us</h6>
-                    <p>Let us be social</p>
-                    <div class="footer-social d-flex align-items-center">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                    </div>
                 </div>
             </div>
         </div>
