@@ -2,8 +2,6 @@
 <project version="4">
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/mjram/vendor/psy/psysh" />
-      <path value="$PROJECT_DIR$/mjram/vendor/doctrine/lexer" />
       <path value="$PROJECT_DIR$/mjram/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/mjram/vendor/ezyang/htmlpurifier" />
       <path value="$PROJECT_DIR$/mjram/vendor/hail812/yii2-adminlte3" />
@@ -29,29 +27,21 @@
       <path value="$PROJECT_DIR$/mjram/vendor/sebastian/resource-operations" />
       <path value="$PROJECT_DIR$/mjram/vendor/sebastian/global-state" />
       <path value="$PROJECT_DIR$/mjram/vendor/sebastian/environment" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/finder" />
       <path value="$PROJECT_DIR$/mjram/vendor/sebastian/code-unit-reverse-lookup" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/mjram/vendor/sebastian/object-reflector" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/console" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/var-dumper" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/polyfill-intl-grapheme" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/event-dispatcher" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/mjram/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/mjram/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/browser-kit" />
       <path value="$PROJECT_DIR$/mjram/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/dom-crawler" />
       <path value="$PROJECT_DIR$/mjram/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/service-contracts" />
       <path value="$PROJECT_DIR$/mjram/vendor/almasaeed2010/adminlte" />
       <path value="$PROJECT_DIR$/mjram/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/mailer" />
       <path value="$PROJECT_DIR$/mjram/vendor/myclabs/deep-copy" />
-      <path value="$PROJECT_DIR$/mjram/vendor/symfony/mime" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/mjram/vendor/bower-asset/bootstrap" />
       <path value="$PROJECT_DIR$/mjram/vendor/symfony/yaml" />
@@ -75,8 +65,6 @@
       <path value="$PROJECT_DIR$/mjram/vendor/codeception/module-yii2" />
       <path value="$PROJECT_DIR$/mjram/vendor/codeception/module-asserts" />
       <path value="$PROJECT_DIR$/mjram/vendor/theseer/tokenizer" />
-      <path value="$PROJECT_DIR$/mjram/vendor/phpunit/php-code-coverage" />
-      <path value="$PROJECT_DIR$/mjram/vendor/phpunit/phpunit" />
       <path value="$PROJECT_DIR$/mjram/vendor/phpunit/php-text-template" />
       <path value="$PROJECT_DIR$/mjram/vendor/phpunit/php-invoker" />
       <path value="$PROJECT_DIR$/mjram/vendor/phpunit/php-file-iterator" />
@@ -93,6 +81,23 @@
       <path value="$PROJECT_DIR$/mjram/vendor/yiisoft/yii2-bootstrap4" />
       <path value="$PROJECT_DIR$/mjram/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/mjram/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/mjram/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/mjram/vendor/codeception/module-db" />
+      <path value="$PROJECT_DIR$/mjram/vendor/codeception/module-webdriver" />
+      <path value="$PROJECT_DIR$/mjram/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/mjram/vendor/php-webdriver/webdriver" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/mjram/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/mjram/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/mjram/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/mjram/vendor/symfony/mailer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

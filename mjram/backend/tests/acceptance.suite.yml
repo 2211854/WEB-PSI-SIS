@@ -3,7 +3,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: http://localhost/WEB-PSI-SIS/mjram/backend/web
+            url: http://localhost/github/WEB-PSI-SIS/mjram/backend/web
             port: 4444
             browser: chrome
             window_size: 1920x1080
