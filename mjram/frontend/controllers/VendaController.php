@@ -28,31 +28,31 @@ class VendaController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-//                'access' => [
-//                    'class' => AccessControl::class,
-//                    'rules' =>[
-//                        [
-//                            'allow' => true,
-//                            'actions'=> ['index'],
-//                            'roles' => ['@'],
-//                        ],
-//                        [
-//                            'allow' => true,
-//                            'actions'=> ['view'],
-//                            'roles' => ['@'],
-//                        ],
-//                        [
-//                            'allow' => true,
-//                            'actions'=> ['delete'],
-//                            'roles' => ['@'],
-//                        ],
-//                        [
-//                            'allow' => true,
-//                            'actions'=> ['imprimir'],
-//                            'roles' => ['@'],
-//                        ],
-//                    ],
-//                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' =>[
+                        [
+                            'allow' => true,
+                            'actions'=> ['index'],
+                            'roles' => ['updateVenda'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['view'],
+                            'roles' => ['updateVenda'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['delete'],
+                            'roles' => ['updateVenda'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['imprimir'],
+                            'roles' => ['updateVenda'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

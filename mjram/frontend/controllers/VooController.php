@@ -31,21 +31,21 @@ class VooController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-//                'access' => [
-//                    'class' => AccessControl::class,
-//                    'rules' =>[
-//                        [
-//                            'allow' => true,
-//                            'actions'=> ['index'],
-//                            'roles' => ['@'],
-//                        ],
-//                        [
-//                            'allow' => true,
-//                            'actions'=> ['view'],
-//                            'roles' => ['@'],
-//                        ],
-//                    ],
-//                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' =>[
+                        [
+                            'allow' => true,
+                            'actions'=> ['index'],
+                            'roles' => ['indexVooFO'],
+                        ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['view'],
+                            'roles' => ['indexVooFO'],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

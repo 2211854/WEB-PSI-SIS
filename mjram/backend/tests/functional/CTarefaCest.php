@@ -19,9 +19,9 @@ class CTarefaCest
         $I->amOnRoute('/tarefa/create?vooid=1');
         $I->amGoingTo('Tentar colocar tudo');
         $I->fillField('Tarefa[designacao]', 'Limpeza aviao');
-        $I->selectOption('Tarefa[estado]', 'Planeada');
-        $I->fillField('Tarefa[id_hangar]', 'Norte 1');
-        $I->fillField('Tarefa[id_recurso]', 'Vasssoura');
+        $I->selectOption('Tarefa[id_hangar]', 'Norte 1');
+        $I->selectOption('Tarefa[id_recurso]', 'JET A');
+        $I->fillField('Tarefa[quantidade]', '1');
         $I->click('Save');
     }
 }
