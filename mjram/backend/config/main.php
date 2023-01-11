@@ -133,6 +133,7 @@ return [
                         '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
+                        '{id}/designacao'=>'designacao',
                     ] ,
 
                 ],
