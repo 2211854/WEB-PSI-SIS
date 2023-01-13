@@ -211,6 +211,10 @@ return [
                         '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
+                        'GET {id}/labelaviao' => 'getaviaolabel',
+                        'GET {id}/companhia' => 'getcompanhia',
+                        'GET {id}/classes' => 'getclasses',
+                        'GET {id}/itemvenda' => 'getbilhetes',
                     ] ,
 
                 ],
