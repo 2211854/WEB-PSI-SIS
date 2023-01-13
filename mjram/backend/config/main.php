@@ -50,6 +50,18 @@ return [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
+                    'controller' => 'api/auth',
+                    'pluralize' => false,
+                    'tokens' => [
+                        '{id}' => '<id:\\d[\\d,]*>',
+                    ],
+                    'extraPatterns' => [
+                        'GET login'=>'login',
+                    ] ,
+
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/funcionario/',
                     'pluralize' => false,
                     'tokens' => [
@@ -81,6 +93,7 @@ return [
                         '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
+
                         'GET {id}/categoria'=>'getcategoria'
                     ] ,
 
