@@ -50,45 +50,15 @@ return [
             'rules' => [
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/user',
+                    'controller' => 'api/funcionario/',
                     'pluralize' => false,
                     'tokens' => [
                         '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/utilizador',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/funcionario',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/unidademedida',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
+                        'GET {id}/utilizador' => 'getutilizador',
+                        'GET {id}/utilizador/user' => 'getuser',
+                        'GET {id}/role' => 'getrole'
                     ] ,
 
                 ],
@@ -111,40 +81,7 @@ return [
                         '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/categoriarecurso',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/classe',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                        '{id}/designacao'=>'designacao',
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/companhia',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
+                        'GET {id}/categoria'=>'getcategoria'
                     ] ,
 
                 ],
@@ -162,28 +99,6 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/ocupacao',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/pedidorecurso',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/pista',
                     'pluralize' => false,
                     'tokens' => [
                         '{id}' => '<id:\\d[\\d,]*>',
