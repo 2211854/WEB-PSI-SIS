@@ -39,21 +39,25 @@ class VooController extends \yii\rest\ActiveController
         }
     }
 
-    //Obter designacao e modelo do aviao (ex. Getaviaolabel do id 2 retorna Boeing 777 - Estado
+
     public function  actionGetaviaolabel($id){
         $model = Voo::findOne([$id]);
         $estado =  $model->aviao->estado;
         $marca = $model->aviao->marca;
         $modelo = $model->aviao->modelo;
-        return  "$marca $modelo - $estado";
+        return  ['label'=>"$marca $modelo - $estado"];
     }
-    //Obter companhia aerea (a partir do aviao - companhia)
+    public function  actionGetaviao($id){
+        $model = Voo::findOne([$id]);
+        return  $model->aviao;
+    }
+
     public function  actionGetcompanhia($id){
         $model = Voo::findOne([$id]);
         $nomeCompanhia =  $model->aviao->companhia->nome;
-        return $nomeCompanhia;
+        return ['companhia'=>$nomeCompanhia];
     }
-    //obter lista de classes possiveis e respetivas lotacoes maximas (a partir do aviao->ocupacao)
+
     public function actionGetclasses($id){
         $model = Voo::findOne([$id]);
         $ocupacoes = $model->aviao->ocupacaos;
@@ -66,7 +70,7 @@ class VooController extends \yii\rest\ActiveController
         }
         return $dados;
     }
-    //obter contagem de bilhetes adquiridos (itens-venda de vendas nao canceladas)
+
     public function actionGetbilhetes($id){
         $model = Voo::findOne([$id]);
         $itensvendas = $model->itemVendas;

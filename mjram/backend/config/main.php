@@ -76,17 +76,6 @@ return [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/aviao',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/recurso',
                     'pluralize' => false,
                     'tokens' => [
@@ -101,17 +90,6 @@ return [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'api/hangar',
-                    'pluralize' => false,
-                    'tokens' => [
-                        '{id}' => '<id:\\d[\\d,]*>',
-                    ],
-                    'extraPatterns' => [
-                    ] ,
-
-                ],
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/ocupacao',
                     'pluralize' => false,
                     'tokens' => [
                         '{id}' => '<id:\\d[\\d,]*>',
@@ -140,9 +118,10 @@ return [
                     ],
                     'extraPatterns' => [
                         'GET {id}/labelaviao' => 'getaviaolabel',
+                        'GET {id}/aviao' => 'getaviao',
                         'GET {id}/companhia' => 'getcompanhia',
-                        'GET {id}/classes' => 'getclasses',
-                        'GET {id}/itemvenda' => 'getbilhetes',
+                        'GET {id}/ocupacoes' => 'getclasses',
+                        'GET {id}/bilhete' => 'getbilhetes',
                     ] ,
 
                 ],
