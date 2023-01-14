@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 use common\models\Classe;
 use yii\filters\auth\HttpBasicAuth;
+use yii;
 
 class AuthController extends \yii\rest\ActiveController
 {
@@ -23,6 +24,11 @@ class AuthController extends \yii\rest\ActiveController
     public function auth($username, $password)
     {
         $user = \common\models\User::findByUsername($username);
+        $role = Yii::$app->db->createCommand("Select * from auth_assignment where user_id ='".$user->id."'")->queryOne();
+        if($role['item_name'] != 'funcionarioManutencao')
+        {
+            throw new \yii\web\ForbiddenHttpException('Proibido por nao ser um Funcionario Manutencao!');
+        }
         if ($user && $user->validatePassword($password))
         {
             $this->user = $user;
