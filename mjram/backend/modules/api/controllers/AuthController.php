@@ -40,6 +40,7 @@ class AuthController extends \yii\rest\ActiveController
 
     public function actionLogin(){
 
-        return $this->user->auth_key;
+        $array['auth_key'] = $this->user->auth_key;
+        return $array;
     }
 }

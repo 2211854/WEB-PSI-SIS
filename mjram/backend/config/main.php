@@ -70,7 +70,8 @@ return [
                     'extraPatterns' => [
                         'GET {id}/utilizador' => 'getutilizador',
                         'GET {id}/utilizador/user' => 'getuser',
-                        'GET {id}/role' => 'getrole'
+                        'GET {id}/role' => 'getrole',
+                        'GET {id}/nib' => 'getnib'
                     ] ,
 
                 ],
@@ -83,7 +84,8 @@ return [
                     ],
                     'extraPatterns' => [
 
-                        'GET {id}/categoria'=>'getcategoria'
+                        'GET {id}/categoria'=>'getcategoria',
+                        'GET {id}/unidade'=>'getunidade'
                     ] ,
 
                 ],

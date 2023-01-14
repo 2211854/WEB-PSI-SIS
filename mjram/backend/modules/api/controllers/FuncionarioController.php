@@ -4,6 +4,7 @@ namespace backend\modules\api\controllers;
 
 use backend\modules\api\components\CustomAuth;
 use common\models\Utilizador;
+use common\models\Funcionario;
 use Yii;
 
 class FuncionarioController extends \yii\rest\ActiveController
@@ -32,7 +33,7 @@ class FuncionarioController extends \yii\rest\ActiveController
 
         if($role['item_name'] == 'funcionarioManutencao')
         {
-            if($action==="create" || $action==="update" || $action==="delete")
+            if($action==="create" || $action==="update" || $action==="delete" || $action==="index"|| $action==="view")
             {
                 throw new \yii\web\ForbiddenHttpException('Proibido! Nao tem acesso a esta funçao!');
             }
@@ -40,17 +41,42 @@ class FuncionarioController extends \yii\rest\ActiveController
     }
 
     public function actionGetutilizador($id){
-        $model = Utilizador::findOne($id);
-        return $model;
+        $utilizador = Yii::$app->db->createCommand("Select * from utilizador where id_user ='".Yii::$app->params['id']."'")->queryOne();
+        if($id === $utilizador['id']){
+            $model = Utilizador::findOne($id);
+            return $model;
+        }else{
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois está a tentar aceder a dados que nao sao seus!');
+        }
     }
 
     public function actionGetuser($id){
-        return $this->actionGetutilizador($id)->user;
+        $utilizador = Yii::$app->db->createCommand("Select * from utilizador where id_user ='".Yii::$app->params['id']."'")->queryOne();
+        if($id === $utilizador['id']){
+            return $this->actionGetutilizador($id)->user;
+        }else{
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois está a tentar aceder a dados que nao sao seus!');
+        }
     }
 
     public function actionGetrole($id){
-        $modelUtilizador = $this->actionGetutilizador($id);
-        $userRole = Yii::$app->db ->createCommand("Select * from auth_assignment where user_id='".$modelUtilizador->id_user."'")->queryOne();
-        return $userRole['item_name'];
+        $utilizador = Yii::$app->db->createCommand("Select * from utilizador where id_user ='".Yii::$app->params['id']."'")->queryOne();
+        if($id === $utilizador['id']){
+            $modelUtilizador = $this->actionGetutilizador($id);
+            $userRole = Yii::$app->db ->createCommand("Select * from auth_assignment where user_id='".$modelUtilizador->id_user."'")->queryOne();
+            $array['role'] = $userRole['item_name'];
+            return $array;
+        }else{
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois está a tentar aceder a dados que nao sao seus!');
+        }
+    }
+
+    public function actionGetnib($id){
+        $utilizador = Yii::$app->db->createCommand("Select * from utilizador where id_user ='".Yii::$app->params['id']."'")->queryOne();
+        if($id === $utilizador['id']){
+            return Funcionario::findOne($id);
+        }else{
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois está a tentar aceder a dados que nao sao seus!');
+        }
     }
 }

@@ -42,7 +42,14 @@ class RecursoController extends \yii\rest\ActiveController
 
     public function actionGetcategoria($id){
         $model = Recurso::findOne(['id'=>$id]);
-        return $model->categoria->designacao;
+        $array['categoria'] = $model->categoria->designacao;
+        return $array;
+    }
+
+    public function actionGetunidade($id){
+        $model = Recurso::findOne(['id'=>$id]);
+        $array['unidade'] = $model->unidade->designacao;
+        return $array;
     }
 
 

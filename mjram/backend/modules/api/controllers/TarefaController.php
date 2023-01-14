@@ -27,6 +27,7 @@ class TarefaController extends \yii\rest\ActiveController
         $actions = parent::actions();
         unset($actions['update']);
         unset($actions['create']);
+        //unset($actions['delete']);
         return $actions;
     }
 
@@ -116,7 +117,7 @@ class TarefaController extends \yii\rest\ActiveController
         $mqtt = new \PhpMqtt\Client\MqttClient($server,$port);
 
         $mqtt->connect();
-        $mqtt->publish('tarefas','Tarefa editada: '.$model->designacao,1);
+        $mqtt->publish('tarefas','Tarefa editada: '.$modelTarefa->designacao,1);
         $mqtt->disconnect();
 
         $modelTarefa->save();
