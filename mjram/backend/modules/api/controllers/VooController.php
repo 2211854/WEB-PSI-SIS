@@ -2,8 +2,10 @@
 
 namespace backend\modules\api\controllers;
 
+use backend\modules\api\components\CustomAuth;
 use common\models\Voo;
 use yii\filters\auth\QueryParamAuth;
+use yii;
 
 class VooController extends \yii\rest\ActiveController
 {
@@ -11,12 +13,30 @@ class VooController extends \yii\rest\ActiveController
 
     public function behaviors()
     {
+        Yii::$app->params['id'] = 0;
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => QueryParamAuth::className(),
-            //only=> ['index'], //Apenas para o GET
+            'class' => CustomAuth::className(),
+            'except'=>[],
         ];
         return $behaviors;
+    }
+
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        $role = Yii::$app->db->createCommand("Select * from auth_assignment where user_id ='".Yii::$app->params['id']."'")->queryOne();
+        if($role['item_name'] != 'funcionarioManutencao')
+        {
+            throw new \yii\web\ForbiddenHttpException('Proibido por nao ser um Funcionario Manutencao!');
+        }
+
+        if($role['item_name'] == 'funcionarioManutencao')
+        {
+            if($action==="create" || $action==="update" || $action==="delete")
+            {
+                throw new \yii\web\ForbiddenHttpException('Proibido! Nao tem acesso a esta funçao!');
+            }
+        }
     }
 
     //Obter designacao e modelo do aviao (ex. Getaviaolabel do id 2 retorna Boeing 777 - Estado

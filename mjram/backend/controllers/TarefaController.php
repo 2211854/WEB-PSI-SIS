@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
+use \PhpMqtt\Client\MqttClient;
 
 /**
  * TarefaController implements the CRUD actions for Tarefa model.
@@ -121,6 +122,18 @@ class TarefaController extends Controller
                     'voo' => $voo,
                 ]);
             }else{
+
+                $server = '127.0.0.1';
+                $port = 1883;
+
+
+                $mqtt = new \PhpMqtt\Client\MqttClient($server,$port);
+
+                $mqtt->connect();
+                $mqtt->publish('tarefas','Tarefa criada: '.$model->designacao,1);
+                $mqtt->disconnect();
+
+
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -146,6 +159,17 @@ class TarefaController extends Controller
         $voo = Voo::findOne($model->id_voo);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $server = '127.0.0.1';
+            $port = 1883;
+
+
+            $mqtt = new \PhpMqtt\Client\MqttClient($server,$port);
+
+            $mqtt->connect();
+            $mqtt->publish('tarefas','Tarefa editada: '.$model->designacao,1);
+            $mqtt->disconnect();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

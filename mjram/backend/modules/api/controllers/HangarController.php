@@ -22,12 +22,17 @@ class HangarController extends \yii\rest\ActiveController
 
     public function checkAccess($action, $model = null, $params = [])
     {
-        if(Yii::$app->params['id'] == 1)
+        $role = Yii::$app->db->createCommand("Select * from auth_assignment where user_id ='".Yii::$app->params['id']."'")->queryOne();
+        if($role['item_name'] != 'funcionarioManutencao')
         {
+                throw new \yii\web\ForbiddenHttpException('Proibido por nao ser um Funcionario Manutencao!');
+        }
 
-            if($action==="create")
+        if($role['item_name'] == 'funcionarioManutencao')
+        {
+            if($action==="create" || $action==="update" || $action==="delete")
             {
-                throw new \yii\web\ForbiddenHttpException('Proibido');
+                throw new \yii\web\ForbiddenHttpException('Proibido! Nao tem acesso a esta funçao!');
             }
         }
     }

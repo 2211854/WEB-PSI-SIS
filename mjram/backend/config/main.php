@@ -62,7 +62,7 @@ return [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
-                    'controller' => 'api/funcionario/',
+                    'controller' => 'api/funcionario',
                     'pluralize' => false,
                     'tokens' => [
                         '{id}' => '<id:\\d[\\d,]*>',
