@@ -52,5 +52,13 @@ class RecursoController extends \yii\rest\ActiveController
         return $array;
     }
 
+//    public function actionAtualizarunidade($id,$uni){
+//        $model = Recurso::findOne(['id'=>$id]);
+//        $model->nome = $uni;
+//        $model->save();
+//
+//        return $model;
+//    }
+
 
 }

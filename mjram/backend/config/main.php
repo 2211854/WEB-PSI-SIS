@@ -81,11 +81,13 @@ return [
                     'pluralize' => false,
                     'tokens' => [
                         '{id}' => '<id:\\d[\\d,]*>',
+                        //'{uni}' => '<uni:\\w+>',
                     ],
                     'extraPatterns' => [
 
                         'GET {id}/categoria'=>'getcategoria',
-                        'GET {id}/unidade'=>'getunidade'
+                        'GET {id}/unidade'=>'getunidade',
+                        //'PUT {id}/atuninade/{uni}'=>'atualizarunidade'
                     ] ,
 
                 ],
