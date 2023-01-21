@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use backend\modules\api\components\CustomAuth;
+use common\models\Tarefa;
 use common\models\Voo;
 use yii\filters\auth\QueryParamAuth;
 use yii;
@@ -112,29 +113,14 @@ class VooController extends \yii\rest\ActiveController
 
         return $voos;
 
-        /*$model = Voo::findOne([$id]);
-        $voo['id'] = $model->id;
-        $voo['designacao'] = $model->designacao;
-        $voo['estado'] = $model->estado;
-        $voo['id_aviao'] = $model->id_aviao;
-        $marca = $model->aviao->marca;
-        $modelo = $model->aviao->modelo;
-        $voo['aviao'] =$marca. " " .$modelo;
-        $voo['pista'] = $model->pista->designacao;
-        $itensvendas = $model->itemVendas;
-        $nmrvendas = 0;
-
-        foreach ($itensvendas as $itensvenda){
-            if ($itensvenda->venda->estado == 'pago'){
-                $nmrvendas += 1;
-            }
-        }
-        $voo['totalbilhetes']=$nmrvendas;
-
-        return  $voo;*/
-
 
     }
+    public function  actionAlltarefa($id){
+    $modelo = Voo::findOne($id);
+    return $modelo->tarefas;
+
+
+}
 
 
 }

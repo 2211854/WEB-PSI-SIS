@@ -127,6 +127,7 @@ return [
                         'GET {id}/ocupacoes' => 'getclasses',
                         'GET {id}/bilhete' => 'getbilhetes',
                         'GET /allvoo' => 'allvoo',
+                        'GET {id}/alltarefa' => 'alltarefa',
                     ] ,
 
                 ],
