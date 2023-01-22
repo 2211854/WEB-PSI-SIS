@@ -47,7 +47,7 @@ class FuncionarioController extends \yii\rest\ActiveController
             $model = Utilizador::findOne($id);
             return $model;
         }else{
-            throw new \yii\web\ForbiddenHttpException('Proibido! Pois está a tentar aceder a dados que nao sao seus!');
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois estás a tentar aceder a dados que nao sao teus!');
         }
     }
 
@@ -56,7 +56,7 @@ class FuncionarioController extends \yii\rest\ActiveController
         if($id === $utilizador['id']){
             return $this->actionGetutilizador($id)->user;
         }else{
-            throw new \yii\web\ForbiddenHttpException('Proibido! Pois está a tentar aceder a dados que nao sao seus!');
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois estás a tentar aceder a dados que nao sao teus!');
         }
     }
 
@@ -65,31 +65,51 @@ class FuncionarioController extends \yii\rest\ActiveController
         if($id === $utilizador['id']){
             $modelUtilizador = $this->actionGetutilizador($id);
             $userRole = Yii::$app->db ->createCommand("Select * from auth_assignment where user_id='".$modelUtilizador->id_user."'")->queryOne();
+            return $userRole;
+        }else{
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois estás a tentar aceder a dados que nao sao teus!');
+        }
+
     }
 
     public function actionGetnib($id){
         $utilizador = Yii::$app->db->createCommand("Select * from utilizador where id_user ='".Yii::$app->params['id']."'")->queryOne();
-                 $modelUtilizador = Utilizador::findOne(['id_user'=>$user->id]);
-                 $modelFuncionario = Funcionario::findOne(['id'=> $modelUtilizador->id]);
+        if($id === $utilizador['id']){
+            $modelUtilizador = $this->actionGetutilizador($id);
+            return $modelUtilizador->funcionario->nib;
+        }else{
+            throw new \yii\web\ForbiddenHttpException('Proibido! Pois estás a tentar aceder a dados que nao sao teus!');
+        }
 
-                 return [
-                     'email'=>$user->email,
-                     'nib'=>$modelFuncionario->nib,
-                     'telemovel'=>$modelUtilizador->telemovel,
-                     'nomes'=>$modelUtilizador->nome." ".$modelUtilizador->apelidos,
-                     'dataregisto'=>$modelUtilizador->data_registo,
-                 ];
+    }
+
+
+
+    public function actionPerfil($username){
+        $user = User::findByUsername($username);
+        if(isset($user)){
+            if($user->id == Yii::$app->params['id']){
+
+
+                $modelUtilizador = Utilizador::findOne(['id_user'=>$user->id]);
+                $modelFuncionario = Funcionario::findOne(['id'=> $modelUtilizador->id]);
+
+                return [
+                    'email'=>$user->email,
+                    'nib'=>$modelFuncionario->nib,
+                    'telemovel'=>$modelUtilizador->telemovel,
+                    'nomes'=>$modelUtilizador->nome." ".$modelUtilizador->apelidos,
+                    'dataregisto'=>$modelUtilizador->data_registo,
+                ];
 
 
             }else{
                 throw new \yii\web\ForbiddenHttpException('Proibido! Pois estás a tentar aceder a dados que nao sao teus!');
             }
         }else{
-            throw new \yii\web\ForbiddenHttpException('Proibido! Pois está a tentar aceder a dados que nao sao seus!');
 
             throw new \yii\web\UnprocessableEntityHttpException('O username especificado não existe');
         }
 
     }
-
 }
