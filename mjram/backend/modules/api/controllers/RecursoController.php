@@ -60,5 +60,14 @@ class RecursoController extends \yii\rest\ActiveController
 //        return $model;
 //    }
 
+    public  function actionAll(){
+        $recursos = Recurso::find()->all();
+        $recursoFinal = [];
+        foreach ($recursos as $recurso){
+            $recursoFinal[] = ['id'=> $recurso->id, 'nome'=>$recurso->nome,'unidademedida'=>$recurso->unidade->designacao ];
+        }
+        return $recursoFinal;
+    }
+
 
 }
