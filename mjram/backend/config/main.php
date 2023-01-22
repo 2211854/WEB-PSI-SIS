@@ -90,6 +90,7 @@ return [
                         'GET {id}/categoria'=>'getcategoria',
                         'GET {id}/unidade'=>'getunidade',
                         //'PUT {id}/atuninade/{uni}'=>'atualizarunidade'
+                        'GET /all'=>'all',
                     ] ,
 
                 ],
