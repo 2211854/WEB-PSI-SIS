@@ -66,12 +66,14 @@ return [
                     'pluralize' => false,
                     'tokens' => [
                         '{id}' => '<id:\\d[\\d,]*>',
+                        '{username}' => '<username:\\w+>',
                     ],
                     'extraPatterns' => [
-                        'GET {id}/utilizador' => 'getutilizador',
-                        'GET {id}/utilizador/user' => 'getuser',
-                        'GET {id}/role' => 'getrole',
-                        'GET {id}/nib' => 'getnib'
+//                        'GET {id}/utilizador' => 'getutilizador',
+//                        'GET {id}/utilizador/user' => 'getuser',
+//                        'GET {id}/role' => 'getrole',
+//                        'GET {id}/nib' => 'getnib',
+                        'GET {username}/perfil' => 'perfil',
                     ] ,
 
                 ],
