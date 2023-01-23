@@ -50,7 +50,17 @@ class VooController extends \yii\rest\ActiveController
     }
     public function  actionGetaviao($id){
         $model = Voo::findOne([$id]);
-        return  $model->aviao;
+
+        $aviao['id'] = $model->aviao->id;
+        $aviao['combustivelatual'] = $model->aviao->combustivelatual;
+        $aviao['combustivelmaximo'] = $model->aviao->combustivelmaximo;
+        $ocupacoes = $model->aviao->ocupacaos;
+        foreach ($ocupacoes as $ocupacaos){
+            $designacao = "ocupacao".$ocupacaos->classe->designacao;
+            $ocupacao = $ocupacaos->ocupacao;
+            $aviao[$designacao] = $ocupacao;
+        }
+        return  $aviao;
     }
 
     public function  actionGetcompanhia($id){
@@ -107,8 +117,9 @@ class VooController extends \yii\rest\ActiveController
                 }
             }
             $voo['totalbilhetes']=$nmrvendas;
-
-            $voos[] = $voo;
+            //if($model->estado == "planeado" || $model->estado == "atrasado"){
+                $voos[] = $voo;
+            //}
         }
 
         return $voos;
