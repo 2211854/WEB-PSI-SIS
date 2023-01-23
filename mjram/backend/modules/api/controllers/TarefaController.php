@@ -85,9 +85,9 @@ class TarefaController extends \yii\rest\ActiveController
         $modelTarefa = Tarefa::findOne($id);
         $modelTarefaAntiga = Tarefa::findOne($modelTarefa->id);
         $modelTarefa->load(Yii::$app->request->post(),'');
+        $modelRecurso = Recurso::findOne($modelTarefa->id_recurso);
 
         if(isset($modelTarefa->id_recurso) && $modelTarefa->estado === 'concluido' && $modelTarefaAntiga != 'concluido'){
-            $modelRecurso = Recurso::findOne($modelTarefa->id_recurso);
             $modelRecurso->stockatual = $modelRecurso->stockatual - $modelTarefa->quantidade;
             if($modelRecurso->stockatual<0){
                 throw new \yii\web\ForbiddenHttpException('Nao tem recursos suficientes em stock!');
