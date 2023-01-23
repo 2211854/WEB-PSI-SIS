@@ -52,8 +52,8 @@ class TarefaController extends \yii\rest\ActiveController
     {
         $model = new Tarefa();
         $funcionario = Yii::$app->db->createCommand("Select * from utilizador where id_user='".Yii::$app->params['id']."'")->queryOne();
-        $model->id_funcionario_registo = $funcionario['id'];
         $model->load(Yii::$app->request->post(),'');
+        $model->id_funcionario_registo = $funcionario['id'];
 
             if ($model->id_recurso != '' && $model->quantidade == ''){
                 throw new \yii\web\ForbiddenHttpException('Tem que enviar a quantidade do recurso!');
@@ -125,6 +125,42 @@ class TarefaController extends \yii\rest\ActiveController
         return $modelTarefa;
 
     }
+
+
+    public function  actionTarefainformation($id){
+        $model = Tarefa::findOne($id);
+        $utilizador = Yii::$app->db->createCommand("Select * from utilizador where id ='".$model->id_funcionario_registo."'")->queryOne();
+        $user = Yii::$app->db->createCommand("Select * from user where id ='".$utilizador["id_user"]."'")->queryOne();
+        $tarefa['id'] = $model->id;
+        $tarefa['id_voo'] = $model->id_voo;
+        $tarefa['username_funcionario_registo'] = $user["username"];
+        $tarefa['designacao'] = $model->designacao;
+        if ($model->hangar == null){
+            $tarefa['id_hangar'] = "null";
+        }else{
+            $tarefa['id_hangar'] = $model->hangar->designacao;
+        }
+        if ($model->recurso == null){
+            $tarefa['id_recurso'] = "null";
+        }else{
+            $tarefa['id_recurso'] = $model->recurso->nome;
+        }
+        $tarefa['estado'] = $model->estado;
+
+        if ($model->recurso == null){
+            $tarefa['quantidade'] = "null";
+        }else{
+            $tarefa['quantidade'] = $model->quantidade;
+        }
+        $tarefa['data_registo']=$model->data_registo;
+        $tarefa['data_inicio'] = $model->data_inicio;
+        $tarefa['data_conclusao']=$model->data_conclusao;
+
+        return $tarefa;
+
+
+    }
+
 
 //    public function actionDelete($id){
 //

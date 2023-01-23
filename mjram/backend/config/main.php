@@ -113,6 +113,7 @@ return [
                         '{id}' => '<id:\\d[\\d,]*>',
                     ],
                     'extraPatterns' => [
+                        'GET {id}/tarefainformation' => 'tarefainformation',
                     ] ,
 
                 ],

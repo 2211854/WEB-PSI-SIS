@@ -117,9 +117,9 @@ class VooController extends \yii\rest\ActiveController
                 }
             }
             $voo['totalbilhetes']=$nmrvendas;
-            //if($model->estado == "planeado" || $model->estado == "atrasado"){
+            if($model->estado == "planeado" || $model->estado == "atrasado") {
                 $voos[] = $voo;
-            //}
+            }
         }
 
         return $voos;
