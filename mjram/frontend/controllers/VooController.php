@@ -83,7 +83,7 @@ class VooController extends Controller
                     $datapartida = new DateTime($escalasVoo[0]->horario_partida);
                     $datapartida_time = $datapartida;
                     $datapartida = $datapartida->format('Y-m-d');
-                    if($data == $datapartida || ($params['data'] == '' && $datahoje_time<=$datapartida_time)){
+                    if(($params['data'] == '' && $datahoje_time<=$datapartida_time) || $data == $datapartida){
                         if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
                             if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
                                 $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
