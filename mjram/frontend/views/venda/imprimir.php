@@ -17,7 +17,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\Venda $model */
 
-$this->title = 'Create Venda';
+$this->title = 'MJRAM -  Fatura';
 $this->params['breadcrumbs'][] = ['label' => 'Vendas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

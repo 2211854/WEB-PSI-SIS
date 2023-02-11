@@ -9,6 +9,7 @@ use yii\bootstrap5\ActiveForm;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
+$this->title = 'MJRAM - Autênticação';
 ?>
 
 <div class="site-login">

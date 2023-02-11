@@ -2,7 +2,7 @@
 /** @var yii\web\View $this */
 use yii\helpers\Html;
 use Faker\Core\DateTime;
-$this->title = 'Index';
+$this->title = 'MJRAM - Página inicial';
 ?>
 <!-- start banner Area -->
 <section class="banner-area">
@@ -45,7 +45,7 @@ $this->title = 'Index';
                         <?= Html::img('@web/img/features/destino.png', ['width'=>'60']);?>
                     </div>
                     <h6>Destino:</h6>
-                    <?= Html::input('text', 'destino','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Para onde?"','class' => 'form-control','placeholder' => 'Para onde?']) ?>
+                    <?= Html::input('text', 'destino','', ['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Para onde?"','class' => 'form-control','placeholder' => 'Para onde?','required' => true]) ?>
 
                 </div>
             </div>

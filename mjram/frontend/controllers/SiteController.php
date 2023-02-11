@@ -183,7 +183,7 @@ class SiteController extends Controller
                 $modelUtilizador->save(false);
                 $modelCliente->id = $modelUtilizador->id;
                 $modelCliente->save(false);
-                Yii::$app->session->setFlash('sucess','Foste registado com sucesso, faz login');
+                Yii::$app->session->setFlash('success','O teu registo foi efetuado com sucesso, faz login');
                 return $this->redirect(['site/login']);
 
             } catch ( Exception $e) {

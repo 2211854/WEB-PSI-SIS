@@ -194,7 +194,7 @@ class ItemvendaController extends Controller
 
         $model = ItemVenda::findOne(['id'=> $id]);
         $model->delete();
-        Yii::$app->session->setFlash('warning','Item removido do carrinho');
+        Yii::$app->session->setFlash('warning','Artigo removido do carrinho');
         return $this->redirect(['index']);
     }
 

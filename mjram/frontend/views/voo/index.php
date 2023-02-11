@@ -10,7 +10,8 @@ use yii\grid\GridView;
 /** @var app\models\VooSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Voos';
+
+$this->title = 'MJRAM - Voos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="voo-index">

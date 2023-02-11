@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\VendaSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Histórico de compras';
+$this->title = 'MJRAM - Histórico de compras';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venda-index">

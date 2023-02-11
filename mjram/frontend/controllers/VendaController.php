@@ -153,7 +153,10 @@ class VendaController extends Controller
         if (isset($model) && count($model->itemVendas)>0){
             $model->estado = 'pago';
             $model->data_compra = (new DateTime())->format('Y-m-d H:i:s');
-            $model->save();
+            if($model->save()){
+                Yii::$app->session->setFlash('success','O carrinho foi concluido com sucesso');
+            }
+
         }
         Yii::$app->session->setFlash('warning','Não foi possivel efetuar o pagamento visto que o carrinho encontra-se vazio');
         $this->redirect(['venda/index']);
