@@ -71,7 +71,8 @@ class VooController extends Controller
 
             $data = new DateTime($params['data']);
             $data = $data->format('Y-m-d');
-//            $datahoje = (new DateTime())->format('Y-m-d');
+
+           $datahoje_time = (new DateTime())->format('Y-m-d');
             foreach ($listaVoos as $voo) {
 
                 $model = $this->findModel($voo->id);
@@ -80,10 +81,9 @@ class VooController extends Controller
                 if($indiceMaximo >=0)
                 {
                     $datapartida = new DateTime($escalasVoo[0]->horario_partida);
+                    $datapartida_time = $datapartida;
                     $datapartida = $datapartida->format('Y-m-d');
-
-                    if($data == $datapartida || $params['data'] == ''){
-
+                    if($data == $datapartida || ($params['data'] == '' && $datahoje_time<=$datapartida_time)){
                         if ($this->isLike("%" . $escalasVoo[0]->partida . "%", $params['partida']) && $escalasVoo[0]->horario_partida ) {
                             if ($this->isLike("%" . $escalasVoo[$indiceMaximo]->destino . "%", $params['destino'])) {
                                 $listaVoosEncontrados[] = array('voo'=> $voo,'detalhes' => $model->detalheVoos, 'escalas'=> $model->escalaVoos);
