@@ -173,11 +173,22 @@ class VendaController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        if ($model->estado != 'carrinho'){
-            $model->estado= 'cancelado';
-            $model->save();
+        if ($model->estado != 'carrinho' ){
+            $model->estado = 'cancelado';
+            if($model->save()){
+                Yii::$app->session->setFlash('success','Fatura cancelada com sucesso');
+            }
+            else{
+                Yii::$app->session->setFlash('danger','Não foi possivel cancelar a fatura');
+            }
+
         }
-        Yii::$app->session->setFlash('success','Fatura cancelada com sucesso');
+        else{
+
+            Yii::$app->session->setFlash('danger','Não é possivel apagar um carrinho, para isso terá de retirar manualmente cada um dos itens');
+
+        }
+
         return $this->redirect(['venda/index']);
     }
 
