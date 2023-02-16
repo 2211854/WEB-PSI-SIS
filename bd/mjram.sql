@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 09-Jan-2023 às 14:33
+-- Tempo de geração: 16-Fev-2023 às 22:24
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 8.0.13
 
@@ -41,17 +41,15 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('admin', '1', 1667833664),
-('cliente', '17', 1673274381),
-('cliente', '5', 1668380635),
-('funcionarioManutencao', '12', 1673273857),
-('funcionarioManutencao', '2', 1668380312),
-('funcionarioManutencao', '6', 1671023493),
-('gestorFinaceiro', '14', 1673273984),
-('gestorFinaceiro', '3', 1668380450),
-('gestorLogistica', '13', 1672250004),
-('gestorPistas', '15', 1673274079),
-('gestorPistas', '16', 1673274281);
+('admin', '1', 1676131526),
+('cliente', '19', 1676076330),
+('cliente', '20', 1676078270),
+('cliente', '21', 1676078520),
+('funcionarioManutencao', '25', 1676132750),
+('funcionarioManutencao', '26', 1676431769),
+('gestorFinaceiro', '23', 1676131505),
+('gestorLogistica', '24', 1676131808),
+('gestorPistas', '22', 1676132987);
 
 -- --------------------------------------------------------
 
@@ -336,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `aviao` (
   `id_companhia` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_aviao_companhia` (`id_companhia`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `aviao`
@@ -344,8 +342,10 @@ CREATE TABLE IF NOT EXISTS `aviao` (
 
 INSERT INTO `aviao` (`id`, `designacao`, `marca`, `modelo`, `combustivelatual`, `combustivelmaximo`, `data_registo`, `estado`, `id_companhia`) VALUES
 (1, 'TAP1', 'Airbus', 'A380', 300000, 315000, '2022-12-06 13:34:46', 'operacional', 1),
-(6, 'QR', 'Airbus', 'Concorde', 300000, 315000, '2023-01-08 23:08:56', 'inativo', 2),
-(8, 'QR8', 'Boing', '777', 4334, 5344, '2023-01-09 00:18:54', 'operacional', 2);
+(8, 'QR8', 'Boing', '777', 160000, 200000, '2023-01-09 00:18:54', 'operacional', 2),
+(9, 'EJ9', 'Airbus', 'A320', 300000, 315000, '2023-02-13 23:06:52', 'operacional', 5),
+(10, 'RYA10', 'Boing', '747', 290000, 295000, '2023-02-13 23:13:27', 'operacional', 6),
+(11, 'HV11', 'Boing', '767', 200000, 215000, '2023-02-13 23:19:01', 'inativo', 7);
 
 -- --------------------------------------------------------
 
@@ -358,14 +358,16 @@ CREATE TABLE IF NOT EXISTS `categoria_recurso` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `categoria_recurso`
 --
 
 INSERT INTO `categoria_recurso` (`id`, `designacao`) VALUES
-(1, 'Combustíveis');
+(1, 'Combustíveis'),
+(2, 'Limpezas'),
+(3, 'Pneus');
 
 -- --------------------------------------------------------
 
@@ -407,7 +409,9 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 --
 
 INSERT INTO `cliente` (`id`, `passaporte`) VALUES
-(8, 'pp434234234');
+(10, 'pp12345647'),
+(11, 'pp65412358'),
+(12, 'pp86574236');
 
 -- --------------------------------------------------------
 
@@ -422,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `companhia` (
   `sigla` varchar(3) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `sigla` (`sigla`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `companhia`
@@ -430,7 +434,10 @@ CREATE TABLE IF NOT EXISTS `companhia` (
 
 INSERT INTO `companhia` (`id`, `nome`, `sigla`) VALUES
 (1, 'Transportes Aéreos Portugueses', 'TAP'),
-(2, 'Qatar Airways', 'QR');
+(2, 'Qatar Airways', 'QR'),
+(5, 'EasyJet', 'EJ'),
+(6, 'Ryanair', 'RYA'),
+(7, 'Transavia', 'HV');
 
 -- --------------------------------------------------------
 
@@ -447,16 +454,37 @@ CREATE TABLE IF NOT EXISTS `detalhe_voo` (
   PRIMARY KEY (`id_classe`,`id_voo`),
   KEY `id` (`id`),
   KEY `fk_detalhe_voo` (`id_voo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `detalhe_voo`
 --
 
 INSERT INTO `detalhe_voo` (`id`, `preço`, `id_voo`, `id_classe`) VALUES
-(1, 202, 1, 1),
-(5, 250, 1, 2),
-(4, 225, 1, 3);
+(9, 407, 6, 1),
+(13, 488, 7, 1),
+(17, 738, 8, 1),
+(18, 662, 9, 1),
+(22, 45, 10, 1),
+(24, 469, 11, 1),
+(27, 103, 12, 1),
+(30, 45, 13, 1),
+(10, 3705, 6, 2),
+(14, 4540, 7, 2),
+(15, 4837, 8, 2),
+(19, 4678, 9, 2),
+(23, 555, 10, 2),
+(26, 4527, 11, 2),
+(29, 1200, 12, 2),
+(31, 550, 13, 2),
+(11, 1516, 6, 3),
+(12, 1049, 7, 3),
+(16, 2435, 8, 3),
+(20, 1576, 9, 3),
+(21, 250, 10, 3),
+(25, 1223, 11, 3),
+(28, 331, 12, 3),
+(32, 230, 13, 3);
 
 -- --------------------------------------------------------
 
@@ -474,24 +502,26 @@ CREATE TABLE IF NOT EXISTS `escala_voo` (
   `id_voo` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_escala_voo` (`id_voo`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `escala_voo`
 --
 
 INSERT INTO `escala_voo` (`id`, `partida`, `destino`, `horario_partida`, `horario_chegada`, `id_voo`) VALUES
-(1, 'Lisboa', 'Faro', '2023-01-07 10:03:00', '2023-01-07 11:03:00', 1),
-(2, 'Faro', 'Porto', '2023-01-09 10:27:00', '2023-01-10 10:28:00', 1),
-(3, 'Porto', 'Lisboa', '2023-01-10 18:30:00', '2023-01-10 19:30:00', 1),
-(4, 'Faro', 'Porto', '2023-01-07 18:41:00', '2023-01-07 19:40:00', 2),
-(5, 'Beja', 'Munique', '2023-01-07 20:41:00', '2023-01-07 23:41:00', 3),
-(6, 'Porto', 'Lisboa', '2023-01-07 20:42:00', '2023-01-07 21:43:00', 2),
-(7, 'Munique', 'Paris', '2023-01-07 23:51:00', '2023-01-08 02:51:00', 3),
-(8, 'Lisboa', 'Faro', '2023-01-08 18:52:00', '2023-01-08 19:52:00', 2),
-(10, 'Faro', 'Porto', '2023-01-08 19:27:00', '2023-01-08 22:27:00', 4),
-(12, 'Porto', 'Munique', '2023-01-08 22:28:00', '2023-01-09 00:28:00', 4),
-(13, 'Munique', 'Lisboa', '2023-01-09 01:29:00', '2023-01-09 04:29:00', 4);
+(17, 'Lisboa', 'Londres', '2023-02-15 07:05:00', '2023-02-15 10:05:00', 6),
+(18, 'Londres', 'Dubai', '2023-02-15 12:40:00', '2023-02-15 23:45:00', 6),
+(19, 'Lisboa', 'Sao Paulo', '2023-02-16 23:30:00', '2023-02-17 06:30:00', 7),
+(20, 'Lisboa', 'Dubai', '2023-02-18 20:45:00', '2023-02-19 09:15:00', 8),
+(21, 'Dubai', 'Singapura', '2023-02-19 10:00:00', '2023-02-19 21:25:00', 8),
+(22, 'Lisboa', 'Madrid', '2023-02-19 11:35:00', '2023-02-19 13:50:00', 9),
+(23, 'Madrid', 'Jida', '2023-02-19 15:25:00', '2023-02-19 23:15:00', 9),
+(24, 'Jida', 'Jacarta', '2023-02-20 08:55:00', '2023-02-20 22:40:00', 9),
+(25, 'Lisboa', 'Londres', '2023-02-25 18:45:00', '2023-02-25 21:35:00', 10),
+(26, 'Lisboa', 'Sao Paulo', '2023-02-26 10:00:00', '2023-02-26 16:15:00', 11),
+(27, 'Sao Paulo', 'Rio de Janeiro', '2023-02-26 18:20:00', '2023-02-26 19:25:00', 11),
+(28, 'Lisboa', 'Roma', '2023-02-27 20:10:00', '2023-02-28 00:05:00', 12),
+(29, 'Lisboa', 'Londres', '2023-02-28 18:50:00', '2023-02-28 21:40:00', 13);
 
 -- --------------------------------------------------------
 
@@ -511,12 +541,12 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
 --
 
 INSERT INTO `funcionario` (`id`, `nib`) VALUES
-(2, '123456789123456789122'),
-(3, '123456789012345678999'),
 (4, '123456789987456321147'),
-(5, '3123123123'),
-(6, '123456789012345678999'),
-(7, '4345324234');
+(13, '111111111111111111111'),
+(14, '111122223333444455556'),
+(15, '555566661111222233337'),
+(16, '123456789123456789199'),
+(17, '123456789012345678998');
 
 -- --------------------------------------------------------
 
@@ -529,14 +559,17 @@ CREATE TABLE IF NOT EXISTS `hangar` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `hangar`
 --
 
 INSERT INTO `hangar` (`id`, `designacao`) VALUES
-(2, 'Norte 1');
+(2, 'Norte 1'),
+(3, 'Norte 2'),
+(4, 'Sul 1'),
+(5, 'Sul 2');
 
 -- --------------------------------------------------------
 
@@ -555,7 +588,18 @@ CREATE TABLE IF NOT EXISTS `item_venda` (
   KEY `id` (`id`),
   KEY `fk_item_venda` (`id_venda`),
   KEY `fk_item_classe` (`id_classe`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `item_venda`
+--
+
+INSERT INTO `item_venda` (`id`, `passaporte`, `id_venda`, `id_classe`, `id_voo`) VALUES
+(7, 'PP65412358', 6, 1, 6),
+(3, 'PT123456', 3, 1, 6),
+(4, 'PT12345678', 3, 2, 6),
+(5, 'PT345678', 4, 3, 7),
+(6, 'PP65412358', 5, 3, 8);
 
 -- --------------------------------------------------------
 
@@ -682,14 +726,16 @@ CREATE TABLE IF NOT EXISTS `recurso` (
   PRIMARY KEY (`id`),
   KEY `fk_recurso_unidade` (`id_unidade`),
   KEY `fk_recurso_categoria` (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `recurso`
 --
 
 INSERT INTO `recurso` (`id`, `nome`, `stockatual`, `id_categoria`, `id_unidade`) VALUES
-(1, 'JET A', 1000002, 1, 1);
+(1, 'JET A', 1000002, 1, 1),
+(3, 'Kit de limpeza', 5000, 2, 2),
+(4, 'Pneu 270x', 50, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -717,17 +763,17 @@ CREATE TABLE IF NOT EXISTS `tarefa` (
   KEY `fk_tarefa_recurso` (`id_recurso`),
   KEY `fk_tarefa_funcionario_registo` (`id_funcionario_registo`),
   KEY `fk_tarefa_funcionario_responsavel` (`id_funcionario_responsavel`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `tarefa`
 --
 
 INSERT INTO `tarefa` (`id`, `designacao`, `data_registo`, `data_inicio`, `data_conclusao`, `estado`, `id_voo`, `id_hangar`, `id_recurso`, `quantidade`, `id_funcionario_registo`, `id_funcionario_responsavel`) VALUES
-(1, 'Reabastecer', '2023-01-08 19:38:49', NULL, NULL, 'planeada', 1, NULL, 1, 1111, 4, NULL),
-(2, 'teste2', '2023-01-08 20:37:09', NULL, NULL, 'planeada', 1, NULL, NULL, NULL, 4, NULL),
-(3, 'teste3', '2023-01-08 21:12:13', NULL, NULL, 'planeada', 1, NULL, 1, 222, 4, NULL),
-(4, 'testeHangar', '2023-01-09 01:37:05', NULL, NULL, 'planeada', 1, 2, NULL, NULL, 4, NULL);
+(7, 'Reabastecer', '2023-02-14 00:57:33', NULL, NULL, 'planeada', 6, NULL, 1, 10000, 13, NULL),
+(8, 'Reabastecer', '2023-02-16 22:23:01', NULL, NULL, 'planeada', 10, NULL, 1, 50000, 4, NULL),
+(9, 'Trocar pneu', '2023-02-16 22:23:23', NULL, NULL, 'planeada', 10, 2, 4, 3, 4, NULL),
+(10, 'limpeza', '2023-02-16 22:23:52', NULL, NULL, 'planeada', 11, NULL, 3, 5, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -740,14 +786,15 @@ CREATE TABLE IF NOT EXISTS `unidade_medida` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `unidade_medida`
 --
 
 INSERT INTO `unidade_medida` (`id`, `designacao`) VALUES
-(1, 'Litros');
+(1, 'Litros'),
+(2, 'Unidades');
 
 -- --------------------------------------------------------
 
@@ -771,24 +818,22 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
-(1, 'administrador', 'aVUK9dPTMvpy8uLhw4i0tnSH9woOej1d', '$2y$13$bbRRb/VVliZUBbs4EmXmPO1.YK9fM2CneYKdy02eAyppvyrC0ipKS', NULL, 'admin@admin.pt', 10, 1667834207, 1667834207, 'dumx5N1FRwmTbeINxA4TtxAvsh-lxnWH_1667834207'),
-(2, 'funcionariomanutencao1', 'teJNxcluIWLF26olqj4PcaHK7dGBWK98', '$2y$13$PuyWNlWDae1CA8sC84iL2.nkcLzcjhGWrfynGgoOf.GJiasRkC5yO', NULL, '2211854@my.ipleiria.pt', 10, 1668380312, 1668380312, '-rlJPIrSTOmM1aj6wZo0t876olmwZy4H_1668380312'),
-(3, 'gestorfinanceiro1', 'G9IV_vrd4HoedthC5MtyOk3M7-8htrmP', '$2y$13$m9HfspFYoQw6PVQGISsdjODGWgZxEmqfTVGoahdSphvSJurvH351W', NULL, 'gestorfinanceiro@gestores.pt', 10, 1668380450, 1668380450, '3DNmnQP9O_GGrLye7lyqpcTySAXlBO9W_1668380450'),
-(5, 'cliente1', 'KaKekjEYs4he59dJQIC_wtdOk2jU4hmW', '$2y$13$lhekKfGMkTcJXDOalXB3ROlDsErQcChcUkc2lEZQhuoRPYhYxRvKm', NULL, 'cliente1@clientesbons.pt', 10, 1668380635, 1668380635, 'MxrURdoJqwvri6asAU6wdz5dGfKIhEU__1668380635'),
-(6, '', 'WVwF6k8ACUjEjWSsHYodNQO7YgkwviXs', '$2y$13$0bW5D27aB1/irY0QA/IIsepBfoxADmCbvEBtTTX1YxpP7WBJTFvjy', NULL, '', 10, 1671023492, 1671023492, 'tdT8tDsnue0UqJE4PoX0lv9swrzDVbON_1671023492'),
-(12, 'FMteste2editado', '_TqCak9QBodaUTq9D5cvIhenEKu3ZVLO', '$2y$13$GPB48o2.um89Bh5qnj2Ai.endyk7YFPMP.TTZUa6gkdT7QmxvVtLe', NULL, 'FMteste2@teste2.pt', 10, 1671025530, 1673274125, 'MzGBr3Xo9Hn_R_2SJqXuL35bYMUcGQJW_1671025530'),
-(13, 'GLteste1', '1O7Z_jOJU_v3MMOfcUwfMjOBCSsPINA1', '$2y$13$EX5toqPW9neke/GVYRA2ru5Gyu3/K2cwV77WQzcQofH9VGKx38chW', NULL, 'GLteste1@teste1.pt', 10, 1672250004, 1672250004, 'Xd2YSqWb4GOTAvp_swhyr20XZ9X_hI8V_1672250003'),
-(14, 'GFteste1', 'WrR7KcbQxb0GO001U3mhDpJE8v4QOzdo', '$2y$13$B0qe.gDlL35d6SXAqEQxw.V7X.IfMZkwEnb/9fP152LHQQa8YePbe', NULL, 'GFteste1@teste1.pt', 10, 1673273920, 1673273920, 'HOw4TlpGT5v1aXkpoevNlNZsIvRzSoQu_1673273920'),
-(15, 'GPteste1', 'ghrQlbVVlLaio2aesj4nA4_MHUjcrcOt', '$2y$13$ncMQBCLBQAcDNXPZwRVOsuAmUf3oDliijD/ACmOGr33sKBXQV2UCS', NULL, 'GPteste1@teste1.pt', 10, 1673274079, 1673274079, 'DZyagn3RIkvEj-ijszK9hHLb1qVYdtUX_1673274079'),
-(16, 'GPteste2', 'DHWCXli5ltlnL5mDSPWpxRffYIxHuRHv', '$2y$13$Xtt/p74M4/vXbMh.Fn2roe/LqWL8G32/iAqD.knOkKB8V/sehfYay', NULL, 'GPteste2@teste2.pt', 10, 1673274281, 1673274281, 'DRXnwrywM69Vf14TQqK2Y1r16eJdTYP4_1673274281'),
-(17, 'clientef', 'WqF1GLljPhoios56pztuJWYECjNhdfMP', '$2y$13$4ZEtgtJ/8YskwdVegLLTYO.R6TFG0DV0FpS3KVT/RBvWuDCQ.QmRW', NULL, 'fernando@fernades.pt', 10, 1673274381, 1673274381, '-xzluxSNkJZta6hJwT7chAYZ66gI6dft_1673274381');
+(1, 'administrador', 'aVUK9dPTMvpy8uLhw4i0tnSH9woOej1d', '$2y$13$1TrMp8APxxSF44TI3kUuuOktVXf6OXGwDD3zYN0jc4JCTkkcvKyVa', NULL, 'admin@admin.pt', 10, 1667834207, 1676431618, 'dumx5N1FRwmTbeINxA4TtxAvsh-lxnWH_1667834207'),
+(19, 'JoseDuarte', 'nixX24V3fMS4rq8g0Ygr9Hlyy_Jsdxau', '$2y$13$HcnFz3RkwO9dHjM2cZrBm.sqvvsCUl2vJwuZOHqFuf5wdFMVM8VJ2', NULL, 'jose.duarte@email.com', 10, 1676076330, 1676486908, 'b4XQjAwtC7E0Uu4ah8DKRg752jGTSY3X_1676076330'),
+(20, 'MarcioValerio', 'eLBFLJAGpkVnZB39fySS_H9eIncNEXsp', '$2y$13$Lyo/q7gNw1REtc19bsGZv.gYhje3HtjfzM/wOhj0R1FGkgFXc/kN2', NULL, 'marcio.valerio@email.com', 10, 1676078270, 1676078270, 'Ko0SvtQ4cNf8bUFEcYJvxSEto-pVLgWv_1676078270'),
+(21, 'RicardoSantos', 'U4xpPBhdkw1q2CI-Nj_myIY9AMpKPU6a', '$2y$13$StDYHKBb7H3JbaJEl9bJR.DPgKUkO3FSGO/YA2hi25lFPJ/Cw5Qhu', NULL, 'ricardo.santos@email.com', 10, 1676078520, 1676078520, 'IFp5Msm3oSMSHfDgjUrhMKCT9awsropZ_1676078520'),
+(22, 'JoaoAntunes', 'UrjOTPSLeNRrYs40rQIyaD9nVnuvHL52', '$2y$13$jUfoFOHaqlVUbS9sYHA3o.35l/VmtZPOp8aTbBOIIX6V2o7ZNKXF6', NULL, 'joao.antunes@email.com', 10, 1676130854, 1676130854, '-bNjO7I3m7FJIsg0ZOaqMqSejbjilC-O_1676130854'),
+(23, 'JoanaSilva', '6ruY2cyqabKctEHPktKN1ut5LR8BM8-q', '$2y$13$f1cP3tIzVHNg0WlBJzMScO1WR1woeFFcWxlsCwTCbdXl/18fTVHNC', NULL, 'joana.silva@email.com', 10, 1676131505, 1676131505, 'o3lMVZvS2lepEXdSQaiteVLf6C5Vyy-L_1676131505'),
+(24, 'AnaCosta', 'Nw1nZFUGDErG21rcvGowwHA3LFEW8BQ6', '$2y$13$9m/NgBPtnJljPXenbsIIeO7z7x0T1A1dMIWKmWs.WxhGLdPbbFEFm', NULL, 'ana.costa@email.com', 10, 1676131808, 1676131808, 'nMDUFsIqwaRbvAkAVX-A2TDNiqtpAi_J_1676131808'),
+(25, 'SimaoReis', 'IJJCZ30BMRRzOpZrgd8GsDX7VsHXiJOj', '$2y$13$7JOjE0hTH7m8HeZPjGleQ.cFob8ejEP2EyuKXLZqsHZzPD49TvzOu', NULL, 'simao.reis@email.com', 10, 1676132750, 1676132750, '1Cde6UKTiPpEVesdSsobNePtH0binAGX_1676132750'),
+(26, 'teste', 'UDaEbAeq8rg6p6tApUoffOT9cL5Gn4kR', '$2y$13$RdKngo8LqsRzo2W/HMLpkeo737qeKkjQzfO4F./SoD6781DNaabeG', NULL, 'teste@teste.teste', 10, 1676431769, 1676431799, 'M70wJwpYWZg47cZEMefTJWXLFFQ6Hmh8_1676431769');
 
 -- --------------------------------------------------------
 
@@ -808,21 +853,22 @@ CREATE TABLE IF NOT EXISTS `utilizador` (
   `data_registo` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_utilizador_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `utilizador`
 --
 
 INSERT INTO `utilizador` (`id`, `telemovel`, `nif`, `nome`, `apelidos`, `cartaocidadao`, `id_user`, `data_registo`) VALUES
-(1, 123456789, '123456789', 'FMteste1Nome', 'FMteste1Apelido', 123456789, 6, '2022-12-14 13:11:33'),
-(2, 2147483647, '213213123', 'FMteste2Nomeeditado', 'FMteste2Apelido', 2147483647, 12, '2022-12-14 13:45:30'),
-(3, 12345679, '213454789', 'GLteste1Nome', 'GLteste1Apelido', 9876125, 13, '2022-12-28 17:53:24'),
-(4, 842657139, '777555111', 'adminNome', 'adminApelido', 147852369, 1, '2023-01-05 00:55:44'),
-(5, 321312312, '323123123', 'GFteste1Nome', 'GFteste1Apelido', 2147483647, 14, '2023-01-09 14:18:40'),
-(6, 2323123, '323123', 'GPteste1Nome', 'GPteste1Apelido', 32312, 15, '2023-01-09 14:21:19'),
-(7, 34234324, '42342342', 'GPteste2Nome', 'GPteste2Apelido', 423423423, 16, '2023-01-09 14:24:41'),
-(8, 2147483647, '321312312', 'Fernado', 'Fernades', 2147483647, 17, '2023-01-09 14:26:21');
+(4, 942657139, '377555111', 'adminNome', 'adminApelido', 14785236, 1, '2023-01-05 00:55:44'),
+(10, 936825714, '213456789', 'Jose', 'Duarte', 11111111, 19, '2023-02-11 00:45:30'),
+(11, 987321654, '258741369', 'Marcio', 'Valerio', 15975368, 20, '2023-02-11 01:17:50'),
+(12, 900006505, '121231231', 'Ricardo', 'Santos', 55135161, 21, '2023-02-11 01:22:00'),
+(13, 957846123, '129526222', 'Joao', 'Antunes', 19529262, 22, '2023-02-11 15:54:14'),
+(14, 963574128, '351236852', 'Joana', 'Silva', 35784612, 23, '2023-02-11 16:05:05'),
+(15, 951753684, '159753842', 'Ana', 'Costa', 10000098, 24, '2023-02-11 16:10:08'),
+(16, 951847263, '321312399', 'Simao', 'Reis', 11144477, 25, '2023-02-11 16:25:50'),
+(17, 999999999, '389999999', 'teste', 'teste', 99999999, 26, '2023-02-15 03:29:29');
 
 -- --------------------------------------------------------
 
@@ -839,7 +885,19 @@ CREATE TABLE IF NOT EXISTS `venda` (
   `id_cliente` bigint UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_venda_cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `venda`
+--
+
+INSERT INTO `venda` (`id`, `estado`, `data_compra`, `data_registo`, `id_cliente`) VALUES
+(3, 'cancelado', '2023-02-15 00:36:36', '2023-02-15 00:31:39', 10),
+(4, 'pago', '2023-02-15 00:40:20', '2023-02-15 00:38:08', 10),
+(5, 'pago', '2023-02-15 00:46:43', '2023-02-15 00:46:40', 11),
+(6, 'pago', '2023-02-15 00:48:11', '2023-02-15 00:48:06', 11),
+(7, 'carrinho', NULL, '2023-02-15 00:49:52', 11),
+(8, 'carrinho', NULL, '2023-02-15 17:44:15', 10);
 
 -- --------------------------------------------------------
 
@@ -860,17 +918,21 @@ CREATE TABLE IF NOT EXISTS `voo` (
   KEY `fk_voo_aviao` (`id_aviao`),
   KEY `fk_voo_funcionario` (`id_funcionario`),
   KEY `fk_voo_pista` (`id_pista`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `voo`
 --
 
 INSERT INTO `voo` (`id`, `designacao`, `data_registo`, `estado`, `id_aviao`, `id_pista`, `id_funcionario`) VALUES
-(1, 'VooTeste1', '2023-01-05 01:11:32', 'cancelado', 1, 1, 4),
-(2, '[TAP2] VooTeste2', '2023-01-05 01:45:21', 'concluido', 1, 2, 4),
-(3, '[TAP - 3] VooTeste3', '2023-01-05 01:46:18', 'concluido', 1, 2, 4),
-(4, '[TAP - 4] VooTeste4', '2023-01-07 18:26:25', 'planeado', 1, 1, 4);
+(6, '[TAP - 6] Voo1', '2023-02-13 23:20:34', 'concluido', 1, 1, 13),
+(7, '[QR - 7] Voo2', '2023-02-13 23:21:09', 'planeado', 8, 2, 13),
+(8, '[EJ - 8] Voo3', '2023-02-13 23:45:06', 'planeado', 9, 1, 4),
+(9, '[RYA - 9] Voo4', '2023-02-13 23:45:38', 'planeado', 10, 2, 4),
+(10, '[TAP - 10] Voo5', '2023-02-13 23:54:07', 'planeado', 1, 1, 4),
+(11, '[QR - 11] Voo6', '2023-02-13 23:54:31', 'planeado', 8, 2, 4),
+(12, '[EJ - 12] Voo7', '2023-02-13 23:54:52', 'planeado', 9, 1, 4),
+(13, '[RYA - 13] Voo8', '2023-02-13 23:55:37', 'planeado', 10, 2, 4);
 
 --
 -- Restrições para despejos de tabelas

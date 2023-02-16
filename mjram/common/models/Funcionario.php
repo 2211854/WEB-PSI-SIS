@@ -26,6 +26,10 @@ class Funcionario extends \yii\db\ActiveRecord
     public $telemovel;
     public $nif;
     public $cartaocidadao;
+
+    public $password;
+    public $newpassword;
+    public $newpassword2;
     /**
      * {@inheritdoc}
      */
@@ -45,6 +49,9 @@ class Funcionario extends \yii\db\ActiveRecord
             [['nib'], 'string', 'max' => 21],
             [['id'], 'unique'],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Utilizador::class, 'targetAttribute' => ['id' => 'id']],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['newpassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['newpassword2', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
         ];
     }
 
@@ -56,6 +63,11 @@ class Funcionario extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nib' => 'Nib',
+            'password' => 'Password atual',
+            'newpassword' => 'Nova password',
+            'newpassword2' => 'Repetir nova password',
+
+
         ];
     }
 

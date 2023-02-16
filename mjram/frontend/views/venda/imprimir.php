@@ -17,9 +17,11 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\models\Venda $model */
 
+
 $this->title = 'MJRAM -  Fatura';
 $this->params['breadcrumbs'][] = ['label' => 'Vendas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="venda-imprimir">
 
@@ -37,7 +39,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <section class="cart_area">
         <div class="container">
             <div class="cart_inner">
+                <div class="col-sm-6">
+                    <h2>Dados do Cliente</h2>
+                </div>
                 <div class="table">
+                    <table class="table border">
+                        <thead>
+                        <tr><th>Nome</th><th>Apelido</th><th>NIF</th><th>Cartão de cidadão</th><th>Passaporte</th></th></tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="m-0">
+                                <td><?=$utilizador->nome?></td>
+                                <td><?=$utilizador->apelidos?></td>
+                                <td><?=$utilizador->nif?></td>
+                                <td><?=$utilizador->cartaocidadao?></td>
+                                <td><?=$cliente->passaporte?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-sm-6">
+                        <h2>Dados da Compra</h2>
+                    </div>
                     <table class="table text-center">
                         <thead>
                         <tr>

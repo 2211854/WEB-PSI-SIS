@@ -31,26 +31,31 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-//            'access' => [
-//                'class' => AccessControl::class,
-//                'rules' => [
-//                    [
-//                        'actions' => ['signup'],
-//                        'allow' => true,
-//                        'roles' => ['?'],
-//                    ],
-//                    [
-//                        'actions' => ['logout'],
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                    [
-//                        'actions' => ['login'],
-//                        'allow' => true,
-//                        'roles' => ['loginFO'],
-//                    ],
-//                ],
-//            ],
+           'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['siteIndexFO','?'],
+                    ],
+                    [
+                        'actions' => ['logout','profile'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['login'],
+                        'allow' => true,
+                        'roles' => ['loginFO','?'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
@@ -98,8 +103,20 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            Yii::$app->session->setFlash('sucess','Entraste na tua área reservada');
-            return $this->goBack();
+            if(Yii::$app->user->can('loginFO')){
+                Yii::$app->session->setFlash('success','Entraste na tua área reservada');
+                return $this->goBack();
+            }else{
+                Yii::$app->user->logout();
+                Yii::$app->session->setFlash('danger','Nao pode efetuar login no frontend');
+                return $this->goHome();
+            }
+
+        }else if($model->load(Yii::$app->request->post())){
+            Yii::$app->session->setFlash('danger','Não foi possivel efetuar o login');
+            return $this->render('login', [
+                'model' => $model,
+            ]);
         }
 
         $model->password = '';
@@ -183,7 +200,8 @@ class SiteController extends Controller
                 $modelUtilizador->save(false);
                 $modelCliente->id = $modelUtilizador->id;
                 $modelCliente->save(false);
-                Yii::$app->session->setFlash('success','O teu registo foi efetuado com sucesso, faz login');
+
+                Yii::$app->session->setFlash('success','Foste registado com sucesso, faz login');
                 return $this->redirect(['site/login']);
 
             } catch ( Exception $e) {
@@ -193,6 +211,53 @@ class SiteController extends Controller
         }
 
         return $this->render('signup', [
+            'modelCliente' => $modelCliente,
+            'modelUtilizador' => $modelUtilizador,
+        ]);
+    }
+
+
+    /**
+     * Signs user up.
+     *
+     * @return mixed
+     */
+    public function actionProfile()
+    {
+        $modelUser = User::findOne(Yii::$app->user->getId());
+        $modelUtilizador = Utilizador::find()->where(['id_user' => $modelUser->id])->one();
+        $modelCliente = Cliente::findOne($modelUtilizador->id);
+        $modelUtilizador->username = $modelUser->username;
+        $modelUtilizador->email = $modelUser->email;
+
+
+        if ($modelCliente->load(Yii::$app->request->post()) && $modelUtilizador->load(Yii::$app->request->post())) {
+            if(!$modelUser->validatePassword($modelCliente->password)){
+                Yii::$app->session->setFlash('danger','A password nao esta correta!');
+                return $this->render('profile', [
+                    'modelCliente' => $modelCliente,
+                    'modelUtilizador' => $modelUtilizador,
+                ]);
+            }else {
+                if ($modelCliente->newpassword == $modelCliente->newpassword2) {
+                    $modelUser->username = $modelUtilizador->username;
+                    $modelUser->email = $modelUtilizador->email;
+                    $modelUtilizador->save(false);
+                    $modelCliente->save();
+                    $modelUser->setPassword($modelCliente->newpassword);
+                    $modelUser->save();
+                }else{
+                    Yii::$app->session->setFlash('danger','A nova password nao corresponde!');
+                    return $this->render('profile', [
+                        'modelCliente' => $modelCliente,
+                        'modelUtilizador' => $modelUtilizador,
+                    ]);
+                }
+                Yii::$app->session->setFlash('success','Perfil alterado!');
+                return $this->redirect(['site/index']);
+            }
+        }
+        return $this->render('profile', [
             'modelCliente' => $modelCliente,
             'modelUtilizador' => $modelUtilizador,
         ]);

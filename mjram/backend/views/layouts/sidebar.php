@@ -13,10 +13,11 @@ use yii\helpers\Html;
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="img-circle elevation-1" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"><?=$username?></a>
+                <?= Html::a($username, ['/funcionario/profile'], ['class'=> 'd-block']) ?>
             </div>
         </div>
 
@@ -57,24 +58,22 @@ use yii\helpers\Html;
                 ],
                 'items' => [
 
-                    ['label' => 'VOOS', 'header' => true],
-                        [
-                            'label' => 'Aviao',
-                            'visible' => Yii::$app->user->can('indexAviao'),
-                            'icon' => 'plane',
-                            'items' => [
-                                ['label' => 'Listar', 'url' => ['aviao/index'], 'iconStyle' => 'far'],
-                                ['label' => 'Criar', 'url' => ['aviao/create'], 'iconStyle' => 'far'],
-                            ]
-                        ],
-
                     [
-                        'label' => 'classe',
-                        'visible' => Yii::$app->user->can('indexClasse'),
-                        'icon' => 'couch',
+                        'label' => 'Voo',
+                        'visible' => Yii::$app->user->can('indexVoo'),
+                        'icon' => 'plane-departure',
                         'items' => [
-                            ['label' => 'Listar', 'url' => ['classe/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['classe/create'], 'iconStyle' => 'far'],
+                            ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['voo/create'], 'iconStyle' => 'far'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Aviao',
+                        'visible' => Yii::$app->user->can('indexAviao'),
+                        'icon' => 'plane',
+                        'items' => [
+                            ['label' => 'Listar', 'url' => ['aviao/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['aviao/create'], 'iconStyle' => 'far'],
                         ]
                     ],
                     [
@@ -114,12 +113,12 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => 'Voo',
-                        'visible' => Yii::$app->user->can('indexVoo'),
-                        'icon' => 'plane-departure',
+                        'label' => 'Classe',
+                        'visible' => Yii::$app->user->can('indexClasse'),
+                        'icon' => 'couch',
                         'items' => [
-                            ['label' => 'Listar', 'url' => ['voo/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Criar', 'url' => ['voo/create'], 'iconStyle' => 'far'],
+                            ['label' => 'Listar', 'url' => ['classe/index'], 'iconStyle' => 'far'],
+                            ['label' => 'Criar', 'url' => ['classe/create'], 'iconStyle' => 'far'],
                         ]
                     ],
                     [

@@ -136,13 +136,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?php
                                             // Resgata diferença entre as datas
                                             $dateInterval = $data_inicio->diff($data_fim);
-                                            echo $dateInterval->format('%H h %i m');
+                                            echo $dateInterval->h + $dateInterval->d*24 . ' h '. $dateInterval->i . ' m';
 
                                             //365
                                             ?>
                                         </div>
                                         <div class="col">
-                                            <?=$detalhe->preço?>
+                                            <?php
+                                                if($detalhe->id_classe == 1){
+                                                    echo $detalhe->preço.'€ (Econ)';
+                                                }elseif ($detalhe->id_classe == 2){
+                                                    echo $detalhe->preço.'€ (Prim)';
+                                                }elseif ($detalhe->id_classe == 3){
+                                                    echo $detalhe->preço.'€ (Buss)';
+                                                }else{
+                                                    echo $detalhe->preço.'€';
+                                                }
+
+                                            ?>
                                         </div>
                                         <div class="col" >
                                             <?=  Html::tag('button',

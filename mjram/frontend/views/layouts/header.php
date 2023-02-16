@@ -25,6 +25,7 @@ AppAsset::register($this);
                     ['label' => 'Página Inicial', 'url' => ['site/index']],
                     ['label' => 'Carrinho', 'url' => ['itemvenda/index'] ,'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Histórico', 'url' => ['venda/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Perfil', 'url' => ['site/profile'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Entrar', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest]
 
                 ];

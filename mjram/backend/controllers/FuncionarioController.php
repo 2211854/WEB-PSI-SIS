@@ -51,6 +51,11 @@ class FuncionarioController extends Controller
                         'actions'=> ['delete'],
                         'roles' => ['deleteFuncionario'],
                     ],
+                    [
+                        'allow' => true,
+                        'actions'=> ['profile'],
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -225,4 +230,62 @@ class FuncionarioController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionProfile()
+    {
+        $modelUser = User::findOne(Yii::$app->user->getId());
+        $modelUtilizador = Utilizador::find()->where(['id_user' => $modelUser->id])->one();
+        $modelFuncionario = Funcionario::findOne($modelUtilizador->id);
+        $modelUtilizador->username = $modelUser->username;
+        $modelUtilizador->email = $modelUser->email;
+
+        $auth = Yii::$app->authManager;
+        $userRole = Yii::$app->db->createCommand("Select * from auth_assignment where user_id='".$modelUtilizador->id_user."'")->queryOne();
+        $prerole = $userRole['item_name'];
+        $roles = [];
+        foreach ($auth->getroles() as $role){
+            if($role->name != 'cliente' && $role->name != 'admin')
+                array_push($roles, [$role->name => $role->name] );
+        }
+
+        if ($modelFuncionario->load(Yii::$app->request->post()) && $modelUtilizador->load(Yii::$app->request->post())) {
+            if(!$modelUser->validatePassword($modelFuncionario->password)){
+                return $this->render('profile', [
+                    'modelFuncionario' => $modelFuncionario,
+                    'modelUtilizador' => $modelUtilizador,
+                    'prerole' =>$prerole,
+                    'roles' => $roles,
+                    'message'=>'A password nao esta correta!'
+                ]);
+            }else {
+                if ($modelFuncionario->newpassword == $modelFuncionario->newpassword2) {
+                    $modelUser->username = $modelUtilizador->username;
+                    $modelUser->email = $modelUtilizador->email;
+                    $modelUtilizador->save(false);
+                    $modelFuncionario->save();
+                    $modelUser->setPassword($modelFuncionario->newpassword);
+                    $modelUser->save();
+                }else{
+                    return $this->render('profile', [
+                        'modelFuncionario' => $modelFuncionario,
+                        'modelUtilizador' => $modelUtilizador,
+                        'prerole' =>$prerole,
+                        'roles' => $roles,
+                        'message'=>'A nova password nao corresponde!'
+                    ]);
+                }
+
+                return $this->redirect(['site/index']);
+            }
+        }
+
+        return $this->render('profile', [
+            'modelFuncionario' => $modelFuncionario,
+            'modelUtilizador' => $modelUtilizador,
+            'prerole' =>$prerole,
+            'roles' => $roles,
+            'message'=>null
+        ]);
+    }
+
 }

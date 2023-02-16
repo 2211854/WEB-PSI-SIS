@@ -50,10 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= $form->field($modelUtilizador, 'username')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Nome de Utilizador"','class' => 'form-control','placeholder' => 'Nome de Utilizador','required' => true])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($modelUtilizador, 'telemovel')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Telemovel"','class' => 'form-control','placeholder' => 'Telemovel','required' => true])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'telemovel')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Telemovel"','class' => 'form-control','placeholder' => 'Telemovel','required' => true,'type' => 'number','min'=>900000000,'max'=>999999999])->label(false) ?>
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($modelCliente, 'passaporte')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Passaport"','class' => 'form-control','placeholder' => 'Passaport', 'required' => true])->label(false) ?>
+                            <?= $form->field($modelCliente, 'passaporte')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Passaport"','class' => 'form-control','placeholder' => 'Passaport', 'required' => true,'minlength'=>8,'maxlength'=>10])->label(false) ?>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -69,12 +69,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                         <div class="col-md-12 form-group">
-                            <?= $form->field($modelUtilizador, 'cartaocidadao')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Cartao de Cidadaão"','class' => 'form-control','placeholder' => 'Cartão de Cidadão','required' => true])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'cartaocidadao')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "Cartao de Cidadaão"','class' => 'form-control','placeholder' => 'Cartão de Cidadão','required' => true,'type' => 'number','min'=>10000000,'max'=>99999999])->label(false) ?>
                         </div>
                     </div>
                     <div>
                         <div class="col-md-12 form-group justify-content-center">
-                            <?= $form->field($modelUtilizador, 'nif')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "NIF"','class' => 'form-control','placeholder' => 'NIF', 'required' => true])->label(false) ?>
+                            <?= $form->field($modelUtilizador, 'nif')->textInput(['onfocus'=>'this.placeholder = "" ','onblur' => 'this.placeholder = "NIF"','class' => 'form-control','placeholder' => 'NIF', 'required' => true,'type' => 'number','min'=>100000000,'max'=>399999999])->label(false) ?>
                         </div>
                     </div>
                     <div class="col">

@@ -91,7 +91,7 @@ class ItemvendaController extends Controller
         {
             foreach( $detalhesvoo as $detalhe)
             {
-                if($detalhe->id_classe == $itemvenda->classe->id){
+                if($detalhe->id_classe == $itemvenda->classe->id && $detalhe->id_voo == $itemvenda->id_voo){
                     $subtotal+=$detalhe->preço;
                 }
             }
