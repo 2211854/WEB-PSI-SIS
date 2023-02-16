@@ -24,13 +24,13 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($modelUtilizador, 'apelidos')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($modelFuncionario, 'nib')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelFuncionario, 'nib')->textInput(['maxlength' => true,'type' => 'number','min'=>100000000000000000000,'max'=>999999999999999999999]) ?>
 
-    <?= $form->field($modelUtilizador, 'telemovel')->textInput() ?>
+    <?= $form->field($modelUtilizador, 'telemovel')->textInput(['maxlength' => true, 'type' => 'number','min'=>900000000,'max'=>999999999]) ?>
 
-    <?= $form->field($modelUtilizador, 'nif')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelUtilizador, 'nif')->textInput(['maxlength' => true,'type' => 'number','min'=>100000000,'max'=>399999999]) ?>
 
-    <?= $form->field($modelUtilizador, 'cartaocidadao')->textInput() ?>
+    <?= $form->field($modelUtilizador, 'cartaocidadao')->textInput(['type' => 'number','min'=>10000000,'max'=>99999999]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

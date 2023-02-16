@@ -15,6 +15,11 @@ use Yii;
  */
 class Cliente extends \yii\db\ActiveRecord
 {
+
+
+    public $password;
+    public $newpassword;
+    public $newpassword2;
     /**
      * {@inheritdoc}
      */
@@ -34,6 +39,9 @@ class Cliente extends \yii\db\ActiveRecord
             [['passaporte'], 'string', 'max' => 11],
             [['id'], 'unique'],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Utilizador::class, 'targetAttribute' => ['id' => 'id']],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['newpassword', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['newpassword2', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
         ];
     }
 
@@ -45,6 +53,9 @@ class Cliente extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'passaporte' => 'Passaporte',
+            'password' => 'Password atual',
+            'newpassword' => 'Nova password',
+            'newpassword2' => 'Repetir nova password',
         ];
     }
 

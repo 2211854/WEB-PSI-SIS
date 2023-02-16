@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 
+use common\models\Cliente;
 use common\models\DetalheVoo;
 use common\models\ItemVenda;
 use common\models\Utilizador;
@@ -51,6 +52,11 @@ class VendaController extends Controller
                             'actions'=> ['imprimir'],
                             'roles' => ['updateVenda'],
                         ],
+                        [
+                            'allow' => true,
+                            'actions'=> ['update'],
+                            'roles' => ['updateVenda'],
+                        ],
                     ],
                 ],
                 'verbs' => [
@@ -90,11 +96,10 @@ class VendaController extends Controller
             {
                 foreach( $detalhesvoo as $detalhe)
                 {
-                    if($detalhe->id_classe == $itemvenda->classe->id){
+                    if($detalhe->id_classe == $itemvenda->classe->id && $detalhe->id_voo == $itemvenda->id_voo){
                         $subtotal+=$detalhe->preço;
                     }
                 }
-
             }
 
             if($venda->estado != 'carrinho')
@@ -157,8 +162,9 @@ class VendaController extends Controller
                 Yii::$app->session->setFlash('success','O carrinho foi concluido com sucesso');
             }
 
+        }else{
+            Yii::$app->session->setFlash('warning','Não foi possivel efetuar o pagamento visto que o carrinho encontra-se vazio');
         }
-        Yii::$app->session->setFlash('warning','Não foi possivel efetuar o pagamento visto que o carrinho encontra-se vazio');
         $this->redirect(['venda/index']);
 
     }
@@ -193,9 +199,10 @@ class VendaController extends Controller
     }
 
     public function actionImprimir($id){
-        $utilizador = Utilizador::findOne(['id_user'=>\Yii::$app->user->id]);
 
         $venda = Venda::findOne(['id' => $id]);
+        $cliente = Cliente::findOne(['id'=>$venda->id_cliente]);
+        $utilizador = Utilizador::findOne(['id_user'=>\Yii::$app->user->id]);
 
         $subtotal = 0;
 
@@ -211,7 +218,7 @@ class VendaController extends Controller
             {
                 foreach( $detalhesvoo as $detalhe)
                 {
-                    if($detalhe->id_classe == $itemvenda->classe->id){
+                    if($detalhe->id_classe == $itemvenda->classe->id && $detalhe->id_voo == $itemvenda->id_voo){
                         $subtotal+=$detalhe->preço;
                     }
                 }
@@ -225,6 +232,8 @@ class VendaController extends Controller
         return $this->render('imprimir', [
             'subtotal' => $subtotal,
             'venda' => $venda,
+            'cliente' => $cliente,
+            'utilizador' => $utilizador,
         ]);
     }
 

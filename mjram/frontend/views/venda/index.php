@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <td>
                                         <h5><?=$subtotais[$venda->id]?>€</h5>
 
-                                        <?=($venda->estado == 'pago'? Html::a('Imprimir',['venda/imprimir','id'=>$venda->id])."<br>" : false)?>
+                                        <?=($venda->estado == 'pago'? Html::a('Imprimir',['venda/imprimir','id'=>$venda->id], ['target'=>'_blank'])."<br>" : false)?>
                                         <?=($venda->estado == 'pago'? Html::a('Cancelar',['venda/delete','id'=>$venda->id], ['data-method'=>'post'])."<br>" : false)?>
                                         <a  data-bs-toggle="collapse" href="#collapse<?= $venda->id?>" aria-expanded="true" >
                                             Detalhes
